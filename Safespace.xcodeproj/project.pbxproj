@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		782315A226D708DF00FEC675 /* TherapistListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782315A126D708DE00FEC675 /* TherapistListViewController.swift */; };
+		782315A926D70FBD00FEC675 /* TherapistListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782315A726D70FBD00FEC675 /* TherapistListTableViewCell.swift */; };
+		782315AA26D70FBD00FEC675 /* TherapistListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 782315A826D70FBD00FEC675 /* TherapistListTableViewCell.xib */; };
 		7834318226D46FA300C21027 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7834318126D46FA300C21027 /* AppDelegate.swift */; };
 		7834318426D46FA300C21027 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7834318326D46FA300C21027 /* SceneDelegate.swift */; };
 		7834318626D46FA300C21027 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7834318526D46FA300C21027 /* ViewController.swift */; };
@@ -15,9 +18,14 @@
 		7834318E26D46FA900C21027 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7834318C26D46FA900C21027 /* LaunchScreen.storyboard */; };
 		7834319826D5074400C21027 /* PLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7834319726D5074400C21027 /* PLoginViewController.swift */; };
 		7834319A26D5076900C21027 /* PQuestionnaireViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7834319926D5076900C21027 /* PQuestionnaireViewController.swift */; };
+		78BA0CEC26D6E8A500093DD8 /* PSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BA0CEB26D6E8A500093DD8 /* PSignupViewController.swift */; };
+		78BA0CEE26D6EFB200093DD8 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78BA0CED26D6EFB200093DD8 /* Colors.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		782315A126D708DE00FEC675 /* TherapistListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TherapistListViewController.swift; sourceTree = "<group>"; };
+		782315A726D70FBD00FEC675 /* TherapistListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TherapistListTableViewCell.swift; path = Controller/TherapistListTableViewCell.swift; sourceTree = "<group>"; };
+		782315A826D70FBD00FEC675 /* TherapistListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TherapistListTableViewCell.xib; sourceTree = "<group>"; };
 		7834317E26D46FA300C21027 /* Safespace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Safespace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7834318126D46FA300C21027 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7834318326D46FA300C21027 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -28,6 +36,8 @@
 		7834318F26D46FA900C21027 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7834319726D5074400C21027 /* PLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PLoginViewController.swift; sourceTree = "<group>"; };
 		7834319926D5076900C21027 /* PQuestionnaireViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PQuestionnaireViewController.swift; sourceTree = "<group>"; };
+		78BA0CEB26D6E8A500093DD8 /* PSignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSignupViewController.swift; sourceTree = "<group>"; };
+		78BA0CED26D6EFB200093DD8 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,11 +70,13 @@
 		7834318026D46FA300C21027 /* Safespace */ = {
 			isa = PBXGroup;
 			children = (
+				782315A726D70FBD00FEC675 /* TherapistListTableViewCell.swift */,
 				7834318126D46FA300C21027 /* AppDelegate.swift */,
 				7834318326D46FA300C21027 /* SceneDelegate.swift */,
 				7834319626D5070400C21027 /* Controller */,
 				7834319526D4918E00C21027 /* View */,
 				7834318A26D46FA900C21027 /* Assets.xcassets */,
+				78BA0CED26D6EFB200093DD8 /* Colors.xcassets */,
 				7834318F26D46FA900C21027 /* Info.plist */,
 			);
 			path = Safespace;
@@ -73,6 +85,7 @@
 		7834319526D4918E00C21027 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				782315A826D70FBD00FEC675 /* TherapistListTableViewCell.xib */,
 				7834318C26D46FA900C21027 /* LaunchScreen.storyboard */,
 				7834318726D46FA300C21027 /* Main.storyboard */,
 			);
@@ -85,6 +98,8 @@
 				7834318526D46FA300C21027 /* ViewController.swift */,
 				7834319726D5074400C21027 /* PLoginViewController.swift */,
 				7834319926D5076900C21027 /* PQuestionnaireViewController.swift */,
+				78BA0CEB26D6E8A500093DD8 /* PSignupViewController.swift */,
+				782315A126D708DE00FEC675 /* TherapistListViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -147,8 +162,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				7834318E26D46FA900C21027 /* LaunchScreen.storyboard in Resources */,
+				78BA0CEE26D6EFB200093DD8 /* Colors.xcassets in Resources */,
 				7834318B26D46FA900C21027 /* Assets.xcassets in Resources */,
 				7834318926D46FA300C21027 /* Main.storyboard in Resources */,
+				782315AA26D70FBD00FEC675 /* TherapistListTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,8 +176,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				782315A226D708DF00FEC675 /* TherapistListViewController.swift in Sources */,
 				7834318626D46FA300C21027 /* ViewController.swift in Sources */,
+				78BA0CEC26D6E8A500093DD8 /* PSignupViewController.swift in Sources */,
 				7834319826D5074400C21027 /* PLoginViewController.swift in Sources */,
+				782315A926D70FBD00FEC675 /* TherapistListTableViewCell.swift in Sources */,
 				7834319A26D5076900C21027 /* PQuestionnaireViewController.swift in Sources */,
 				7834318226D46FA300C21027 /* AppDelegate.swift in Sources */,
 				7834318426D46FA300C21027 /* SceneDelegate.swift in Sources */,
