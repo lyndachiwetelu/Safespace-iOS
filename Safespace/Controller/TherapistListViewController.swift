@@ -26,21 +26,11 @@ class TherapistListViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(UINib(nibName: "TherapistListTableViewCell", bundle: nil), forCellReuseIdentifier: "TherapistListTableViewCell")
         tableView.backgroundColor = .white
+        tableView.rowHeight = 150.0
 
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension TherapistListViewController: UITableViewDelegate {
@@ -50,6 +40,7 @@ extension TherapistListViewController: UITableViewDelegate {
 
 
 extension TherapistListViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return therapists.count
     }
@@ -59,7 +50,10 @@ extension TherapistListViewController: UITableViewDataSource {
         cell.nameLabel?.text = therapists[indexPath.row][0] as? String
         cell.priceLabel?.text = "$80 / 30minutes"
         cell.qualificationLabel.text = "B.Sc"
-        cell.descLabel.text = "Some description about the therapist which we need to continue this app Like wtf! Some description about the therapist which we need to continue this app Like wtf!"
+        let description = "Some description about the therapist which we need to continue this app Like wtf! Some description about the therapist which we need to continue this app Like wtf!"
+        
+        let index = description.index(description.startIndex, offsetBy: 100)
+        cell.descLabel.text = String(description[description.startIndex...index])
         cell.tImageView?.image = therapists[indexPath.row][1] as? UIImage
         return cell
     }
