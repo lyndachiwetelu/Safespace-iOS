@@ -86,4 +86,6 @@ fastlane/test_output
 
 iOSInjectionProject/
 
+#WebRTC Framework
+WebRTC.xcframework/
 # End of https://www.toptal.com/developers/gitignore/api/swift

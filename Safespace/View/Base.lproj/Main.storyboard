@@ -617,11 +617,76 @@
                     <navigationItem key="navigationItem" title="Therapists" id="ixJ-aZ-keg"/>
                     <connections>
                         <outlet property="tableView" destination="b3r-pG-9h7" id="mQj-p3-9kX"/>
+                        <segue destination="Gje-rG-IjO" kind="show" identifier="goToTherapistProfile" id="oFB-or-SV4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="58x-qf-mmc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2106" y="809"/>
+            <point key="canvasLocation" x="2403" y="824"/>
+        </scene>
+        <!--Therapist Profile View Controller-->
+        <scene sceneID="j2q-Yx-5dJ">
+            <objects>
+                <viewController id="Gje-rG-IjO" customClass="TherapistProfileViewController" customModule="Safespace" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LbU-c4-7nA">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Therapist Profile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hp3-1X-Yxz">
+                                <rect key="frame" x="0.0" y="69" width="414" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26B-dT-ugF">
+                                <rect key="frame" x="147.66666666666666" y="380" width="118.99999999999997" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Connect!">
+                                    <color key="titleColor" systemColor="labelColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="connectButtonPressed:" destination="Gje-rG-IjO" eventType="touchUpInside" id="Obl-eL-cip"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oR5-mw-xO1">
+                                <rect key="frame" x="124" y="196" width="135" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Send Data">
+                                    <color key="titleColor" systemColor="labelColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="connectButtonPressed:" destination="Gje-rG-IjO" eventType="touchUpInside" id="ERV-62-hhO"/>
+                                    <action selector="sendDataPressed:" destination="Gje-rG-IjO" eventType="touchUpInside" id="1zm-eJ-aoD"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ih-mP-pnm">
+                                <rect key="frame" x="144" y="512" width="131" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Video Call">
+                                    <color key="titleColor" systemColor="labelColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="videoCallPressed:" destination="Gje-rG-IjO" eventType="touchUpInside" id="rlp-tT-ARF"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="duZ-cP-rh0"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="duZ-cP-rh0" firstAttribute="trailing" secondItem="oR5-mw-xO1" secondAttribute="trailing" constant="155" id="6x6-g3-jEE"/>
+                            <constraint firstItem="oR5-mw-xO1" firstAttribute="top" secondItem="Hp3-1X-Yxz" secondAttribute="bottom" constant="91" id="KLk-eB-1ZK"/>
+                            <constraint firstItem="26B-dT-ugF" firstAttribute="centerY" secondItem="LbU-c4-7nA" secondAttribute="centerY" id="M0g-EM-a5N"/>
+                            <constraint firstItem="26B-dT-ugF" firstAttribute="centerX" secondItem="LbU-c4-7nA" secondAttribute="centerX" id="YlR-XK-QBM"/>
+                            <constraint firstItem="oR5-mw-xO1" firstAttribute="leading" secondItem="duZ-cP-rh0" secondAttribute="leading" constant="124" id="hzb-lt-aDz"/>
+                            <constraint firstItem="26B-dT-ugF" firstAttribute="top" secondItem="oR5-mw-xO1" secondAttribute="bottom" constant="136" id="wUm-PH-u9A"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="ndw-Rg-BvZ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j0e-yC-HgT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3331.884057971015" y="842.41071428571422"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="kpK-Bk-V2W">
@@ -661,6 +726,9 @@
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

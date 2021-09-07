@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,8 @@
 		782315A226D708DF00FEC675 /* TherapistListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782315A126D708DE00FEC675 /* TherapistListViewController.swift */; };
 		782315A926D70FBD00FEC675 /* TherapistListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782315A726D70FBD00FEC675 /* TherapistListTableViewCell.swift */; };
 		782315AA26D70FBD00FEC675 /* TherapistListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 782315A826D70FBD00FEC675 /* TherapistListTableViewCell.xib */; };
+		782D25AC26E4BB2600AD6D19 /* WebRTC.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7897ECA026E21917001E8279 /* WebRTC.xcframework */; };
+		782D25AD26E4BB2600AD6D19 /* WebRTC.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7897ECA026E21917001E8279 /* WebRTC.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7834318226D46FA300C21027 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7834318126D46FA300C21027 /* AppDelegate.swift */; };
 		7834318426D46FA300C21027 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7834318326D46FA300C21027 /* SceneDelegate.swift */; };
 		7834318626D46FA300C21027 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7834318526D46FA300C21027 /* ViewController.swift */; };
@@ -19,9 +21,37 @@
 		7834318E26D46FA900C21027 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7834318C26D46FA900C21027 /* LaunchScreen.storyboard */; };
 		7834319826D5074400C21027 /* PLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7834319726D5074400C21027 /* PLoginViewController.swift */; };
 		7834319A26D5076900C21027 /* PQuestionnaireViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7834319926D5076900C21027 /* PQuestionnaireViewController.swift */; };
+		7897EC4E26E1EB68001E8279 /* TherapistProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7897EC4D26E1EB68001E8279 /* TherapistProfileViewController.swift */; };
+		7897EC5126E1F8AE001E8279 /* WebRTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7897EC5026E1F8AE001E8279 /* WebRTC.swift */; };
+		7897EC9126E2151D001E8279 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7897EC7C26E2151D001E8279 /* Config.swift */; };
+		7897EC9226E2151D001E8279 /* RTCStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7897EC7E26E2151D001E8279 /* RTCStates.swift */; };
+		7897EC9326E2151D001E8279 /* SessionDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7897EC7F26E2151D001E8279 /* SessionDescription.swift */; };
+		7897EC9426E2151D001E8279 /* IceCandidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7897EC8026E2151D001E8279 /* IceCandidate.swift */; };
+		7897EC9526E2151D001E8279 /* VideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7897EC8326E2151D001E8279 /* VideoViewController.xib */; };
+		7897EC9626E2151D001E8279 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7897EC8426E2151D001E8279 /* VideoViewController.swift */; };
+		7897EC9A26E2151D001E8279 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7897EC8A26E2151D001E8279 /* Message.swift */; };
+		7897EC9B26E2151D001E8279 /* WebSocketProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7897EC8C26E2151D001E8279 /* WebSocketProvider.swift */; };
+		7897EC9C26E2151D001E8279 /* NativeWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7897EC8D26E2151D001E8279 /* NativeWebSocket.swift */; };
+		7897EC9D26E2151D001E8279 /* StarscreamProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7897EC8E26E2151D001E8279 /* StarscreamProvider.swift */; };
+		7897EC9E26E2151D001E8279 /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7897EC8F26E2151D001E8279 /* WebRTCClient.swift */; };
+		7897EC9F26E2151D001E8279 /* SignalingClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7897EC9026E2151D001E8279 /* SignalingClient.swift */; };
 		78BA0CEC26D6E8A500093DD8 /* PSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BA0CEB26D6E8A500093DD8 /* PSignupViewController.swift */; };
 		78BA0CEE26D6EFB200093DD8 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78BA0CED26D6EFB200093DD8 /* Colors.xcassets */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		782D25AE26E4BB2600AD6D19 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				782D25AD26E4BB2600AD6D19 /* WebRTC.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		014F4D971CC7DBA5F0243CEB /* Pods-Safespace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safespace.release.xcconfig"; path = "Target Support Files/Pods-Safespace/Pods-Safespace.release.xcconfig"; sourceTree = "<group>"; };
@@ -29,6 +59,7 @@
 		782315A126D708DE00FEC675 /* TherapistListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TherapistListViewController.swift; sourceTree = "<group>"; };
 		782315A726D70FBD00FEC675 /* TherapistListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TherapistListTableViewCell.swift; path = Controller/TherapistListTableViewCell.swift; sourceTree = "<group>"; };
 		782315A826D70FBD00FEC675 /* TherapistListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TherapistListTableViewCell.xib; sourceTree = "<group>"; };
+		782D25AB26E4BA7900AD6D19 /* WebRTC.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = WebRTC.xcframework; sourceTree = SOURCE_ROOT; };
 		7834317E26D46FA300C21027 /* Safespace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Safespace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7834318126D46FA300C21027 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7834318326D46FA300C21027 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,6 +70,21 @@
 		7834318F26D46FA900C21027 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7834319726D5074400C21027 /* PLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PLoginViewController.swift; sourceTree = "<group>"; };
 		7834319926D5076900C21027 /* PQuestionnaireViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PQuestionnaireViewController.swift; sourceTree = "<group>"; };
+		7897EC4D26E1EB68001E8279 /* TherapistProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TherapistProfileViewController.swift; sourceTree = "<group>"; };
+		7897EC5026E1F8AE001E8279 /* WebRTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTC.swift; sourceTree = "<group>"; };
+		7897EC7C26E2151D001E8279 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		7897EC7E26E2151D001E8279 /* RTCStates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTCStates.swift; sourceTree = "<group>"; };
+		7897EC7F26E2151D001E8279 /* SessionDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDescription.swift; sourceTree = "<group>"; };
+		7897EC8026E2151D001E8279 /* IceCandidate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IceCandidate.swift; sourceTree = "<group>"; };
+		7897EC8326E2151D001E8279 /* VideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoViewController.xib; sourceTree = "<group>"; };
+		7897EC8426E2151D001E8279 /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
+		7897EC8A26E2151D001E8279 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		7897EC8C26E2151D001E8279 /* WebSocketProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketProvider.swift; sourceTree = "<group>"; };
+		7897EC8D26E2151D001E8279 /* NativeWebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeWebSocket.swift; sourceTree = "<group>"; };
+		7897EC8E26E2151D001E8279 /* StarscreamProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarscreamProvider.swift; sourceTree = "<group>"; };
+		7897EC8F26E2151D001E8279 /* WebRTCClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
+		7897EC9026E2151D001E8279 /* SignalingClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalingClient.swift; sourceTree = "<group>"; };
+		7897ECA026E21917001E8279 /* WebRTC.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = WebRTC.xcframework; sourceTree = "<group>"; };
 		78BA0CEB26D6E8A500093DD8 /* PSignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSignupViewController.swift; sourceTree = "<group>"; };
 		78BA0CED26D6EFB200093DD8 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		BBA5D4ED11D0592F7D64B644 /* Pods_Safespace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Safespace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				782D25AC26E4BB2600AD6D19 /* WebRTC.xcframework in Frameworks */,
 				49EDA733D72EFC98BD5057D6 /* Pods_Safespace.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -62,6 +109,7 @@
 				7834318026D46FA300C21027 /* Safespace */,
 				7834317F26D46FA300C21027 /* Products */,
 				9E403A5B12404967A52143D3 /* Pods */,
+				7897ECA026E21917001E8279 /* WebRTC.xcframework */,
 				DBA1EC07ED0C4EA5CB4C6BDF /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -77,9 +125,13 @@
 		7834318026D46FA300C21027 /* Safespace */ = {
 			isa = PBXGroup;
 			children = (
+				7897EC4F26E1F891001E8279 /* Models */,
 				782315A726D70FBD00FEC675 /* TherapistListTableViewCell.swift */,
 				7834318126D46FA300C21027 /* AppDelegate.swift */,
 				7834318326D46FA300C21027 /* SceneDelegate.swift */,
+				7897EC7B26E2151D001E8279 /* Config */,
+				7897EC7D26E2151D001E8279 /* Extensions */,
+				7897EC8926E2151D001E8279 /* WebRtcServices */,
 				7834319626D5070400C21027 /* Controller */,
 				7834319526D4918E00C21027 /* View */,
 				7834318A26D46FA900C21027 /* Assets.xcassets */,
@@ -92,6 +144,7 @@
 		7834319526D4918E00C21027 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7897EC8326E2151D001E8279 /* VideoViewController.xib */,
 				782315A826D70FBD00FEC675 /* TherapistListTableViewCell.xib */,
 				7834318C26D46FA900C21027 /* LaunchScreen.storyboard */,
 				7834318726D46FA300C21027 /* Main.storyboard */,
@@ -107,13 +160,63 @@
 				7834319926D5076900C21027 /* PQuestionnaireViewController.swift */,
 				78BA0CEB26D6E8A500093DD8 /* PSignupViewController.swift */,
 				782315A126D708DE00FEC675 /* TherapistListViewController.swift */,
+				7897EC4D26E1EB68001E8279 /* TherapistProfileViewController.swift */,
+				7897EC8426E2151D001E8279 /* VideoViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		7897EC4F26E1F891001E8279 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7897EC8026E2151D001E8279 /* IceCandidate.swift */,
+				7897EC7F26E2151D001E8279 /* SessionDescription.swift */,
+				7897EC5026E1F8AE001E8279 /* WebRTC.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7897EC7B26E2151D001E8279 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				7897EC7C26E2151D001E8279 /* Config.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		7897EC7D26E2151D001E8279 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7897EC7E26E2151D001E8279 /* RTCStates.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		7897EC8926E2151D001E8279 /* WebRtcServices */ = {
+			isa = PBXGroup;
+			children = (
+				7897EC8A26E2151D001E8279 /* Message.swift */,
+				7897EC8B26E2151D001E8279 /* WebSocketProvider */,
+				7897EC8F26E2151D001E8279 /* WebRTCClient.swift */,
+				7897EC9026E2151D001E8279 /* SignalingClient.swift */,
+			);
+			path = WebRtcServices;
+			sourceTree = "<group>";
+		};
+		7897EC8B26E2151D001E8279 /* WebSocketProvider */ = {
+			isa = PBXGroup;
+			children = (
+				7897EC8C26E2151D001E8279 /* WebSocketProvider.swift */,
+				7897EC8D26E2151D001E8279 /* NativeWebSocket.swift */,
+				7897EC8E26E2151D001E8279 /* StarscreamProvider.swift */,
+			);
+			path = WebSocketProvider;
 			sourceTree = "<group>";
 		};
 		9E403A5B12404967A52143D3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				782D25AB26E4BA7900AD6D19 /* WebRTC.xcframework */,
 				34B748E5927FF1464FE56CEA /* Pods-Safespace.debug.xcconfig */,
 				014F4D971CC7DBA5F0243CEB /* Pods-Safespace.release.xcconfig */,
 			);
@@ -140,6 +243,7 @@
 				7834317B26D46FA300C21027 /* Frameworks */,
 				7834317C26D46FA300C21027 /* Resources */,
 				65E08CA9ABB72BB6AE918DFD /* [CP] Embed Pods Frameworks */,
+				782D25AE26E4BB2600AD6D19 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -189,6 +293,7 @@
 			files = (
 				7834318E26D46FA900C21027 /* LaunchScreen.storyboard in Resources */,
 				78BA0CEE26D6EFB200093DD8 /* Colors.xcassets in Resources */,
+				7897EC9526E2151D001E8279 /* VideoViewController.xib in Resources */,
 				7834318B26D46FA900C21027 /* Assets.xcassets in Resources */,
 				7834318926D46FA300C21027 /* Main.storyboard in Resources */,
 				782315AA26D70FBD00FEC675 /* TherapistListTableViewCell.xib in Resources */,
@@ -245,12 +350,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				782315A226D708DF00FEC675 /* TherapistListViewController.swift in Sources */,
+				7897EC9B26E2151D001E8279 /* WebSocketProvider.swift in Sources */,
+				7897EC9C26E2151D001E8279 /* NativeWebSocket.swift in Sources */,
 				7834318626D46FA300C21027 /* ViewController.swift in Sources */,
+				7897EC5126E1F8AE001E8279 /* WebRTC.swift in Sources */,
+				7897EC9A26E2151D001E8279 /* Message.swift in Sources */,
+				7897EC9D26E2151D001E8279 /* StarscreamProvider.swift in Sources */,
+				7897EC9226E2151D001E8279 /* RTCStates.swift in Sources */,
 				78BA0CEC26D6E8A500093DD8 /* PSignupViewController.swift in Sources */,
+				7897EC9E26E2151D001E8279 /* WebRTCClient.swift in Sources */,
+				7897EC9126E2151D001E8279 /* Config.swift in Sources */,
+				7897EC9326E2151D001E8279 /* SessionDescription.swift in Sources */,
+				7897EC9426E2151D001E8279 /* IceCandidate.swift in Sources */,
+				7897EC9F26E2151D001E8279 /* SignalingClient.swift in Sources */,
+				7897EC9626E2151D001E8279 /* VideoViewController.swift in Sources */,
 				7834319826D5074400C21027 /* PLoginViewController.swift in Sources */,
 				782315A926D70FBD00FEC675 /* TherapistListTableViewCell.swift in Sources */,
 				7834319A26D5076900C21027 /* PQuestionnaireViewController.swift in Sources */,
 				7834318226D46FA300C21027 /* AppDelegate.swift in Sources */,
+				7897EC4E26E1EB68001E8279 /* TherapistProfileViewController.swift in Sources */,
 				7834318426D46FA300C21027 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,6 +430,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -373,6 +492,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;

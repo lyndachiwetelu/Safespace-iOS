@@ -7,5 +7,8 @@ target 'Safespace' do
 
   # Pods for Safespace
 pod 'IQKeyboardManagerSwift'
+pod 'Starscream', '4.0'
+pod 'Socket.IO-Client-Swift', '16.0.0'
+
 
 end

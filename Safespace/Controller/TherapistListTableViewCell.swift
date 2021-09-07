@@ -16,6 +16,8 @@ class TherapistListTableViewCell: UITableViewCell {
 
     @IBOutlet var tImageView: UIImageView!
     
+    var delegate: TherapistListTableCellViewDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -28,5 +30,11 @@ class TherapistListTableViewCell: UITableViewCell {
     }
     
     @IBAction func seeMorePressed(_ sender: UIButton) {
+        delegate?.doSegue()
     }
+}
+
+
+protocol TherapistListTableCellViewDelegate {
+    func doSegue()
 }

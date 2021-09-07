@@ -34,6 +34,9 @@ class TherapistListViewController: UIViewController {
 }
 
 extension TherapistListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+       
+    }
     
 }
 
@@ -55,7 +58,15 @@ extension TherapistListViewController: UITableViewDataSource {
         let index = description.index(description.startIndex, offsetBy: 100)
         cell.descLabel.text = String(description[description.startIndex...index])
         cell.tImageView?.image = therapists[indexPath.row][1] as? UIImage
+        cell.delegate = self
         return cell
     }
     
+}
+
+
+extension TherapistListViewController: TherapistListTableCellViewDelegate {
+    func doSegue() {
+        performSegue(withIdentifier: "goToTherapistProfile", sender: nil)
+    }
 }
