@@ -13,6 +13,7 @@ protocol WebRTCClientDelegate: AnyObject {
     func webRTCClient(_ client: WebRTCClient, didDiscoverLocalCandidate candidate: RTCIceCandidate)
     func webRTCClient(_ client: WebRTCClient, didChangeConnectionState state: RTCIceConnectionState)
     func webRTCClient(_ client: WebRTCClient, didReceiveData data: Data)
+    func webRTCClient(_ client: WebRTCClient, shouldNegotiate: Bool)
 }
 
 final class WebRTCClient: NSObject {
@@ -43,9 +44,10 @@ final class WebRTCClient: NSObject {
         fatalError("WebRTCClient:init is unavailable")
     }
     
-    required init(iceServers: [String]) {
+    required init(iceServers: [String], turnServers: [String]) {
         let config = RTCConfiguration()
-        config.iceServers = [RTCIceServer(urlStrings: iceServers)]
+        config.iceServers = [RTCIceServer(urlStrings: iceServers), RTCIceServer(urlStrings: turnServers, username: "peerjs", credential: "peerjsp")]
+        
         
         // Unified plan is more superior than planB
         config.sdpSemantics = .unifiedPlan
@@ -67,6 +69,10 @@ final class WebRTCClient: NSObject {
         self.createMediaSenders()
         self.configureAudioSession()
         self.peerConnection.delegate = self
+    }
+    
+    func getChannelId() -> Int32? {
+        return self.localDataChannel?.channelId
     }
     
     func endTracks() {
@@ -226,6 +232,7 @@ extension WebRTCClient: RTCPeerConnectionDelegate {
     
     func peerConnectionShouldNegotiate(_ peerConnection: RTCPeerConnection) {
         debugPrint("peerConnection should negotiate")
+        self.delegate?.webRTCClient(self, shouldNegotiate: true)
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceConnectionState) {
@@ -246,9 +253,10 @@ extension WebRTCClient: RTCPeerConnectionDelegate {
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didOpen dataChannel: RTCDataChannel) {
-        debugPrint("peerConnection did open data channel")
+        debugPrint("peerConnection did open data channel \(String(describing: dataChannel))")
         self.remoteDataChannel = dataChannel
     }
+    
 }
 extension WebRTCClient {
     private func setTrackEnabled<T: RTCMediaStreamTrack>(_ type: T.Type, isEnabled: Bool) {
@@ -324,10 +332,11 @@ extension WebRTCClient {
 
 extension WebRTCClient: RTCDataChannelDelegate {
     func dataChannelDidChangeState(_ dataChannel: RTCDataChannel) {
-        debugPrint("dataChannel did change state: \(dataChannel.readyState)")
+        debugPrint("dataChannel did change state: \(String(describing: dataChannel)) \(dataChannel.readyState)")
     }
     
     func dataChannel(_ dataChannel: RTCDataChannel, didReceiveMessageWith buffer: RTCDataBuffer) {
         self.delegate?.webRTCClient(self, didReceiveData: buffer.data)
     }
+    
 }

@@ -13,7 +13,7 @@ import Foundation
 //fileprivate let url = "ws://localhost:8000/chat/peerjs?key=peerjs&id=9-1630661802027_session-60-chat&token=ihzrkai0j4"
 
 
-fileprivate let url = "ws://192.168.2.33:8000/chat/peerjs?key=peerjs&id=9-1630661802027_session-60-chat&token=ihzrkai0j4"
+fileprivate let url = "ws://192.168.2.33:8000/chat/peerjs?key=peerjs&id=5017-1630661802027_session-60-chat&token=ihzrkai0j4"
 
 //fileprivate let url = "wss://safespace-backend.lyndachiwetelu.com:443/chat/peerjs?key=peerjs&id=9-1630661802027_session-60-chat&token=ihzrkai0j4"
 
@@ -26,9 +26,21 @@ fileprivate let defaultIceServers = ["stun:stun.l.google.com:19302",
                                      "stun:stun3.l.google.com:19302",
                                      "stun:stun4.l.google.com:19302"]
 
+let defaultStunIceServers = ["stun:stun.l.google.com:19302"]
+let defaultTurnIceServers = ["turn:0.peerjs.com:3478"]
+
+//const DEFAULT_CONFIG = {
+//  iceServers: [
+//    { urls: "stun:stun.l.google.com:19302" },
+//    { urls: "turn:0.peerjs.com:3478", username: "peerjs", credential: "peerjsp" }
+//  ],
+//  sdpSemantics: "unified-plan"
+//};
+
 struct Config {
     let signalingServerUrl: URL
     let webRTCIceServers: [String]
+    let turn: [String]
     
-    static let `default` = Config(signalingServerUrl: defaultSignalingServerUrl, webRTCIceServers: defaultIceServers)
+    static let `default` = Config(signalingServerUrl: defaultSignalingServerUrl, webRTCIceServers: defaultIceServers, turn: defaultTurnIceServers)
 }

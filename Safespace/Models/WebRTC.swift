@@ -47,9 +47,8 @@ struct SdpMetadata {
     let type: String
 }
 
-
 struct Metadata: Codable {
-    let audioOnly: Bool?
+    var audioOnly: Bool?
 }
 
 struct Payload: Codable {
@@ -57,13 +56,14 @@ struct Payload: Codable {
     var type = "media"
     var sdp: Sdp
     var metadata: Metadata?
+    var serialization: String?
 }
 
 struct OfferMessage : Codable  {
     let type: String
     let payload: Payload
 //    let src: String
-    let dst: String
+    let dst: String?
 }
 
 struct OfferResponse : Codable  {

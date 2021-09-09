@@ -9,16 +9,16 @@ import UIKit
 import WebRTC
 import SocketIO
 
-class TherapistProfileViewController: UIViewController {
+class SessionViewController: UIViewController {
     
     private var signalClient: SignalingClient?
     private var webRTCClient: WebRTCClient?
     private var socket: SocketIOClient?
     private var manager = SocketManager(socketURL: URL( string:"http://192.168.2.33:8000" )!, config: [.log(true), .compress])
     //    private var manager = SocketManager(socketURL: URL( string:"https://safespace-backend.lyndachiwetelu.com" )!, config: [.log(true), .compress])
-    private var connectTo = [String]()
     private lazy var videoViewController = VideoViewController(webRTCClient: self.webRTCClient!)
     private var dest: String = ""
+    private var connId: String? = "1234567890"
     private var callAccepted = false
     private var callRejected = false
     
@@ -46,7 +46,7 @@ class TherapistProfileViewController: UIViewController {
         }
         
         config = Config.default
-        webRTCClient = WebRTCClient(iceServers: self.config!.webRTCIceServers)
+        webRTCClient = WebRTCClient(iceServers: self.config!.webRTCIceServers, turnServers: self.config!.turn)
         signalClient = self.buildSignalingClient()
         self.title = "WebRTC Demo"
         self.webRTCClient!.delegate = self
@@ -96,23 +96,23 @@ class TherapistProfileViewController: UIViewController {
     
     func connectToPeer() {
         print("sending socket message...")
-        self.socket?.emit("join-room", SMessage(roomId: "session-60-chat", userId: "9-1630661802027_session-60-chat", username: "lynda"), completion: {
+        self.socket?.emit("join-room", SMessage(roomId: "session-60-chat", userId: "5017-1630661802027_session-60-chat", username: "lynda"), completion: {
             print("socket emission done")
         })
         
     }
     
-    func doWebrtcAnswer(_ sdpMetadata: SdpMetadata) {
+    func doWebrtcAnswer(_ sdpMetadata: SdpMetadata, payloadType:String) {
         self.webRTCClient!.answer { (localSdp) in
             print("LOCAL SDP for Received")
             
             let theSdp = Sdp( type: "answer", sdp:localSdp.sdp)
-            let payload = Payload(connectionId: sdpMetadata.connectionId, sdp: theSdp)
+            let payload = Payload(connectionId: sdpMetadata.connectionId, type:payloadType, sdp: theSdp, serialization: "json")
             let offer = OfferMessage(type: "ANSWER", payload: payload, dst: sdpMetadata.src)
             
             do {
                 let json =  try JSONEncoder().encode(offer)
-                print("Sending Received remote sdp answer \(sdpMetadata.connectionId)")
+                print("Sending Received remote sdp answer for \(sdpMetadata.connectionId)")
                 self.signalClient!.sendData(json)
             } catch {
                 print(error)
@@ -122,19 +122,27 @@ class TherapistProfileViewController: UIViewController {
     }
     
     func sendAnswer(_ sdpMetadata: SdpMetadata) {
-        if sdpMetadata.type == "media" && sdpMetadata.audioOnly == false {
-            confirmAnswerCall(sdpMetadata)
-            return
+        if sdpMetadata.type == "media" {
+            if sdpMetadata.audioOnly == false {
+                confirmAnswerVideoCall(sdpMetadata)
+                return
+            }
+            if sdpMetadata.audioOnly == true {
+                confirmAnswerAudioCall(sdpMetadata)
+                return
+            }
         }
         
-        doWebrtcAnswer(sdpMetadata)
+        doWebrtcAnswer(sdpMetadata, payloadType: sdpMetadata.type)
     }
     
-    fileprivate func makeOffer() {
+    func makeOffer(dst: String, connectionId: String, type: String = "data") {
         self.webRTCClient!.offer { (sdp) in
+            print("Making offer to remote sdp")
             let theSdp = Sdp( type: "offer", sdp: sdp.sdp)
-            let payload = Payload(connectionId: "1234567890", sdp: theSdp)
-            let offer = OfferMessage(type: "OFFER", payload: payload, dst: "9-1630661802027_session-60-chat")
+            let metadata =  Metadata(audioOnly: true)
+            let payload = Payload(connectionId: connectionId, type: type, sdp: theSdp, metadata: metadata, serialization: "json")
+            let offer = OfferMessage(type: "OFFER", payload: payload, dst: dst)
             
             do {
                 let json =  try JSONEncoder().encode(offer)
@@ -148,9 +156,8 @@ class TherapistProfileViewController: UIViewController {
     
     func addHandlers() {
         socket?.on("user-connected") {[weak self] data, ack in
-            self?.connectTo.append(data[0] as! String)
-            print("RECEIVED USER CONNECTED....")
-            self?.makeOffer()
+            print("RECEIVED USER CONNECTED....\(data)")
+            self?.makeOffer(dst: data[0] as! String, connectionId: "1234567890")
             
             return
         }
@@ -164,11 +171,27 @@ class TherapistProfileViewController: UIViewController {
         }
     }
     
-    func confirmAnswerCall(_ sdpMeta: SdpMetadata) {
+    func confirmAnswerVideoCall(_ sdpMeta: SdpMetadata) {
         let alert = UIAlertController(title: "Incoming Call", message: "Someeone is video calling you", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Accept", style: .default, handler: { _ in
-            self.doWebrtcAnswer(sdpMeta)
+            self.doWebrtcAnswer(sdpMeta, payloadType: "media")
             self.switchToVideo()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Reject", style: .cancel, handler: { _ in
+            // Possibly emit socket event showing call was rejected!
+        }))
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+    }
+    
+    func confirmAnswerAudioCall(_ sdpMeta: SdpMetadata) {
+        let alert = UIAlertController(title: "Incoming Voice Call", message: "Someeone is voice calling you", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Accept", style: .default, handler: { _ in
+            self.doWebrtcAnswer(sdpMeta, payloadType: "media")
         }))
         
         alert.addAction(UIAlertAction(title: "Reject", style: .cancel, handler: { _ in
@@ -183,7 +206,7 @@ class TherapistProfileViewController: UIViewController {
     
 }
 
-extension TherapistProfileViewController: SignalClientDelegate {
+extension SessionViewController: SignalClientDelegate {
     func signalClientDidConnect(_ signalClient: SignalingClient) {
         
     }
@@ -192,43 +215,60 @@ extension TherapistProfileViewController: SignalClientDelegate {
         
     }
     
-    func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription) {
-    
-    }
-    
     func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription, with sdpMetadata: SdpMetadata) {
         dest = sdpMetadata.src
-        print("Received remote sdp \(sdpMetadata.connectionId)")
-        guard sdpMetadata.connectionId != "1234567890" else {
-            print("Received remote sdp for same connection! Aborting without sending answer")
+
+        if sdp.type == .answer {
+            print("Received remote sdp answer!")
+            // nothing to do, just return
+            self.webRTCClient!.set(remoteSdp: sdp) { (error) in
+                if error != nil {
+                    print("Received remote sdp error 1 \(String(describing: error))")
+                } else  {
+                    print("Did set remote sdp from answer")
+                }
+            }
             return
-        }
-        
-        if webRTCClient != nil {
-            //replace
-            webRTCClient = WebRTCClient(iceServers: self.config!.webRTCIceServers)
-            webRTCClient!.delegate = self
-        }
-        
-        self.webRTCClient!.set(remoteSdp: sdp) { (error) in
-            print("Received remote sdp error \(String(describing: error))")
-            self.sendAnswer(sdpMetadata)
+        } else if sdp.type == .offer {
+            connId = sdpMetadata.connectionId
+            print("Received remote sdp offer!")
+            print(sdpMetadata)
+            
+//            if sdpMetadata.type == "media" && webRTCClient != nil {
+            
+            if true {
+                //replace
+                webRTCClient = WebRTCClient(iceServers: self.config!.webRTCIceServers, turnServers: self.config!.turn)
+                webRTCClient!.delegate = self
+            }
+            
+            self.webRTCClient!.set(remoteSdp: sdp) { (error) in
+                print("Received remote sdp error \(String(describing: error))")
+                self.sendAnswer(sdpMetadata)
+            }
+            
+        } else {
+            print("Received remote sdp Other type \(String(describing: sdp.type))")
         }
         
     }
     
     func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate) {
         self.webRTCClient!.set(remoteCandidate: candidate) { error in
-            print("Received remote candidate")
+            print("Received remote candidate \(String(describing: error))")
         }
     }
 }
 
-extension TherapistProfileViewController: WebRTCClientDelegate {
+extension SessionViewController: WebRTCClientDelegate {
+    
+    func webRTCClient(_ client: WebRTCClient, shouldNegotiate: Bool) {
+//        makeOffer(dst: dest, connectionId: "1234567890")
+    }
     
     func webRTCClient(_ client: WebRTCClient, didDiscoverLocalCandidate candidate: RTCIceCandidate) {
         print("discovered local candidate")
-        self.signalClient!.send(candidate: candidate, dest: dest)
+        self.signalClient!.send(candidate: candidate, dest: dest, conn: connId!)
     }
     
     func webRTCClient(_ client: WebRTCClient, didChangeConnectionState state: RTCIceConnectionState) {

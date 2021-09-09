@@ -21,7 +21,7 @@
 		7834318E26D46FA900C21027 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7834318C26D46FA900C21027 /* LaunchScreen.storyboard */; };
 		7834319826D5074400C21027 /* PLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7834319726D5074400C21027 /* PLoginViewController.swift */; };
 		7834319A26D5076900C21027 /* PQuestionnaireViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7834319926D5076900C21027 /* PQuestionnaireViewController.swift */; };
-		7897EC4E26E1EB68001E8279 /* TherapistProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7897EC4D26E1EB68001E8279 /* TherapistProfileViewController.swift */; };
+		7897EC4E26E1EB68001E8279 /* SessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7897EC4D26E1EB68001E8279 /* SessionViewController.swift */; };
 		7897EC5126E1F8AE001E8279 /* WebRTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7897EC5026E1F8AE001E8279 /* WebRTC.swift */; };
 		7897EC9126E2151D001E8279 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7897EC7C26E2151D001E8279 /* Config.swift */; };
 		7897EC9226E2151D001E8279 /* RTCStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7897EC7E26E2151D001E8279 /* RTCStates.swift */; };
@@ -70,7 +70,7 @@
 		7834318F26D46FA900C21027 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7834319726D5074400C21027 /* PLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PLoginViewController.swift; sourceTree = "<group>"; };
 		7834319926D5076900C21027 /* PQuestionnaireViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PQuestionnaireViewController.swift; sourceTree = "<group>"; };
-		7897EC4D26E1EB68001E8279 /* TherapistProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TherapistProfileViewController.swift; sourceTree = "<group>"; };
+		7897EC4D26E1EB68001E8279 /* SessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionViewController.swift; sourceTree = "<group>"; };
 		7897EC5026E1F8AE001E8279 /* WebRTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTC.swift; sourceTree = "<group>"; };
 		7897EC7C26E2151D001E8279 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		7897EC7E26E2151D001E8279 /* RTCStates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTCStates.swift; sourceTree = "<group>"; };
@@ -160,7 +160,7 @@
 				7834319926D5076900C21027 /* PQuestionnaireViewController.swift */,
 				78BA0CEB26D6E8A500093DD8 /* PSignupViewController.swift */,
 				782315A126D708DE00FEC675 /* TherapistListViewController.swift */,
-				7897EC4D26E1EB68001E8279 /* TherapistProfileViewController.swift */,
+				7897EC4D26E1EB68001E8279 /* SessionViewController.swift */,
 				7897EC8426E2151D001E8279 /* VideoViewController.swift */,
 			);
 			path = Controller;
@@ -368,7 +368,7 @@
 				782315A926D70FBD00FEC675 /* TherapistListTableViewCell.swift in Sources */,
 				7834319A26D5076900C21027 /* PQuestionnaireViewController.swift in Sources */,
 				7834318226D46FA300C21027 /* AppDelegate.swift in Sources */,
-				7897EC4E26E1EB68001E8279 /* TherapistProfileViewController.swift in Sources */,
+				7897EC4E26E1EB68001E8279 /* SessionViewController.swift in Sources */,
 				7834318426D46FA300C21027 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

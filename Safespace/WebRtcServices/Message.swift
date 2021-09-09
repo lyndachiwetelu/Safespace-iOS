@@ -42,13 +42,13 @@ extension Message: Codable {
         case .sdp(let sessionDescription):
             try container.encode(sessionDescription, forKey: .payload)
             try container.encode(String(describing: SessionDescription.self), forKey: .type)
-            try container.encode(String("9-1630661802027_session-60-chat"), forKey: .dst)
+            try container.encode(String("5017-1630661802027_session-60-chat"), forKey: .dst)
         case .candidate(let iceCandidate):
             try container.encode(iceCandidate, forKey: .payload)
 //            try container.encode(String(describing: IceCandidate.self), forKey: .type)
             try container.encode(String("CANDIDATE"), forKey: .type)
             
-            try container.encode(String("9-1630661802027_session-60-chat"), forKey: .dst)
+            try container.encode(String("5017-1630661802027_session-60-chat"), forKey: .dst)
         case .candidateWrapper(let iceCandidateWrapper, let destination):
             try container.encode(iceCandidateWrapper, forKey: .payload)
 //            try container.encode(String(describing: IceCandidate.self), forKey: .type)
@@ -57,7 +57,7 @@ extension Message: Codable {
         case .sdpNew(let sdpOffer):
             try container.encode(sdpOffer.payload, forKey: .payload)
             try container.encode(String("OFFER"), forKey: .type)
-            try container.encode(String("9-1630661802027_session-60-chat"), forKey: .dst)
+            try container.encode(String("5017-1630661802027_session-60-chat"), forKey: .dst)
         }
     }
     

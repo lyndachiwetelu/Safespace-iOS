@@ -28,7 +28,7 @@ struct IceCandidate: Codable {
 
 struct IceCandidateWrapper: Codable {
     let candidate: IceCandidate
-    var type = "media"
+    var type = "data"
     var connectionId = "123456789"
 }
 

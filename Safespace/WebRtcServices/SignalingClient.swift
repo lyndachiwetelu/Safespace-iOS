@@ -12,7 +12,6 @@ import WebRTC
 protocol SignalClientDelegate: AnyObject {
     func signalClientDidConnect(_ signalClient: SignalingClient)
     func signalClientDidDisconnect(_ signalClient: SignalingClient)
-    func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription)
     func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription, with sdpMetadata: SdpMetadata)
     func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate)
 }
@@ -54,9 +53,9 @@ final class SignalingClient {
         }
     }
     
-    func send(candidate rtcIceCandidate: RTCIceCandidate, dest dstId: String) {
+    func send(candidate rtcIceCandidate: RTCIceCandidate, dest dstId: String, conn: String) {
         let iCandidate = IceCandidate(from: rtcIceCandidate)
-        let icewrapper = IceCandidateWrapper(candidate: iCandidate)
+        let icewrapper = IceCandidateWrapper(candidate: iCandidate, connectionId: conn)
         let message = Message.candidateWrapper(icewrapper, dstId)
         
         do {
@@ -86,24 +85,6 @@ extension SignalingClient: WebSocketProviderDelegate {
     }
     
     func webSocket(_ webSocket: WebSocketProvider, didReceiveData data: Data) {
-//        debugPrint("Receiving Data")
-//        let message: Message
-//        do {
-//            message = try self.decoder.decode(Message.self, from: data)
-//        }
-//        catch {
-//            debugPrint("Warning: Could not decode incoming message: \(error)")
-//            return
-//        }
-//
-//        switch message {
-//        case .candidate(let iceCandidate):
-//            self.delegate?.signalClient(self, didReceiveCandidate: iceCandidate.rtcIceCandidate)
-//        case .sdp(let sessionDescription):
-//            self.delegate?.signalClient(self, didReceiveRemoteSdp: sessionDescription.rtcSessionDescription)
-//        case .candidateWrapper(let wrapper):
-//            self.delegate?.signalClient(self, didReceiveCandidate: wrapper.candidate.rtcIceCandidate)
-//        }
 
     }
     
@@ -115,7 +96,7 @@ extension SignalingClient: WebSocketProviderDelegate {
             message = try self.decoder.decode(Message.self, from: data.data(using: .utf8) ?? Data())
         }
         catch {
-            debugPrint("Warning: Could not decode incoming message: \(error)")
+            debugPrint("Warning: Could not decode incoming message: \(error), \(data)")
             return
         }
         
@@ -123,7 +104,8 @@ extension SignalingClient: WebSocketProviderDelegate {
         case .candidate(let iceCandidate):
             self.delegate?.signalClient(self, didReceiveCandidate: iceCandidate.rtcIceCandidate)
         case .sdp(let sessionDescription):
-            self.delegate?.signalClient(self, didReceiveRemoteSdp: sessionDescription.rtcSessionDescription)
+            // do nothing
+            let t = true
         case .candidateWrapper(let wrapper, let dest):
             self.delegate?.signalClient(self, didReceiveCandidate: wrapper.candidate.rtcIceCandidate)
         case .sdpNew(let offerResponse):
