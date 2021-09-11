@@ -45,17 +45,12 @@ final class SignalingClient {
     }
     
     func sendData(_ data: Data) {
-        do {
-            self.webSocket.sendString(data: String(decoding: data, as: UTF8.self))
-        }
-        catch {
-            debugPrint("\(error)")
-        }
+        self.webSocket.sendString(data: String(decoding: data, as: UTF8.self))
     }
     
-    func send(candidate rtcIceCandidate: RTCIceCandidate, dest dstId: String, conn: String) {
+    func send(candidate rtcIceCandidate: RTCIceCandidate, dest dstId: String, conn: String, type:String) {
         let iCandidate = IceCandidate(from: rtcIceCandidate)
-        let icewrapper = IceCandidateWrapper(candidate: iCandidate, connectionId: conn)
+        let icewrapper = IceCandidateWrapper(candidate: iCandidate, type: type, connectionId: conn)
         let message = Message.candidateWrapper(icewrapper, dstId)
         
         do {

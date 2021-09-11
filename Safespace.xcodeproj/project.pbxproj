@@ -37,6 +37,7 @@
 		7897EC9F26E2151D001E8279 /* SignalingClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7897EC9026E2151D001E8279 /* SignalingClient.swift */; };
 		78BA0CEC26D6E8A500093DD8 /* PSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BA0CEB26D6E8A500093DD8 /* PSignupViewController.swift */; };
 		78BA0CEE26D6EFB200093DD8 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78BA0CED26D6EFB200093DD8 /* Colors.xcassets */; };
+		78F31E9526ED391500BE392C /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F31E9426ED391500BE392C /* Connection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -87,6 +88,7 @@
 		7897ECA026E21917001E8279 /* WebRTC.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = WebRTC.xcframework; sourceTree = "<group>"; };
 		78BA0CEB26D6E8A500093DD8 /* PSignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSignupViewController.swift; sourceTree = "<group>"; };
 		78BA0CED26D6EFB200093DD8 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		78F31E9426ED391500BE392C /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
 		BBA5D4ED11D0592F7D64B644 /* Pods_Safespace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Safespace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -172,6 +174,7 @@
 				7897EC8026E2151D001E8279 /* IceCandidate.swift */,
 				7897EC7F26E2151D001E8279 /* SessionDescription.swift */,
 				7897EC5026E1F8AE001E8279 /* WebRTC.swift */,
+				78F31E9426ED391500BE392C /* Connection.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				782315A226D708DF00FEC675 /* TherapistListViewController.swift in Sources */,
+				78F31E9526ED391500BE392C /* Connection.swift in Sources */,
 				7897EC9B26E2151D001E8279 /* WebSocketProvider.swift in Sources */,
 				7897EC9C26E2151D001E8279 /* NativeWebSocket.swift in Sources */,
 				7834318626D46FA300C21027 /* ViewController.swift in Sources */,

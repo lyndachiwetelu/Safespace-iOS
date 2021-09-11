@@ -16,11 +16,12 @@ class SessionViewController: UIViewController {
     private var socket: SocketIOClient?
     private var manager = SocketManager(socketURL: URL( string:"http://192.168.2.33:8000" )!, config: [.log(true), .compress])
     //    private var manager = SocketManager(socketURL: URL( string:"https://safespace-backend.lyndachiwetelu.com" )!, config: [.log(true), .compress])
-    private lazy var videoViewController = VideoViewController(webRTCClient: self.webRTCClient!)
+    private lazy var videoViewController = VideoViewController(webRTCClient: self.webRTCClient!, self.socket!)
     private var dest: String = ""
     private var connId: String? = "1234567890"
     private var callAccepted = false
     private var callRejected = false
+    private var connectionType = "data"
     
     var config: Config?
     
@@ -38,6 +39,7 @@ class SessionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("view did load")
         
         self.socket = self.manager.defaultSocket
         manager.handleQueue.async {
@@ -48,13 +50,26 @@ class SessionViewController: UIViewController {
         config = Config.default
         webRTCClient = WebRTCClient(iceServers: self.config!.webRTCIceServers, turnServers: self.config!.turn)
         signalClient = self.buildSignalingClient()
-        self.title = "WebRTC Demo"
         self.webRTCClient!.delegate = self
         self.signalClient!.delegate = self
         self.signalClient!.connect()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        print("triggering point 1")
+        if animated == false {
+            print("triggering point 1")
+//            self.connectToPeer()
+//            self.makeOffer(dst: dest, connectionId: "1234567890", type: "data")
+            print(webRTCClient?.getDataChannels())
+           
+        }
+        print("view will appear called another connect to peer")
+    }
+    
     private func buildSignalingClient() -> SignalingClient {
+        
         
         // iOS 13 has native websocket support. For iOS 12 or lower we will use 3rd party library.
         let webSocketProvider: WebSocketProvider
@@ -74,6 +89,8 @@ class SessionViewController: UIViewController {
         
         do {
             let dataToSend = try JSONSerialization.data(withJSONObject: dict, options: JSONSerialization.WritingOptions.prettyPrinted)
+            let w = webRTCClient
+            print(w != nil ? "has webrtc client": "does not have webrtc client")
             self.webRTCClient?.sendData(dataToSend)
             
             
@@ -157,7 +174,9 @@ class SessionViewController: UIViewController {
     func addHandlers() {
         socket?.on("user-connected") {[weak self] data, ack in
             print("RECEIVED USER CONNECTED....\(data)")
-            self?.makeOffer(dst: data[0] as! String, connectionId: "1234567890")
+            self!.dest = data[0] as! String
+            print("DEST 2 IS SET for local candidate")
+            self?.makeOffer(dst: self!.dest, connectionId: "1234567890")
             
             return
         }
@@ -166,6 +185,7 @@ class SessionViewController: UIViewController {
             if $0.event == "user-connected" {
                 print("I GOT THE USER!")
             }
+            
             print("Got event: \($0.event), with items: \($0.items!) \($0)")
             
         }
@@ -216,12 +236,14 @@ extension SessionViewController: SignalClientDelegate {
     }
     
     func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription, with sdpMetadata: SdpMetadata) {
+        print("DEST IS SET for local candidate")
         dest = sdpMetadata.src
 
         if sdp.type == .answer {
             print("Received remote sdp answer!")
-            // nothing to do, just return
-            self.webRTCClient!.set(remoteSdp: sdp) { (error) in
+            let sdpPassive = sdp.sdp.replacingOccurrences(of: "a=setup:active", with: "a=setup:passive")
+            let sdpM = RTCSessionDescription(type: sdp.type, sdp: sdpPassive)
+            self.webRTCClient!.set(remoteSdp: sdpM) { (error) in
                 if error != nil {
                     print("Received remote sdp error 1 \(String(describing: error))")
                 } else  {
@@ -234,17 +256,18 @@ extension SessionViewController: SignalClientDelegate {
             print("Received remote sdp offer!")
             print(sdpMetadata)
             
-//            if sdpMetadata.type == "media" && webRTCClient != nil {
-            
-            if true {
+            if sdpMetadata.type != connectionType && webRTCClient != nil {
                 //replace
                 webRTCClient = WebRTCClient(iceServers: self.config!.webRTCIceServers, turnServers: self.config!.turn)
                 webRTCClient!.delegate = self
+                connectionType = sdpMetadata.type
             }
             
             self.webRTCClient!.set(remoteSdp: sdp) { (error) in
                 print("Received remote sdp error \(String(describing: error))")
-                self.sendAnswer(sdpMetadata)
+                if error == nil {
+                    self.sendAnswer(sdpMetadata)
+                }
             }
             
         } else {
@@ -268,7 +291,7 @@ extension SessionViewController: WebRTCClientDelegate {
     
     func webRTCClient(_ client: WebRTCClient, didDiscoverLocalCandidate candidate: RTCIceCandidate) {
         print("discovered local candidate")
-        self.signalClient!.send(candidate: candidate, dest: dest, conn: connId!)
+        self.signalClient!.send(candidate: candidate, dest: dest, conn: connId!, type: connectionType)
     }
     
     func webRTCClient(_ client: WebRTCClient, didChangeConnectionState state: RTCIceConnectionState) {
@@ -283,4 +306,5 @@ extension SessionViewController: WebRTCClientDelegate {
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
 }

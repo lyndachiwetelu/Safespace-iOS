@@ -8,14 +8,17 @@
 
 import UIKit
 import WebRTC
+import SocketIO
 
 class VideoViewController: UIViewController {
 
     @IBOutlet private weak var localVideoView: UIView?
     private let webRTCClient: WebRTCClient
+    private let socket: SocketIOClient
 
-    init(webRTCClient: WebRTCClient) {
+    init(webRTCClient: WebRTCClient, _ socket: SocketIOClient) {
         self.webRTCClient = webRTCClient
+        self.socket = socket
         super.init(nibName: String(describing: VideoViewController.self), bundle: Bundle.main)
     }
     
@@ -26,6 +29,7 @@ class VideoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.presentationController?.delegate = self
         
         #if arch(arm64)
             // Using metal (arm64 only)
@@ -68,6 +72,18 @@ class VideoViewController: UIViewController {
         webRTCClient.hideVideo()
         webRTCClient.muteAudio()
         webRTCClient.endTracks()
-        self.dismiss(animated: true)
+        self.dismiss(animated: true) {
+            // do something
+        }
+    }
+    
+}
+
+
+extension VideoViewController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        let presenting = presentationController.presentingViewController
+        presenting.viewWillAppear(false)
     }
 }
+
