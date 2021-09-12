@@ -38,7 +38,12 @@ final class WebRTCClient: NSObject {
     private var remoteVideoTrack: RTCVideoTrack?
     private var localDataChannel: RTCDataChannel?
     private var remoteDataChannel: RTCDataChannel?
+    
+    
+    // added
     private var connections = [Connection]()
+    private var config: RTCConfiguration
+    private var constraints: RTCMediaConstraints
 
     @available(*, unavailable)
     override init() {
@@ -56,9 +61,13 @@ final class WebRTCClient: NSObject {
         // gatherContinually will let WebRTC to listen to any network changes and send any new candidates to the other client
         config.continualGatheringPolicy = .gatherContinually
         
+        
         // Define media constraints. DtlsSrtpKeyAgreement is required to be true to be able to connect with web browsers.
         let constraints = RTCMediaConstraints(mandatoryConstraints: nil,
                                               optionalConstraints: ["DtlsSrtpKeyAgreement":kRTCMediaConstraintsValueTrue])
+        
+        self.config = config
+        self.constraints = constraints
         
         guard let peerConnection = WebRTCClient.factory.peerConnection(with: config, constraints: constraints, delegate: nil) else {
             fatalError("Could not create new RTCPeerConnection")
@@ -89,16 +98,16 @@ final class WebRTCClient: NSObject {
         
      
         
-        let dataChannelConfig = RTCDataChannelConfiguration()
-        if let dataChannel = peerConnection.dataChannel(forLabel: "WebRTCData", configuration: dataChannelConfig) {
-            dataChannel.delegate = self
-            let conn = createNewConnection(peerConnection: peerConnection, connectionId: "123456789", dataChannel: dataChannel)
-            addConnection(conn)
-            self.configureAudioSession()
-           
-        } else {
-            print("Could not create data channel")
-        }
+//        let dataChannelConfig = RTCDataChannelConfiguration()
+//        if let dataChannel = peerConnection.dataChannel(forLabel: "WebRTCData", configuration: dataChannelConfig) {
+//            dataChannel.delegate = self
+//            let conn = createNewConnection(peerConnection: peerConnection, connectionId: "123456789", dataChannel: dataChannel)
+//            addConnection(conn)
+//            self.configureAudioSession()
+//
+//        } else {
+//            print("Could not create data channel")
+//        }
         
         
         
@@ -111,6 +120,40 @@ final class WebRTCClient: NSObject {
 //        self.createMediaSenders()
 //        self.configureAudioSession()
 //        self.peerConnection.delegate = self
+    }
+    
+    func createNewPeerConnection(connectionId: String) -> (RTCPeerConnection, RTCDataChannel?)? {
+        let dataChannelConfig = RTCDataChannelConfiguration()
+        let pc = WebRTCClient.factory.peerConnection(with: self.config, constraints: constraints, delegate: self)
+//        pc?.delegate = self
+        
+//        dataChannelConfig.channelId = 1
+        
+        if let dataChannel = pc?.dataChannel(forLabel: connectionId, configuration: dataChannelConfig) {
+            dataChannel.delegate = self
+            
+            let streamId = "stream"
+            
+            // Audio
+            let audioTrack = self.createAudioTrack()
+            pc!.add(audioTrack, streamIds: [streamId])
+            
+            // Video
+            let videoTrack = self.createVideoTrack()
+            self.localVideoTrack = videoTrack
+            pc!.add(videoTrack, streamIds: [streamId])
+            self.remoteVideoTrack = pc!.transceivers.first { $0.mediaType == .video }?.receiver.track as? RTCVideoTrack
+            
+            
+            return (pc, dataChannel) as? (RTCPeerConnection, RTCDataChannel)
+        }
+        
+    
+       return nil
+    }
+    
+    func getFirstConnection() -> Connection? {
+        return connections.first
     }
     
     func addConnection(_ connection: Connection) {
@@ -138,25 +181,28 @@ final class WebRTCClient: NSObject {
                                              optionalConstraints: nil)
         peerConnection.offer(for: constrains) { (sdp, error) in
             guard let sdp = sdp else {
+                print("error creating sdp for offer!")
                 return
             }
             
             peerConnection.setLocalDescription(sdp, completionHandler: { (error) in
+                print("error setting local description for offer! \(String(describing: error))")
                 completion(sdp)
             })
         }
     }
     
-    func answer(peerConnection: RTCPeerConnection, completion: @escaping (_ sdp: RTCSessionDescription) -> Void)  {
+    func answer(connectionId: String, completion: @escaping (_ sdp: RTCSessionDescription) -> Void)  {
         let constrains = RTCMediaConstraints(mandatoryConstraints: self.mediaConstrains,
                                              optionalConstraints: nil)
-        peerConnection.answer(for: constrains) { (sdp, error) in
+        let conn = getConnection(connectionId: connectionId)
+        conn!.peerConnection!.answer(for: constrains) { (sdp, error) in
             guard let sdp = sdp else {
                 print("ERROR 1 \(String(describing: error))")
                 return
             }
             
-            peerConnection.setLocalDescription(sdp, completionHandler: { (error) in
+            conn!.peerConnection!.setLocalDescription(sdp, completionHandler: { (error) in
                 completion(sdp)
             })
         }
@@ -166,8 +212,11 @@ final class WebRTCClient: NSObject {
         peerConnection.setRemoteDescription(remoteSdp, completionHandler: completion)
     }
     
-    func set(peerConnection: RTCPeerConnection, remoteCandidate: RTCIceCandidate, completion: @escaping (Error?) -> ()) {
-        peerConnection.add(remoteCandidate, completionHandler: completion)
+    func set(connectionId: String, remoteCandidate: RTCIceCandidate, completion: @escaping (Error?) -> ()) {
+        let conn = getConnection(connectionId: connectionId)
+        conn?.peerConnection?.add(remoteCandidate, completionHandler: completion)
+        print(conn != nil ? "connection exists" : "connection does not exist")
+        print("setting ice candidate for peerConnection \(String(describing: connectionId))")
     }
     
     // MARK: Signaling
@@ -310,16 +359,25 @@ final class WebRTCClient: NSObject {
 //        return dataChannel
 //    }
     
-    func sendData(_ data: Data) {
+    func sendData(_ data: Data, connectionId: String) {
         let buffer = RTCDataBuffer(data: data, isBinary: false)
-        if self.remoteDataChannel == nil {
-            self.localDataChannel?.sendData(buffer)
-        } else if self.remoteDataChannel != nil {
-            self.remoteDataChannel?.sendData(buffer)
-        } else if self.remoteDataChannel == nil && self.localDataChannel == nil {
-            print("data channel not found!")
-        }
+        let conn = getConnection(connectionId: connectionId)
+        conn!.dataChannel?.sendData(buffer)
+        print("does conn \(String(describing: conn?.dataChannel?.delegate)) have data channel delegate?  \(String(describing:conn?.dataChannel))")
+        print("data channel has state \(conn?.dataChannel?.readyState)")
+        
     }
+    
+//    func sendData(_ data: Data) {
+//        let buffer = RTCDataBuffer(data: data, isBinary: false)
+//        if self.remoteDataChannel == nil {
+//            self.localDataChannel?.sendData(buffer)
+//        } else if self.remoteDataChannel != nil {
+//            self.remoteDataChannel?.sendData(buffer)
+//        } else if self.remoteDataChannel == nil && self.localDataChannel == nil {
+//            print("data channel not found!")
+//        }
+//    }
     
     func getDataChannels() {
         print(self.localDataChannel!)
@@ -365,7 +423,12 @@ extension WebRTCClient: RTCPeerConnectionDelegate {
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didOpen dataChannel: RTCDataChannel) {
         debugPrint("peerConnection did open data channel ID:\(dataChannel.channelId) \(String(describing: dataChannel))")
-        self.remoteDataChannel = dataChannel
+        let connId = dataChannel.label
+        let conn = getConnection(connectionId: connId)
+//        dataChannel.delegate = self
+        conn?.dataChannel = dataChannel
+        print("data channel \(connId) should be added to peer connection \(String(describing: conn))")
+//        self.remoteDataChannel = dataChannel
     }
     
 }
@@ -398,7 +461,7 @@ extension WebRTCClient {
     }
     func showVideo(connId: String) {
         let conn = getConnection(connectionId: connId)
-        self.setVideoEnabled(true, peerConnection: peerConnection)
+        self.setVideoEnabled(true, connection: conn!)
     }
     
 //    private func setVideoEnabled(_ isEnabled: Bool) {
@@ -406,17 +469,17 @@ extension WebRTCClient {
 //    }
 //
     private func setVideoEnabled(_ isEnabled: Bool, connection: Connection) {
-        setTrackEnabled(RTCVideoTrack.self, isEnabled: isEnabled, peerConnection: connection.peerConnection)
+        setTrackEnabled(RTCVideoTrack.self, isEnabled: isEnabled, peerConnection: connection.peerConnection!)
     }
 }
 // MARK:- Audio control
 extension WebRTCClient {
-    func muteAudio(peerConenction: RTCPeerConnection) {
-        self.setAudioEnabled(false, peerConnection: peerConenction)
+    func muteAudio(peerConnection: RTCPeerConnection) {
+        self.setAudioEnabled(false, peerConnection: peerConnection)
     }
     
-    func unmuteAudio(peerConenction: RTCPeerConnection) {
-        self.setAudioEnabled(true, peerConnection: peerConenction)
+    func unmuteAudio(peerConnection: RTCPeerConnection) {
+        self.setAudioEnabled(true, peerConnection: peerConnection)
     }
     
     // Fallback to the default playing device: headphones/bluetooth/ear speaker

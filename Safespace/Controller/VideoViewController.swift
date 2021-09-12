@@ -15,10 +15,12 @@ class VideoViewController: UIViewController {
     @IBOutlet private weak var localVideoView: UIView?
     private let webRTCClient: WebRTCClient
     private let socket: SocketIOClient
+    private var connection: Connection
 
-    init(webRTCClient: WebRTCClient, _ socket: SocketIOClient) {
+    init(webRTCClient: WebRTCClient, _ socket: SocketIOClient, connection: Connection) {
         self.webRTCClient = webRTCClient
         self.socket = socket
+        self.connection = connection
         super.init(nibName: String(describing: VideoViewController.self), bundle: Bundle.main)
     }
     
@@ -69,8 +71,10 @@ class VideoViewController: UIViewController {
     }
     
     @IBAction private func backDidTap(_ sender: Any) {
-        webRTCClient.hideVideo()
-        webRTCClient.muteAudio()
+//        webRTCClient.hideVideo()
+//        webRTCClient.muteAudio()
+        webRTCClient.hideVideo(connId: connection.connectionId)
+        webRTCClient.muteAudio(peerConnection: connection.peerConnection!)
         webRTCClient.endTracks()
         self.dismiss(animated: true) {
             // do something

@@ -16,7 +16,8 @@ class SessionViewController: UIViewController {
     private var socket: SocketIOClient?
     private var manager = SocketManager(socketURL: URL( string:"http://192.168.2.33:8000" )!, config: [.log(true), .compress])
     //    private var manager = SocketManager(socketURL: URL( string:"https://safespace-backend.lyndachiwetelu.com" )!, config: [.log(true), .compress])
-    private lazy var videoViewController = VideoViewController(webRTCClient: self.webRTCClient!, self.socket!)
+    private var connection: Connection?
+    private lazy var videoViewController = VideoViewController(webRTCClient: self.webRTCClient!, self.socket!, connection: connection!)
     private var dest: String = ""
     private var connId: String? = "1234567890"
     private var callAccepted = false
@@ -55,19 +56,6 @@ class SessionViewController: UIViewController {
         self.signalClient!.connect()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        print("triggering point 1")
-        if animated == false {
-            print("triggering point 1")
-//            self.connectToPeer()
-//            self.makeOffer(dst: dest, connectionId: "1234567890", type: "data")
-            print(webRTCClient?.getDataChannels())
-           
-        }
-        print("view will appear called another connect to peer")
-    }
-    
     private func buildSignalingClient() -> SignalingClient {
         
         
@@ -91,7 +79,7 @@ class SessionViewController: UIViewController {
             let dataToSend = try JSONSerialization.data(withJSONObject: dict, options: JSONSerialization.WritingOptions.prettyPrinted)
             let w = webRTCClient
             print(w != nil ? "has webrtc client": "does not have webrtc client")
-            self.webRTCClient?.sendData(dataToSend)
+            self.webRTCClient?.sendData(dataToSend, connectionId: connection!.connectionId)
             
             
         } catch {
@@ -120,7 +108,7 @@ class SessionViewController: UIViewController {
     }
     
     func doWebrtcAnswer(_ sdpMetadata: SdpMetadata, payloadType:String) {
-        self.webRTCClient!.answer { (localSdp) in
+        self.webRTCClient!.answer(connectionId: connection!.connectionId) { localSdp in
             print("LOCAL SDP for Received")
             
             let theSdp = Sdp( type: "answer", sdp:localSdp.sdp)
@@ -134,8 +122,8 @@ class SessionViewController: UIViewController {
             } catch {
                 print(error)
             }
-            
         }
+            
     }
     
     func sendAnswer(_ sdpMetadata: SdpMetadata) {
@@ -154,12 +142,22 @@ class SessionViewController: UIViewController {
     }
     
     func makeOffer(dst: String, connectionId: String, type: String = "data") {
-        self.webRTCClient!.offer { (sdp) in
+        
+        /// do connection stuff
+        let connectionWithDataChannel = self.webRTCClient!.createNewPeerConnection(connectionId: connectionId)
+        let peerConnection = connectionWithDataChannel?.0
+        let dc = connectionWithDataChannel?.1
+        let newConnection = Connection(connectionId: connectionId, dataChannel: dc, peerConnection: peerConnection)
+        self.connection = newConnection
+        self.webRTCClient!.addConnection(self.connection!)
+        
+        self.webRTCClient!.offer(peerConnection: connection!.peerConnection!) { sdp in
             print("Making offer to remote sdp")
             let theSdp = Sdp( type: "offer", sdp: sdp.sdp)
             let metadata =  Metadata(audioOnly: true)
             let payload = Payload(connectionId: connectionId, type: type, sdp: theSdp, metadata: metadata, serialization: "json")
             let offer = OfferMessage(type: "OFFER", payload: payload, dst: dst)
+            
             
             do {
                 let json =  try JSONEncoder().encode(offer)
@@ -167,7 +165,6 @@ class SessionViewController: UIViewController {
             } catch {
                 print(error)
             }
-            
         }
     }
     
@@ -241,13 +238,17 @@ extension SessionViewController: SignalClientDelegate {
 
         if sdp.type == .answer {
             print("Received remote sdp answer!")
-            let sdpPassive = sdp.sdp.replacingOccurrences(of: "a=setup:active", with: "a=setup:passive")
+//            let sdpPassive = sdp.sdp.replacingOccurrences(of: "a=setup:active", with: "a=setup:passive")
+            let sdpPassive = sdp.sdp.replacingOccurrences(of: "", with: "")
             let sdpM = RTCSessionDescription(type: sdp.type, sdp: sdpPassive)
-            self.webRTCClient!.set(remoteSdp: sdpM) { (error) in
+            
+            let conn = webRTCClient!.getConnection(connectionId: sdpMetadata.connectionId)
+            
+            self.webRTCClient!.set(peerConnection: conn!.peerConnection!, remoteSdp: sdpM) { error in
                 if error != nil {
                     print("Received remote sdp error 1 \(String(describing: error))")
                 } else  {
-                    print("Did set remote sdp from answer")
+                    print("Did set remote sdp from answer \(sdpMetadata)")
                 }
             }
             return
@@ -256,19 +257,24 @@ extension SessionViewController: SignalClientDelegate {
             print("Received remote sdp offer!")
             print(sdpMetadata)
             
-            if sdpMetadata.type != connectionType && webRTCClient != nil {
-                //replace
-                webRTCClient = WebRTCClient(iceServers: self.config!.webRTCIceServers, turnServers: self.config!.turn)
-                webRTCClient!.delegate = self
-                connectionType = sdpMetadata.type
-            }
             
-            self.webRTCClient!.set(remoteSdp: sdp) { (error) in
+            // create new connection
+            let connectionWithDataChannel = webRTCClient!.createNewPeerConnection(connectionId: sdpMetadata.connectionId)
+            let peerConnection = connectionWithDataChannel?.0
+            let dc = connectionWithDataChannel?.1
+            let newConnection = Connection(connectionId: sdpMetadata.connectionId, dataChannel:nil, peerConnection: peerConnection)
+            newConnection.setLocal(dc: dc!)
+            
+            connection = newConnection
+            webRTCClient!.addConnection(connection!)
+            
+            self.webRTCClient!.set(peerConnection: newConnection.peerConnection!, remoteSdp: sdp) { error in
                 print("Received remote sdp error \(String(describing: error))")
                 if error == nil {
                     self.sendAnswer(sdpMetadata)
                 }
             }
+            
             
         } else {
             print("Received remote sdp Other type \(String(describing: sdp.type))")
@@ -277,8 +283,8 @@ extension SessionViewController: SignalClientDelegate {
     }
     
     func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate) {
-        self.webRTCClient!.set(remoteCandidate: candidate) { error in
-            print("Received remote candidate \(String(describing: error))")
+        self.webRTCClient!.set(connectionId: connection!.connectionId, remoteCandidate: candidate) { error in
+            print("Received remote candidate. Error: \(String(describing: error))")
         }
     }
 }
@@ -286,12 +292,11 @@ extension SessionViewController: SignalClientDelegate {
 extension SessionViewController: WebRTCClientDelegate {
     
     func webRTCClient(_ client: WebRTCClient, shouldNegotiate: Bool) {
-//        makeOffer(dst: dest, connectionId: "1234567890")
     }
     
     func webRTCClient(_ client: WebRTCClient, didDiscoverLocalCandidate candidate: RTCIceCandidate) {
         print("discovered local candidate")
-        self.signalClient!.send(candidate: candidate, dest: dest, conn: connId!, type: connectionType)
+        self.signalClient!.send(candidate: candidate, dest: dest, conn: connection!.connectionId, type: connectionType)
     }
     
     func webRTCClient(_ client: WebRTCClient, didChangeConnectionState state: RTCIceConnectionState) {

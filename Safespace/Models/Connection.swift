@@ -8,8 +8,19 @@
 import Foundation
 import WebRTC
 
-struct Connection {
-    let connectionId: String
-    let dataChannel: RTCDataChannel
-    let peerConnection: RTCPeerConnection
+class Connection {
+    var connectionId: String
+    var dataChannel: RTCDataChannel?
+    var localDataChannel: RTCDataChannel?
+    var peerConnection: RTCPeerConnection?
+    
+    init(connectionId: String, dataChannel: RTCDataChannel?, peerConnection: RTCPeerConnection?) {
+        self.connectionId = connectionId
+        self.dataChannel = dataChannel
+        self.peerConnection = peerConnection
+    }
+    
+    func setLocal(dc: RTCDataChannel) {
+        localDataChannel = dc
+    }
 }
