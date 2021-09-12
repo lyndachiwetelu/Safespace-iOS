@@ -105,6 +105,7 @@
                 <outlet property="nameLabel" destination="cf4-Zy-tLP" id="xHA-gf-UNG"/>
                 <outlet property="priceLabel" destination="6Nj-MS-mtd" id="YXx-fg-Q7c"/>
                 <outlet property="qualificationLabel" destination="mXj-T8-n55" id="BzS-87-gsQ"/>
+                <outlet property="seeMoreButton" destination="ALm-6a-FbY" id="YD8-cn-jaz"/>
                 <outlet property="tImageView" destination="VvI-B9-b7F" id="Mcj-ml-lMw"/>
             </connections>
             <point key="canvasLocation" x="97" y="122"/>

@@ -38,6 +38,7 @@
 		78BA0CEC26D6E8A500093DD8 /* PSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BA0CEB26D6E8A500093DD8 /* PSignupViewController.swift */; };
 		78BA0CEE26D6EFB200093DD8 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78BA0CED26D6EFB200093DD8 /* Colors.xcassets */; };
 		78F31E9526ED391500BE392C /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F31E9426ED391500BE392C /* Connection.swift */; };
+		78F31E9726EEA54300BE392C /* TherapistProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F31E9626EEA54300BE392C /* TherapistProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -89,6 +90,7 @@
 		78BA0CEB26D6E8A500093DD8 /* PSignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSignupViewController.swift; sourceTree = "<group>"; };
 		78BA0CED26D6EFB200093DD8 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		78F31E9426ED391500BE392C /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
+		78F31E9626EEA54300BE392C /* TherapistProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TherapistProfileViewController.swift; sourceTree = "<group>"; };
 		BBA5D4ED11D0592F7D64B644 /* Pods_Safespace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Safespace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -164,6 +166,7 @@
 				782315A126D708DE00FEC675 /* TherapistListViewController.swift */,
 				7897EC4D26E1EB68001E8279 /* SessionViewController.swift */,
 				7897EC8426E2151D001E8279 /* VideoViewController.swift */,
+				78F31E9626EEA54300BE392C /* TherapistProfileViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				7897EC9C26E2151D001E8279 /* NativeWebSocket.swift in Sources */,
 				7834318626D46FA300C21027 /* ViewController.swift in Sources */,
 				7897EC5126E1F8AE001E8279 /* WebRTC.swift in Sources */,
+				78F31E9726EEA54300BE392C /* TherapistProfileViewController.swift in Sources */,
 				7897EC9A26E2151D001E8279 /* Message.swift in Sources */,
 				7897EC9D26E2151D001E8279 /* StarscreamProvider.swift in Sources */,
 				7897EC9226E2151D001E8279 /* RTCStates.swift in Sources */,

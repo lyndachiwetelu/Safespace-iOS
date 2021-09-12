@@ -13,7 +13,8 @@ class TherapistListTableViewCell: UITableViewCell {
     @IBOutlet weak var qualificationLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var descLabel: UITextView!
-
+    @IBOutlet var seeMoreButton: UIButton!
+    
     @IBOutlet var tImageView: UIImageView!
     
     var delegate: TherapistListTableCellViewDelegate?
@@ -30,11 +31,11 @@ class TherapistListTableViewCell: UITableViewCell {
     }
     
     @IBAction func seeMorePressed(_ sender: UIButton) {
-        delegate?.doSegue()
+        delegate?.seeMoreButtonTapped(sender)
     }
 }
 
 
 protocol TherapistListTableCellViewDelegate {
-    func doSegue()
+    func seeMoreButtonTapped(_ button: UIButton)
 }

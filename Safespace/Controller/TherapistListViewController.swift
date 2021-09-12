@@ -10,6 +10,7 @@ import UIKit
 class TherapistListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    var selectedIndex = 0
     
     
     let therapists = [
@@ -20,6 +21,7 @@ class TherapistListViewController: UIViewController {
         ["Aberdeen", #imageLiteral(resourceName: "av3")],
         ["Salusi", #imageLiteral(resourceName: "av4")]
     ];
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -27,19 +29,23 @@ class TherapistListViewController: UIViewController {
         tableView.register(UINib(nibName: "TherapistListTableViewCell", bundle: nil), forCellReuseIdentifier: "TherapistListTableViewCell")
         tableView.backgroundColor = .white
         tableView.rowHeight = 150.0
-
-        // Do any additional setup after loading the view.
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let viewController = segue.destination as? TherapistProfileViewController
+        viewController?.name = therapists[selectedIndex][0] as? String
+        viewController?.image = therapists[selectedIndex][1] as? UIImage
+    }
+    
     
 }
 
 extension TherapistListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       
+        selectedIndex = indexPath.row
+        doSegue()
     }
-    
 }
-
 
 
 extension TherapistListViewController: UITableViewDataSource {
@@ -58,6 +64,7 @@ extension TherapistListViewController: UITableViewDataSource {
         let index = description.index(description.startIndex, offsetBy: 100)
         cell.descLabel.text = String(description[description.startIndex...index])
         cell.tImageView?.image = therapists[indexPath.row][1] as? UIImage
+        cell.seeMoreButton.tag = indexPath.row
         cell.delegate = self
         return cell
     }
@@ -68,5 +75,10 @@ extension TherapistListViewController: UITableViewDataSource {
 extension TherapistListViewController: TherapistListTableCellViewDelegate {
     func doSegue() {
         performSegue(withIdentifier: "goToTherapistProfile", sender: nil)
+    }
+    
+    func seeMoreButtonTapped(_ button: UIButton) {
+        selectedIndex = button.tag
+        doSegue()
     }
 }
