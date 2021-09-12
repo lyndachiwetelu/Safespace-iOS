@@ -76,15 +76,14 @@ class VideoViewController: UIViewController {
     }
     
     @IBAction private func backDidTap(_ sender: Any) {
-//        webRTCClient.hideVideo()
-//        webRTCClient.muteAudio()
+        closeMedia()
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func closeMedia() {
         webRTCClient.hideVideo(connId: connectionId)
-        let conn = webRTCClient.getConnection(connectionId: connectionId)
-        webRTCClient.muteAudio(peerConnection: conn!.peerConnection!)
+        webRTCClient.muteAudio(connectionId: connectionId)
         webRTCClient.endTracks()
-        self.dismiss(animated: true) {
-            // do something
-        }
     }
     
 }
@@ -92,8 +91,7 @@ class VideoViewController: UIViewController {
 
 extension VideoViewController: UIAdaptivePresentationControllerDelegate {
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-        let presenting = presentationController.presentingViewController
-        presenting.viewWillAppear(false)
+        closeMedia()
     }
 }
 

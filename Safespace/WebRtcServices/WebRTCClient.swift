@@ -278,9 +278,13 @@ extension WebRTCClient: RTCPeerConnectionDelegate {
 }
 extension WebRTCClient {
     private func setTrackEnabled<T: RTCMediaStreamTrack>(_ type: T.Type, isEnabled: Bool, peerConnection: RTCPeerConnection) {
+        print("setting track enabled, \(isEnabled)");
         peerConnection.transceivers
             .compactMap { return $0.sender.track as? T }
-            .forEach { $0.isEnabled = isEnabled }
+            .forEach {
+                $0.isEnabled = isEnabled
+                print("in transceiver")
+            }
     }
 }
 
@@ -290,6 +294,7 @@ extension WebRTCClient {
         let conn = getConnection(connectionId: connId)
         self.setVideoEnabled(false, connection: conn!)
     }
+    
     func showVideo(connId: String) {
         let conn = getConnection(connectionId: connId)
         self.setVideoEnabled(true, connection: conn!)
@@ -301,12 +306,14 @@ extension WebRTCClient {
 }
 // MARK:- Audio control
 extension WebRTCClient {
-    func muteAudio(peerConnection: RTCPeerConnection) {
-        self.setAudioEnabled(false, peerConnection: peerConnection)
+    func muteAudio(connectionId: String) {
+        let conn = getConnection(connectionId: connectionId)
+        self.setAudioEnabled(false, peerConnection: conn!.peerConnection!)
     }
     
-    func unmuteAudio(peerConnection: RTCPeerConnection) {
-        self.setAudioEnabled(true, peerConnection: peerConnection)
+    func unmuteAudio(connectionId: String) {
+        let conn = getConnection(connectionId: connectionId)
+        self.setAudioEnabled(true, peerConnection: conn!.peerConnection!)
     }
     
     // Fallback to the default playing device: headphones/bluetooth/ear speaker
