@@ -19,7 +19,14 @@ class SessionViewController: UIViewController {
     private var connection: Connection?
     private lazy var videoViewController = VideoViewController(webRTCClient: self.webRTCClient!, self.socket!, connectionId: connId!)
     private var dest: String = ""
-    private var connId: String? = "1234567890"
+    private var connId: String? = "1234567890" {
+        didSet {
+            DispatchQueue.main.async {
+                self.videoViewController = VideoViewController(webRTCClient: self.webRTCClient!, self.socket!, connectionId: self.connId!)
+            }
+        }
+    }
+    
     private var callAccepted = false
     private var callRejected = false
     private var connectionType = "data"
@@ -166,7 +173,6 @@ class SessionViewController: UIViewController {
         socket?.on("user-connected") {[weak self] data, ack in
             print("RECEIVED USER CONNECTED....\(data)")
             self!.dest = data[0] as! String
-            print("DEST 2 IS SET for local candidate")
             self?.makeOffer(dst: self!.dest, connectionId: "1234567890")
             
             return
@@ -174,7 +180,7 @@ class SessionViewController: UIViewController {
         
         socket?.onAny {
             if $0.event == "user-connected" {
-                print("I GOT THE USER!")
+               // do something
             }
             
             print("Got event: \($0.event), with items: \($0.items!) \($0)")
@@ -232,7 +238,6 @@ extension SessionViewController: SignalClientDelegate {
 
         if sdp.type == .answer {
             print("Received remote sdp answer!")
-//            let sdpPassive = sdp.sdp.replacingOccurrences(of: "a=setup:active", with: "a=setup:passive")
             let sdpPassive = sdp.sdp.replacingOccurrences(of: "", with: "")
             let sdpM = RTCSessionDescription(type: sdp.type, sdp: sdpPassive)
             
