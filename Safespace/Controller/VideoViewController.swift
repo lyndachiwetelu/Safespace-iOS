@@ -15,12 +15,12 @@ class VideoViewController: UIViewController {
     @IBOutlet private weak var localVideoView: UIView?
     private let webRTCClient: WebRTCClient
     private let socket: SocketIOClient
-    private var connection: Connection
+    private var connectionId: String
 
-    init(webRTCClient: WebRTCClient, _ socket: SocketIOClient, connection: Connection) {
+    init(webRTCClient: WebRTCClient, _ socket: SocketIOClient, connectionId: String) {
         self.webRTCClient = webRTCClient
         self.socket = socket
-        self.connection = connection
+        self.connectionId = connectionId
         super.init(nibName: String(describing: VideoViewController.self), bundle: Bundle.main)
     }
     
@@ -55,6 +55,11 @@ class VideoViewController: UIViewController {
         self.view.sendSubviewToBack(remoteRenderer)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("connectionId:-------------\(connectionId)")
+    }
+    
     private func embedView(_ view: UIView, into containerView: UIView) {
         containerView.addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -73,8 +78,9 @@ class VideoViewController: UIViewController {
     @IBAction private func backDidTap(_ sender: Any) {
 //        webRTCClient.hideVideo()
 //        webRTCClient.muteAudio()
-        webRTCClient.hideVideo(connId: connection.connectionId)
-        webRTCClient.muteAudio(peerConnection: connection.peerConnection!)
+        webRTCClient.hideVideo(connId: connectionId)
+        let conn = webRTCClient.getConnection(connectionId: connectionId)
+        webRTCClient.muteAudio(peerConnection: conn!.peerConnection!)
         webRTCClient.endTracks()
         self.dismiss(animated: true) {
             // do something

@@ -14,6 +14,7 @@ protocol SignalClientDelegate: AnyObject {
     func signalClientDidDisconnect(_ signalClient: SignalingClient)
     func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription, with sdpMetadata: SdpMetadata)
     func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate)
+    func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate, connectionId: String)
 }
 
 final class SignalingClient {
@@ -102,7 +103,7 @@ extension SignalingClient: WebSocketProviderDelegate {
             // do nothing
             let t = true
         case .candidateWrapper(let wrapper, let dest):
-            self.delegate?.signalClient(self, didReceiveCandidate: wrapper.candidate.rtcIceCandidate)
+            self.delegate?.signalClient(self, didReceiveCandidate: wrapper.candidate.rtcIceCandidate, connectionId: wrapper.connectionId)
         case .sdpNew(let offerResponse):
             let sd = RTCSessionDescription(type: offerResponse.payload.sdp.type == "offer" ? .offer : .answer, sdp: offerResponse.payload.sdp.sdp)
             self.delegate?.signalClient(self, didReceiveRemoteSdp: sd, with: SdpMetadata(connectionId: offerResponse.payload.connectionId, audioOnly: offerResponse.payload.metadata?.audioOnly ?? true, src: offerResponse.src, type: offerResponse.payload.type))

@@ -31,13 +31,14 @@ final class WebRTCClient: NSObject {
 //    private let peerConnection: RTCPeerConnection
     private let rtcAudioSession =  RTCAudioSession.sharedInstance()
     private let audioQueue = DispatchQueue(label: "audio")
-    private let mediaConstrains = [kRTCMediaConstraintsOfferToReceiveAudio: kRTCMediaConstraintsValueTrue,
+    private let mediaConstraints = [kRTCMediaConstraintsOfferToReceiveAudio: kRTCMediaConstraintsValueTrue,
                                    kRTCMediaConstraintsOfferToReceiveVideo: kRTCMediaConstraintsValueTrue]    
     private var videoCapturer: RTCVideoCapturer?
     private var localVideoTrack: RTCVideoTrack?
     private var remoteVideoTrack: RTCVideoTrack?
-    private var localDataChannel: RTCDataChannel?
-    private var remoteDataChannel: RTCDataChannel?
+    
+//    private var localDataChannel: RTCDataChannel?
+//    private var remoteDataChannel: RTCDataChannel?
     
     
     // added
@@ -54,7 +55,6 @@ final class WebRTCClient: NSObject {
         let config = RTCConfiguration()
         config.iceServers = [RTCIceServer(urlStrings: iceServers), RTCIceServer(urlStrings: turnServers, username: "peerjs", credential: "peerjsp")]
         
-        
         // Unified plan is more superior than planB
         config.sdpSemantics = .unifiedPlan
         
@@ -69,9 +69,9 @@ final class WebRTCClient: NSObject {
         self.config = config
         self.constraints = constraints
         
-        guard let peerConnection = WebRTCClient.factory.peerConnection(with: config, constraints: constraints, delegate: nil) else {
-            fatalError("Could not create new RTCPeerConnection")
-        }
+//        guard let peerConnection = WebRTCClient.factory.peerConnection(with: config, constraints: constraints, delegate: nil) else {
+//            fatalError("Could not create new RTCPeerConnection")
+//        }
         super.init()
         
         //self.peerConnection = peerConnection
@@ -80,22 +80,22 @@ final class WebRTCClient: NSObject {
         
         // start here
         
-        let streamId = "stream"
-        
-        // Audio
-        let audioTrack = self.createAudioTrack()
-        peerConnection.add(audioTrack, streamIds: [streamId])
-        
-        // Video
-        let videoTrack = self.createVideoTrack()
-        self.localVideoTrack = videoTrack
-        peerConnection.add(videoTrack, streamIds: [streamId])
-        self.remoteVideoTrack = peerConnection.transceivers.first { $0.mediaType == .video }?.receiver.track as? RTCVideoTrack
-        
-        
-        // peerConnection
-        peerConnection.delegate = self
-        
+//        let streamId = "stream"
+//
+//        // Audio
+//        let audioTrack = self.createAudioTrack()
+//        peerConnection.add(audioTrack, streamIds: [streamId])
+//
+//        // Video
+//        let videoTrack = self.createVideoTrack()
+//        self.localVideoTrack = videoTrack
+//        peerConnection.add(videoTrack, streamIds: [streamId])
+//        self.remoteVideoTrack = peerConnection.transceivers.first { $0.mediaType == .video }?.receiver.track as? RTCVideoTrack
+//
+//
+//        // peerConnection
+//        peerConnection.delegate = self
+//
      
         
 //        let dataChannelConfig = RTCDataChannelConfiguration()
@@ -122,38 +122,18 @@ final class WebRTCClient: NSObject {
 //        self.peerConnection.delegate = self
     }
     
-    func createNewPeerConnection(connectionId: String) -> (RTCPeerConnection, RTCDataChannel?)? {
+    func createNewPeerConnection(connectionId: String) -> (RTCPeerConnection, RTCDataChannel)? {
         let dataChannelConfig = RTCDataChannelConfiguration()
         let pc = WebRTCClient.factory.peerConnection(with: self.config, constraints: constraints, delegate: self)
-//        pc?.delegate = self
-        
-//        dataChannelConfig.channelId = 1
+        self.createMediaSendersForConnection(peerConnection: pc!)
+        self.configureAudioSession()
         
         if let dataChannel = pc?.dataChannel(forLabel: connectionId, configuration: dataChannelConfig) {
             dataChannel.delegate = self
-            
-            let streamId = "stream"
-            
-            // Audio
-            let audioTrack = self.createAudioTrack()
-            pc!.add(audioTrack, streamIds: [streamId])
-            
-            // Video
-            let videoTrack = self.createVideoTrack()
-            self.localVideoTrack = videoTrack
-            pc!.add(videoTrack, streamIds: [streamId])
-            self.remoteVideoTrack = pc!.transceivers.first { $0.mediaType == .video }?.receiver.track as? RTCVideoTrack
-            
-            
             return (pc, dataChannel) as? (RTCPeerConnection, RTCDataChannel)
         }
-        
     
        return nil
-    }
-    
-    func getFirstConnection() -> Connection? {
-        return connections.first
     }
     
     func addConnection(_ connection: Connection) {
@@ -174,10 +154,9 @@ final class WebRTCClient: NSObject {
 //        peerConnection.remove(stream)
     }
     
-    
-    //MARK: - New Signaling
+    //MARK: - Signaling
     func offer(peerConnection: RTCPeerConnection, completion: @escaping (_ sdp: RTCSessionDescription) -> Void) {
-        let constrains = RTCMediaConstraints(mandatoryConstraints: self.mediaConstrains,
+        let constrains = RTCMediaConstraints(mandatoryConstraints: self.mediaConstraints,
                                              optionalConstraints: nil)
         peerConnection.offer(for: constrains) { (sdp, error) in
             guard let sdp = sdp else {
@@ -193,7 +172,7 @@ final class WebRTCClient: NSObject {
     }
     
     func answer(connectionId: String, completion: @escaping (_ sdp: RTCSessionDescription) -> Void)  {
-        let constrains = RTCMediaConstraints(mandatoryConstraints: self.mediaConstrains,
+        let constrains = RTCMediaConstraints(mandatoryConstraints: self.mediaConstraints,
                                              optionalConstraints: nil)
         let conn = getConnection(connectionId: connectionId)
         conn!.peerConnection!.answer(for: constrains) { (sdp, error) in
@@ -218,44 +197,6 @@ final class WebRTCClient: NSObject {
         print(conn != nil ? "connection exists" : "connection does not exist")
         print("setting ice candidate for peerConnection \(String(describing: connectionId))")
     }
-    
-    // MARK: Signaling
-//    func offer(completion: @escaping (_ sdp: RTCSessionDescription) -> Void) {
-//        let constrains = RTCMediaConstraints(mandatoryConstraints: self.mediaConstrains,
-//                                             optionalConstraints: nil)
-//        self.peerConnection.offer(for: constrains) { (sdp, error) in
-//            guard let sdp = sdp else {
-//                return
-//            }
-//
-//            self.peerConnection.setLocalDescription(sdp, completionHandler: { (error) in
-//                completion(sdp)
-//            })
-//        }
-//    }
-//
-//    func answer(completion: @escaping (_ sdp: RTCSessionDescription) -> Void)  {
-//        let constrains = RTCMediaConstraints(mandatoryConstraints: self.mediaConstrains,
-//                                             optionalConstraints: nil)
-//        self.peerConnection.answer(for: constrains) { (sdp, error) in
-//            guard let sdp = sdp else {
-//                print("ERROR 1 \(String(describing: error))")
-//                return
-//            }
-//
-//            self.peerConnection.setLocalDescription(sdp, completionHandler: { (error) in
-//                completion(sdp)
-//            })
-//        }
-//    }
-//
-//    func set(remoteSdp: RTCSessionDescription, completion: @escaping (Error?) -> ()) {
-//        self.peerConnection.setRemoteDescription(remoteSdp, completionHandler: completion)
-//    }
-//
-//    func set(remoteCandidate: RTCIceCandidate, completion: @escaping (Error?) -> ()) {
-//        self.peerConnection.add(remoteCandidate, completionHandler: completion)
-//    }
     
     // MARK: Media
     func startCaptureLocalVideo(renderer: RTCVideoRenderer) {
@@ -298,6 +239,20 @@ final class WebRTCClient: NSObject {
             debugPrint("Error changeing AVAudioSession category: \(error)")
         }
         self.rtcAudioSession.unlockForConfiguration()
+    }
+    
+    private func createMediaSendersForConnection(peerConnection: RTCPeerConnection) {
+        let streamId = "stream"
+        
+        // Audio
+        let audioTrack = self.createAudioTrack()
+        peerConnection.add(audioTrack, streamIds: [streamId])
+        
+        // Video
+        let videoTrack = self.createVideoTrack()
+        self.localVideoTrack = videoTrack
+        peerConnection.add(videoTrack, streamIds: [streamId])
+        self.remoteVideoTrack = peerConnection.transceivers.first { $0.mediaType == .video }?.receiver.track as? RTCVideoTrack
     }
 //
 //    private func createMediaSenders() {
@@ -361,11 +316,12 @@ final class WebRTCClient: NSObject {
     
     func sendData(_ data: Data, connectionId: String) {
         let buffer = RTCDataBuffer(data: data, isBinary: false)
-        let conn = getConnection(connectionId: connectionId)
-        conn!.dataChannel?.sendData(buffer)
-        print("does conn \(String(describing: conn?.dataChannel?.delegate)) have data channel delegate?  \(String(describing:conn?.dataChannel))")
-        print("data channel has state \(conn?.dataChannel?.readyState)")
-        
+//        let conn = getConnection(connectionId: connectionId)
+//        conn!.dataChannel?.sendData(buffer)
+        for conn in connections {
+            conn.dataChannel?.sendData(buffer)
+        }
+    
     }
     
 //    func sendData(_ data: Data) {
@@ -378,11 +334,6 @@ final class WebRTCClient: NSObject {
 //            print("data channel not found!")
 //        }
 //    }
-    
-    func getDataChannels() {
-        print(self.localDataChannel!)
-        print(self.remoteDataChannel!)
-    }
 }
 
 extension WebRTCClient: RTCPeerConnectionDelegate {
