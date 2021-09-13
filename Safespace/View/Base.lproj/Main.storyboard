@@ -691,7 +691,7 @@
             </objects>
             <point key="canvasLocation" x="3331.884057971015" y="842.41071428571422"/>
         </scene>
-        <!--Therapist Profile View Controller-->
+        <!--MARY AGIDA-->
         <scene sceneID="ThA-Ea-RPA">
             <objects>
                 <viewController id="Ub6-6L-bys" customClass="TherapistProfileViewController" customModule="Safespace" customModuleProvider="target" sceneMemberID="viewController">
@@ -801,6 +801,9 @@
                                                 <state key="normal" title="Book a Session">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <segue destination="hyz-Dp-xXw" kind="show" id="keB-rG-tim"/>
+                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What People are saying about their sessions with MAry Agida" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uow-6c-h01">
                                                 <rect key="frame" x="0.0" y="318" width="384" height="20.5"/>
@@ -839,7 +842,7 @@
                             <constraint firstAttribute="trailing" secondItem="ia4-L3-8Yu" secondAttribute="trailing" id="tDq-lq-Rx1"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="kU5-3y-ClY"/>
+                    <navigationItem key="navigationItem" title="MARY AGIDA" id="kU5-3y-ClY"/>
                     <connections>
                         <outlet property="ailmentsTextView" destination="i9k-dT-iBI" id="pEs-tQ-H03"/>
                         <outlet property="descriptionTextView" destination="Cqz-x5-NQX" id="tHl-11-UIL"/>
@@ -849,7 +852,166 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7PJ-pk-aYz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2753.6231884057975" y="1501.3392857142856"/>
+            <point key="canvasLocation" x="1486" y="1545"/>
+        </scene>
+        <!--MARY AGIDA-->
+        <scene sceneID="y0M-jf-If7">
+            <objects>
+                <viewController id="hyz-Dp-xXw" customClass="BookSessionViewController" customModule="Safespace" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cR7-lW-nE7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ECq-8j-ChD" userLabel="Main Stack View">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="uyD-Pt-8FS" userLabel="Details Stack View">
+                                        <rect key="frame" x="22" y="20" width="370" height="306"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="5ep-mx-aqp">
+                                                <rect key="frame" x="59.5" y="0.0" width="251.5" height="21.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MARY AGIBA" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cwi-3O-4Uu">
+                                                        <rect key="frame" x="0.0" y="0.5" width="99.5" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$80 / 30 Minutes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="083-hR-0W6">
+                                                        <rect key="frame" x="121.5" y="0.5" width="130" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="AkV-We-snw">
+                                                <rect key="frame" x="0.0" y="43.5" width="370" height="70"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="IIC-V7-9Vz"/>
+                                                </constraints>
+                                                <string key="text">Select a time in Mary’s calendar. 
+Since this is your first time you may select a maximum of 2 times</string>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="1mf-RQ-ihb">
+                                                <rect key="frame" x="54" y="135.5" width="262" height="56"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOUR SELECTION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sG5-a0-WG8">
+                                                        <rect key="frame" x="0.0" y="0.0" width="262" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="hSg-dQ-uy5">
+                                                        <rect key="frame" x="0.0" y="35.5" width="262" height="20.5"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOTAL PRICE: $40" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gV2-XE-tWg">
+                                                                <rect key="frame" x="0.0" y="0.0" width="142.5" height="20.5"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SESSIONS: 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jvL-lD-lTN">
+                                                                <rect key="frame" x="162.5" y="0.0" width="99.5" height="20.5"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <color key="backgroundColor" name="App Teal"/>
+                                                <constraints>
+                                                    <constraint firstItem="hSg-dQ-uy5" firstAttribute="leading" secondItem="1mf-RQ-ihb" secondAttribute="leading" id="gc0-mf-QX1"/>
+                                                    <constraint firstAttribute="trailing" secondItem="hSg-dQ-uy5" secondAttribute="trailing" id="mbk-zm-VVh"/>
+                                                </constraints>
+                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select the time you want to book the session for:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdq-CA-eHQ">
+                                                <rect key="frame" x="0.0" y="213.5" width="370" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="XLi-0z-Dav">
+                                                <rect key="frame" x="25" y="256" width="320" height="50"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="4O3-pm-F8k"/>
+                                                </constraints>
+                                            </datePicker>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="AkV-We-snw" secondAttribute="trailing" id="3hL-7T-8gA"/>
+                                            <constraint firstItem="1mf-RQ-ihb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="AkV-We-snw" secondAttribute="bottom" id="Clh-or-hzo"/>
+                                            <constraint firstItem="AkV-We-snw" firstAttribute="top" relation="greaterThanOrEqual" secondItem="5ep-mx-aqp" secondAttribute="bottom" id="iEA-En-2ol"/>
+                                            <constraint firstItem="AkV-We-snw" firstAttribute="leading" secondItem="uyD-Pt-8FS" secondAttribute="leading" id="xTD-QL-erK"/>
+                                        </constraints>
+                                    </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8EC-KZ-85U">
+                                        <rect key="frame" x="15" y="346" width="384" height="350"/>
+                                        <subviews>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KbT-Ot-LEY">
+                                                <rect key="frame" x="0.0" y="0.0" width="384" height="350"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="384" id="YNH-N8-iML"/>
+                                                    <constraint firstAttribute="height" constant="350" id="goZ-xK-rDM"/>
+                                                </constraints>
+                                                <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </tableView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="KbT-Ot-LEY" firstAttribute="top" secondItem="8EC-KZ-85U" secondAttribute="top" id="7AJ-Tb-rhv"/>
+                                            <constraint firstAttribute="trailing" secondItem="KbT-Ot-LEY" secondAttribute="trailing" id="UM0-sR-li8"/>
+                                            <constraint firstAttribute="bottom" secondItem="KbT-Ot-LEY" secondAttribute="bottom" id="Zr6-mi-l6c"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="KbT-Ot-LEY" secondAttribute="width" id="ojO-zQ-rxd"/>
+                                            <constraint firstItem="KbT-Ot-LEY" firstAttribute="leading" secondItem="8EC-KZ-85U" secondAttribute="leading" id="w5K-eT-o40"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U0z-m2-JZ4">
+                                        <rect key="frame" x="20" y="716" width="374" height="50"/>
+                                        <color key="backgroundColor" name="App Teal"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="ptI-IP-Zpf"/>
+                                        </constraints>
+                                        <state key="normal" title="CONTINUE">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="U0z-m2-JZ4" firstAttribute="leading" secondItem="ECq-8j-ChD" secondAttribute="leading" constant="20" id="DcI-ZX-93i"/>
+                                    <constraint firstAttribute="height" constant="774" id="Twn-k1-lhi"/>
+                                    <constraint firstAttribute="trailing" secondItem="U0z-m2-JZ4" secondAttribute="trailing" constant="20" id="V8g-Ug-cHo"/>
+                                </constraints>
+                                <directionalEdgeInsets key="directionalLayoutMargins" top="20" leading="15" bottom="8" trailing="15"/>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="8AD-lb-Xbd"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="8AD-lb-Xbd" firstAttribute="trailing" secondItem="ECq-8j-ChD" secondAttribute="trailing" id="Nwo-Xb-b0d"/>
+                            <constraint firstItem="ECq-8j-ChD" firstAttribute="leading" secondItem="cR7-lW-nE7" secondAttribute="leading" id="VoH-3a-HgJ"/>
+                            <constraint firstItem="8AD-lb-Xbd" firstAttribute="bottom" secondItem="ECq-8j-ChD" secondAttribute="bottom" id="X9W-uV-af7"/>
+                            <constraint firstItem="ECq-8j-ChD" firstAttribute="top" secondItem="8AD-lb-Xbd" secondAttribute="top" id="bm9-Lj-0nk"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="MARY AGIDA" id="c4n-Kj-3RH"/>
+                    <connections>
+                        <outlet property="tableView" destination="KbT-Ot-LEY" id="jRg-ki-X9v"/>
+                        <outlet property="textView" destination="AkV-We-snw" id="oJX-y5-mP9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tBe-q3-1jh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2479.7101449275365" y="1550.8928571428571"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="kpK-Bk-V2W">

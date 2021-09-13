@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		49EDA733D72EFC98BD5057D6 /* Pods_Safespace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA5D4ED11D0592F7D64B644 /* Pods_Safespace.framework */; };
+		78112D4826EEB767006BB527 /* BookSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78112D4726EEB767006BB527 /* BookSessionViewController.swift */; };
+		78112D4A26EEC073006BB527 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78112D4926EEC073006BB527 /* Session.swift */; };
+		78112D5026EEC1F0006BB527 /* SessionListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78112D4E26EEC1F0006BB527 /* SessionListTableViewCell.swift */; };
+		78112D5126EEC1F0006BB527 /* SessionListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78112D4F26EEC1F0006BB527 /* SessionListTableViewCell.xib */; };
 		782315A226D708DF00FEC675 /* TherapistListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782315A126D708DE00FEC675 /* TherapistListViewController.swift */; };
 		782315A926D70FBD00FEC675 /* TherapistListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782315A726D70FBD00FEC675 /* TherapistListTableViewCell.swift */; };
 		782315AA26D70FBD00FEC675 /* TherapistListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 782315A826D70FBD00FEC675 /* TherapistListTableViewCell.xib */; };
@@ -58,6 +62,10 @@
 /* Begin PBXFileReference section */
 		014F4D971CC7DBA5F0243CEB /* Pods-Safespace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safespace.release.xcconfig"; path = "Target Support Files/Pods-Safespace/Pods-Safespace.release.xcconfig"; sourceTree = "<group>"; };
 		34B748E5927FF1464FE56CEA /* Pods-Safespace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safespace.debug.xcconfig"; path = "Target Support Files/Pods-Safespace/Pods-Safespace.debug.xcconfig"; sourceTree = "<group>"; };
+		78112D4726EEB767006BB527 /* BookSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSessionViewController.swift; sourceTree = "<group>"; };
+		78112D4926EEC073006BB527 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		78112D4E26EEC1F0006BB527 /* SessionListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionListTableViewCell.swift; sourceTree = "<group>"; };
+		78112D4F26EEC1F0006BB527 /* SessionListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SessionListTableViewCell.xib; sourceTree = "<group>"; };
 		782315A126D708DE00FEC675 /* TherapistListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TherapistListViewController.swift; sourceTree = "<group>"; };
 		782315A726D70FBD00FEC675 /* TherapistListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TherapistListTableViewCell.swift; path = Controller/TherapistListTableViewCell.swift; sourceTree = "<group>"; };
 		782315A826D70FBD00FEC675 /* TherapistListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TherapistListTableViewCell.xib; sourceTree = "<group>"; };
@@ -107,6 +115,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		78112D4B26EEC07C006BB527 /* Rtc */ = {
+			isa = PBXGroup;
+			children = (
+				7897EC8026E2151D001E8279 /* IceCandidate.swift */,
+				7897EC7F26E2151D001E8279 /* SessionDescription.swift */,
+				7897EC5026E1F8AE001E8279 /* WebRTC.swift */,
+				78F31E9426ED391500BE392C /* Connection.swift */,
+			);
+			path = Rtc;
+			sourceTree = "<group>";
+		};
 		7834317526D46FA200C21027 = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +150,7 @@
 			children = (
 				7897EC4F26E1F891001E8279 /* Models */,
 				782315A726D70FBD00FEC675 /* TherapistListTableViewCell.swift */,
+				78112D4E26EEC1F0006BB527 /* SessionListTableViewCell.swift */,
 				7834318126D46FA300C21027 /* AppDelegate.swift */,
 				7834318326D46FA300C21027 /* SceneDelegate.swift */,
 				7897EC7B26E2151D001E8279 /* Config */,
@@ -152,6 +172,7 @@
 				782315A826D70FBD00FEC675 /* TherapistListTableViewCell.xib */,
 				7834318C26D46FA900C21027 /* LaunchScreen.storyboard */,
 				7834318726D46FA300C21027 /* Main.storyboard */,
+				78112D4F26EEC1F0006BB527 /* SessionListTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -167,6 +188,7 @@
 				7897EC4D26E1EB68001E8279 /* SessionViewController.swift */,
 				7897EC8426E2151D001E8279 /* VideoViewController.swift */,
 				78F31E9626EEA54300BE392C /* TherapistProfileViewController.swift */,
+				78112D4726EEB767006BB527 /* BookSessionViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -174,10 +196,8 @@
 		7897EC4F26E1F891001E8279 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				7897EC8026E2151D001E8279 /* IceCandidate.swift */,
-				7897EC7F26E2151D001E8279 /* SessionDescription.swift */,
-				7897EC5026E1F8AE001E8279 /* WebRTC.swift */,
-				78F31E9426ED391500BE392C /* Connection.swift */,
+				78112D4B26EEC07C006BB527 /* Rtc */,
+				78112D4926EEC073006BB527 /* Session.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -298,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7834318E26D46FA900C21027 /* LaunchScreen.storyboard in Resources */,
+				78112D5126EEC1F0006BB527 /* SessionListTableViewCell.xib in Resources */,
 				78BA0CEE26D6EFB200093DD8 /* Colors.xcassets in Resources */,
 				7897EC9526E2151D001E8279 /* VideoViewController.xib in Resources */,
 				7834318B26D46FA900C21027 /* Assets.xcassets in Resources */,
@@ -355,6 +376,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78112D4826EEB767006BB527 /* BookSessionViewController.swift in Sources */,
 				782315A226D708DF00FEC675 /* TherapistListViewController.swift in Sources */,
 				78F31E9526ED391500BE392C /* Connection.swift in Sources */,
 				7897EC9B26E2151D001E8279 /* WebSocketProvider.swift in Sources */,
@@ -364,6 +386,8 @@
 				78F31E9726EEA54300BE392C /* TherapistProfileViewController.swift in Sources */,
 				7897EC9A26E2151D001E8279 /* Message.swift in Sources */,
 				7897EC9D26E2151D001E8279 /* StarscreamProvider.swift in Sources */,
+				78112D5026EEC1F0006BB527 /* SessionListTableViewCell.swift in Sources */,
+				78112D4A26EEC073006BB527 /* Session.swift in Sources */,
 				7897EC9226E2151D001E8279 /* RTCStates.swift in Sources */,
 				78BA0CEC26D6E8A500093DD8 /* PSignupViewController.swift in Sources */,
 				7897EC9E26E2151D001E8279 /* WebRTCClient.swift in Sources */,

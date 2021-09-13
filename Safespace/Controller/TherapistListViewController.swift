@@ -22,11 +22,13 @@ class TherapistListViewController: UIViewController {
         ["Salusi", #imageLiteral(resourceName: "av4")]
     ];
     
+    let cellIdentifier = "TherapistListTableViewCell"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UINib(nibName: "TherapistListTableViewCell", bundle: nil), forCellReuseIdentifier: "TherapistListTableViewCell")
+        tableView.register(UINib(nibName: "TherapistListTableViewCell", bundle: nil), forCellReuseIdentifier: cellIdentifier)
         tableView.backgroundColor = .white
         tableView.rowHeight = 150.0
     }
@@ -40,6 +42,8 @@ class TherapistListViewController: UIViewController {
     
 }
 
+//MARK: - UITableViewDelegate
+
 extension TherapistListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedIndex = indexPath.row
@@ -47,7 +51,7 @@ extension TherapistListViewController: UITableViewDelegate {
     }
 }
 
-
+//MARK: - UITableViewDataSource
 extension TherapistListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,7 +59,7 @@ extension TherapistListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TherapistListTableViewCell", for: indexPath) as! TherapistListTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! TherapistListTableViewCell
         cell.nameLabel?.text = therapists[indexPath.row][0] as? String
         cell.priceLabel?.text = "$80 / 30minutes"
         cell.qualificationLabel.text = "B.Sc"
@@ -71,6 +75,7 @@ extension TherapistListViewController: UITableViewDataSource {
     
 }
 
+//MARK: - TherapistListTableCellViewDelegate
 
 extension TherapistListViewController: TherapistListTableCellViewDelegate {
     func doSegue() {
