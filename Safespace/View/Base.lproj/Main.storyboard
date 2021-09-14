@@ -363,7 +363,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="4HN-lN-M23" kind="show" id="IV2-dv-Ca4"/>
+                                                    <segue destination="Wad-QZ-YL4" kind="show" id="IV2-dv-Ca4"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -508,7 +508,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="4HN-lN-M23" kind="show" id="sJ7-sb-sjY"/>
+                                                    <segue destination="Wad-QZ-YL4" kind="show" id="sJ7-sb-sjY"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -550,11 +550,11 @@
             <objects>
                 <viewController id="4HN-lN-M23" customClass="TherapistListViewController" customModule="Safespace" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5ug-yN-Wg7">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QJ5-1w-z8m" userLabel="ContainerView">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k0J-Sa-6Ch">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
@@ -573,7 +573,7 @@
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="b3r-pG-9h7">
-                                        <rect key="frame" x="0.0" y="70" width="414" height="738"/>
+                                        <rect key="frame" x="0.0" y="70" width="414" height="655"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
                                 </subviews>
@@ -598,6 +598,7 @@
                             <constraint firstItem="QJ5-1w-z8m" firstAttribute="leading" secondItem="zft-9z-L9G" secondAttribute="leading" id="jcw-BQ-cTI"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Therapists" image="person.fill" catalog="system" id="3kT-LE-xhx"/>
                     <navigationItem key="navigationItem" title="Therapists" id="ixJ-aZ-keg"/>
                     <connections>
                         <outlet property="tableView" destination="b3r-pG-9h7" id="mQj-p3-9kX"/>
@@ -606,7 +607,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="58x-qf-mmc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2403" y="824"/>
+            <point key="canvasLocation" x="3762" y="433"/>
         </scene>
         <!--Session View Controller-->
         <scene sceneID="j2q-Yx-5dJ">
@@ -673,7 +674,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j0e-yC-HgT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3331.884057971015" y="842.41071428571422"/>
+            <point key="canvasLocation" x="5626" y="526"/>
         </scene>
         <!--MARY AGIDA-->
         <scene sceneID="ThA-Ea-RPA">
@@ -1258,14 +1259,14 @@ Since this is your first time you may select a maximum of 2 times</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zp7-j7-Dnr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4130" y="1557"/>
+            <point key="canvasLocation" x="4065" y="1754"/>
         </scene>
         <!--YOUR SESSIONS-->
         <scene sceneID="t6E-SL-6Bd">
             <objects>
                 <tableViewController id="rba-BQ-EXU" customClass="SessionListTableViewController" customModule="Safespace" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fcc-yz-WSi">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1285,11 +1286,31 @@ Since this is your first time you may select a maximum of 2 times</string>
                             <outlet property="delegate" destination="rba-BQ-EXU" id="eKX-xU-QC6"/>
                         </connections>
                     </tableView>
+                    <tabBarItem key="tabBarItem" title="Sessions" image="phone.bubble.left.fill" catalog="system" id="cF8-eD-Nl2"/>
                     <navigationItem key="navigationItem" title="YOUR SESSIONS" id="QjC-bf-FLa"/>
+                    <connections>
+                        <segue destination="iXR-6b-rBL" kind="show" identifier="EnterSession" id="yTd-26-Bgo"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H4n-ZP-4SX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5125" y="1549"/>
+            <point key="canvasLocation" x="4571" y="1013"/>
+        </scene>
+        <!--Session Detail View Controller-->
+        <scene sceneID="KDa-ia-6Wm">
+            <objects>
+                <viewController id="iXR-6b-rBL" customClass="SessionDetailViewController" customModule="Safespace" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2BY-Gy-f3N">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="nhX-hC-oqb"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="8ns-30-fTb"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iQW-vE-ot4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6126.0869565217399" y="1203.3482142857142"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="kpK-Bk-V2W">
@@ -1315,15 +1336,39 @@ Since this is your first time you may select a maximum of 2 times</string>
             </objects>
             <point key="canvasLocation" x="18.840579710144929" y="83.705357142857139"/>
         </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="aTf-lH-eoA">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Wad-QZ-YL4" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="kgK-Ng-Gzr"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="PX5-4a-Rd4">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" red="0.31044386994384593" green="0.61484103732638884" blue="0.56463524741612536" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="4HN-lN-M23" kind="relationship" relationship="viewControllers" id="MG1-bR-5tn"/>
+                        <segue destination="rba-BQ-EXU" kind="relationship" relationship="viewControllers" id="NID-n6-qvy"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6gB-md-JMH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2402.898550724638" y="823.66071428571422"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="IV2-dv-Ca4"/>
+        <segue reference="NID-n6-qvy"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="audioIcon" width="1440" height="1024"/>
         <image name="av3" width="200" height="200"/>
         <image name="banner" width="898" height="670"/>
         <image name="checked" width="512" height="512"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="phone.bubble.left.fill" catalog="system" width="128" height="110"/>
         <image name="textIcon" width="1440" height="1024"/>
         <image name="videoIcon" width="1440" height="1024"/>
         <namedColor name="App Teal">

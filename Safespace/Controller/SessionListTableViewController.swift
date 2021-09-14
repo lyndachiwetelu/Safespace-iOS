@@ -76,6 +76,7 @@ class SessionListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SessionListCell", for: indexPath) as! SessionListCell
+        cell.delegate = self
 
         let typeOfSession = getSectionKey(section: indexPath.section)
         
@@ -141,4 +142,12 @@ class SessionListTableViewController: UITableViewController {
     }
     */
 
+}
+
+
+extension SessionListTableViewController: SessionListCellDelegate {
+    func joinPressed(_ sender: UIButton) {
+        performSegue(withIdentifier: "EnterSession", sender: self)
+    }
+    
 }

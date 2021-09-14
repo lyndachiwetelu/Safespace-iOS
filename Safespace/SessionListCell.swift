@@ -10,6 +10,7 @@ import UIKit
 class SessionListCell: UITableViewCell {
     
     var typeOfSession: String?
+    var delegate: SessionListCellDelegate?
 
     @IBOutlet var joinButton: UIButton!
     @IBOutlet var cancelButton: UIButton!
@@ -25,4 +26,12 @@ class SessionListCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    @IBAction func joinPressed(_ sender: UIButton) {
+        self.delegate?.joinPressed(sender)
+    }
+}
+
+
+protocol SessionListCellDelegate {
+    func joinPressed(_ sender: UIButton)
 }

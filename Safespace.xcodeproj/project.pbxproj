@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		49EDA733D72EFC98BD5057D6 /* Pods_Safespace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA5D4ED11D0592F7D64B644 /* Pods_Safespace.framework */; };
+		7800440E26F144CD00758DBE /* SessionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7800440D26F144CD00758DBE /* SessionDetailViewController.swift */; };
 		78112D4826EEB767006BB527 /* BookSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78112D4726EEB767006BB527 /* BookSessionViewController.swift */; };
 		78112D4A26EEC073006BB527 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78112D4926EEC073006BB527 /* Session.swift */; };
 		78112D5026EEC1F0006BB527 /* SessionListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78112D4E26EEC1F0006BB527 /* SessionListTableViewCell.swift */; };
@@ -68,6 +69,7 @@
 /* Begin PBXFileReference section */
 		014F4D971CC7DBA5F0243CEB /* Pods-Safespace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safespace.release.xcconfig"; path = "Target Support Files/Pods-Safespace/Pods-Safespace.release.xcconfig"; sourceTree = "<group>"; };
 		34B748E5927FF1464FE56CEA /* Pods-Safespace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safespace.debug.xcconfig"; path = "Target Support Files/Pods-Safespace/Pods-Safespace.debug.xcconfig"; sourceTree = "<group>"; };
+		7800440D26F144CD00758DBE /* SessionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailViewController.swift; sourceTree = "<group>"; };
 		78112D4726EEB767006BB527 /* BookSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSessionViewController.swift; sourceTree = "<group>"; };
 		78112D4926EEC073006BB527 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		78112D4E26EEC1F0006BB527 /* SessionListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionListTableViewCell.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 				78C88EE926F0940C007CB6BD /* SessionPaymentViewController.swift */,
 				78C88EEB26F0948D007CB6BD /* PaymentSuccessViewController.swift */,
 				78C88EEF26F0C1C5007CB6BD /* SessionListTableViewController.swift */,
+				7800440D26F144CD00758DBE /* SessionDetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -417,6 +420,7 @@
 				7897EC9426E2151D001E8279 /* IceCandidate.swift in Sources */,
 				78C88EEA26F0940C007CB6BD /* SessionPaymentViewController.swift in Sources */,
 				78C88EEC26F0948D007CB6BD /* PaymentSuccessViewController.swift in Sources */,
+				7800440E26F144CD00758DBE /* SessionDetailViewController.swift in Sources */,
 				78C88EF226F114A9007CB6BD /* SessionListHeader.swift in Sources */,
 				7897EC9F26E2151D001E8279 /* SignalingClient.swift in Sources */,
 				7897EC9626E2151D001E8279 /* VideoViewController.swift in Sources */,

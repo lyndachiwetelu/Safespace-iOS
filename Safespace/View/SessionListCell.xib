@@ -53,6 +53,9 @@
                                         <state key="normal" title="Join">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="joinPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="LIb-a7-qbW"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dS5-Zp-Ygc">
                                         <rect key="frame" x="230" y="8" width="180" height="47"/>
