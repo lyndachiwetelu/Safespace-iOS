@@ -16,7 +16,6 @@ class PLoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
     }
    
 }

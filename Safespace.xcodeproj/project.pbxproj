@@ -41,6 +41,12 @@
 		7897EC9F26E2151D001E8279 /* SignalingClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7897EC9026E2151D001E8279 /* SignalingClient.swift */; };
 		78BA0CEC26D6E8A500093DD8 /* PSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BA0CEB26D6E8A500093DD8 /* PSignupViewController.swift */; };
 		78BA0CEE26D6EFB200093DD8 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78BA0CED26D6EFB200093DD8 /* Colors.xcassets */; };
+		78C88EEA26F0940C007CB6BD /* SessionPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C88EE926F0940C007CB6BD /* SessionPaymentViewController.swift */; };
+		78C88EEC26F0948D007CB6BD /* PaymentSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C88EEB26F0948D007CB6BD /* PaymentSuccessViewController.swift */; };
+		78C88EF026F0C1C5007CB6BD /* SessionListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C88EEF26F0C1C5007CB6BD /* SessionListTableViewController.swift */; };
+		78C88EF226F114A9007CB6BD /* SessionListHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C88EF126F114A9007CB6BD /* SessionListHeader.swift */; };
+		78C88EF926F118A0007CB6BD /* SessionListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C88EF726F118A0007CB6BD /* SessionListCell.swift */; };
+		78C88EFA26F118A0007CB6BD /* SessionListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78C88EF826F118A0007CB6BD /* SessionListCell.xib */; };
 		78F31E9526ED391500BE392C /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F31E9426ED391500BE392C /* Connection.swift */; };
 		78F31E9726EEA54300BE392C /* TherapistProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F31E9626EEA54300BE392C /* TherapistProfileViewController.swift */; };
 /* End PBXBuildFile section */
@@ -97,6 +103,12 @@
 		7897ECA026E21917001E8279 /* WebRTC.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = WebRTC.xcframework; sourceTree = "<group>"; };
 		78BA0CEB26D6E8A500093DD8 /* PSignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSignupViewController.swift; sourceTree = "<group>"; };
 		78BA0CED26D6EFB200093DD8 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		78C88EE926F0940C007CB6BD /* SessionPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPaymentViewController.swift; sourceTree = "<group>"; };
+		78C88EEB26F0948D007CB6BD /* PaymentSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessViewController.swift; sourceTree = "<group>"; };
+		78C88EEF26F0C1C5007CB6BD /* SessionListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionListTableViewController.swift; sourceTree = "<group>"; };
+		78C88EF126F114A9007CB6BD /* SessionListHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionListHeader.swift; sourceTree = "<group>"; };
+		78C88EF726F118A0007CB6BD /* SessionListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionListCell.swift; sourceTree = "<group>"; };
+		78C88EF826F118A0007CB6BD /* SessionListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SessionListCell.xib; sourceTree = "<group>"; };
 		78F31E9426ED391500BE392C /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
 		78F31E9626EEA54300BE392C /* TherapistProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TherapistProfileViewController.swift; sourceTree = "<group>"; };
 		BBA5D4ED11D0592F7D64B644 /* Pods_Safespace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Safespace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -161,6 +173,8 @@
 				7834318A26D46FA900C21027 /* Assets.xcassets */,
 				78BA0CED26D6EFB200093DD8 /* Colors.xcassets */,
 				7834318F26D46FA900C21027 /* Info.plist */,
+				78C88EF126F114A9007CB6BD /* SessionListHeader.swift */,
+				78C88EF726F118A0007CB6BD /* SessionListCell.swift */,
 			);
 			path = Safespace;
 			sourceTree = "<group>";
@@ -173,6 +187,7 @@
 				7834318C26D46FA900C21027 /* LaunchScreen.storyboard */,
 				7834318726D46FA300C21027 /* Main.storyboard */,
 				78112D4F26EEC1F0006BB527 /* SessionListTableViewCell.xib */,
+				78C88EF826F118A0007CB6BD /* SessionListCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -189,6 +204,9 @@
 				7897EC8426E2151D001E8279 /* VideoViewController.swift */,
 				78F31E9626EEA54300BE392C /* TherapistProfileViewController.swift */,
 				78112D4726EEB767006BB527 /* BookSessionViewController.swift */,
+				78C88EE926F0940C007CB6BD /* SessionPaymentViewController.swift */,
+				78C88EEB26F0948D007CB6BD /* PaymentSuccessViewController.swift */,
+				78C88EEF26F0C1C5007CB6BD /* SessionListTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -321,6 +339,7 @@
 				78112D5126EEC1F0006BB527 /* SessionListTableViewCell.xib in Resources */,
 				78BA0CEE26D6EFB200093DD8 /* Colors.xcassets in Resources */,
 				7897EC9526E2151D001E8279 /* VideoViewController.xib in Resources */,
+				78C88EFA26F118A0007CB6BD /* SessionListCell.xib in Resources */,
 				7834318B26D46FA900C21027 /* Assets.xcassets in Resources */,
 				7834318926D46FA300C21027 /* Main.storyboard in Resources */,
 				782315AA26D70FBD00FEC675 /* TherapistListTableViewCell.xib in Resources */,
@@ -384,8 +403,10 @@
 				7834318626D46FA300C21027 /* ViewController.swift in Sources */,
 				7897EC5126E1F8AE001E8279 /* WebRTC.swift in Sources */,
 				78F31E9726EEA54300BE392C /* TherapistProfileViewController.swift in Sources */,
+				78C88EF926F118A0007CB6BD /* SessionListCell.swift in Sources */,
 				7897EC9A26E2151D001E8279 /* Message.swift in Sources */,
 				7897EC9D26E2151D001E8279 /* StarscreamProvider.swift in Sources */,
+				78C88EF026F0C1C5007CB6BD /* SessionListTableViewController.swift in Sources */,
 				78112D5026EEC1F0006BB527 /* SessionListTableViewCell.swift in Sources */,
 				78112D4A26EEC073006BB527 /* Session.swift in Sources */,
 				7897EC9226E2151D001E8279 /* RTCStates.swift in Sources */,
@@ -394,6 +415,9 @@
 				7897EC9126E2151D001E8279 /* Config.swift in Sources */,
 				7897EC9326E2151D001E8279 /* SessionDescription.swift in Sources */,
 				7897EC9426E2151D001E8279 /* IceCandidate.swift in Sources */,
+				78C88EEA26F0940C007CB6BD /* SessionPaymentViewController.swift in Sources */,
+				78C88EEC26F0948D007CB6BD /* PaymentSuccessViewController.swift in Sources */,
+				78C88EF226F114A9007CB6BD /* SessionListHeader.swift in Sources */,
 				7897EC9F26E2151D001E8279 /* SignalingClient.swift in Sources */,
 				7897EC9626E2151D001E8279 /* VideoViewController.swift in Sources */,
 				7834319826D5074400C21027 /* PLoginViewController.swift in Sources */,

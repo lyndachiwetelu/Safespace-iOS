@@ -9,9 +9,12 @@ import UIKit
 
 class SessionListTableViewCell: UITableViewCell {
     
+    @IBOutlet var labelUIView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        labelUIView.layer.borderWidth = 3
+        labelUIView.layer.cornerRadius = 10
+        labelUIView.layer.borderColor = UIColor(named: "App Teal")?.cgColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

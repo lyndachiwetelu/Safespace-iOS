@@ -11,4 +11,7 @@ struct Session {
     let from: String
     let to: String
     let day: String
+    var with: String?
 }
+
+

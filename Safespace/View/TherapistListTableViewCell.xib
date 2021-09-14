@@ -18,17 +18,16 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="1eA-yD-cYg">
-                        <rect key="frame" x="20" y="15" width="294" height="100"/>
+                        <rect key="frame" x="20" y="15" width="294" height="115"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VvI-B9-b7F">
-                                <rect key="frame" x="0.0" y="0.0" width="113" height="100"/>
+                                <rect key="frame" x="0.0" y="0.0" width="113" height="115"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="113" id="IY8-Sj-xxz"/>
-                                    <constraint firstAttribute="height" constant="100" id="PCH-gQ-3ug"/>
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="TFN-pQ-pg6">
-                                <rect key="frame" x="128" y="0.0" width="166" height="100"/>
+                                <rect key="frame" x="128" y="0.0" width="166" height="115"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="Llf-vV-f7z">
                                         <rect key="frame" x="0.0" y="0.0" width="166" height="17"/>
@@ -59,13 +58,13 @@
                                         </subviews>
                                     </stackView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Hello" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="T7j-Z2-8mu">
-                                        <rect key="frame" x="0.0" y="17" width="166" height="50"/>
+                                        <rect key="frame" x="0.0" y="17" width="166" height="68"/>
                                         <color key="textColor" name="Gray Text"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ALm-6a-FbY">
-                                        <rect key="frame" x="0.0" y="67" width="166" height="33"/>
+                                        <rect key="frame" x="0.0" y="85" width="166" height="30"/>
                                         <color key="backgroundColor" name="App Teal"/>
                                         <state key="normal" title="SEE MORE">
                                             <color key="titleColor" red="0.93333333330000001" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
