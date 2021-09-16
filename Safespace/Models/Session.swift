@@ -14,4 +14,9 @@ struct Session {
     var with: String?
 }
 
+struct SessionChatMessage {
+    let text: String
+    let userId: String
+}
+
 
