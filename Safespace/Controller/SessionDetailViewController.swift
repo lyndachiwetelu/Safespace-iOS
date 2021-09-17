@@ -26,7 +26,6 @@ class SessionDetailViewController: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.rowHeight = 80
         tableView.separatorStyle = .none
         tableView.register(UINib(nibName: "SessionMessageCell", bundle: nil), forCellReuseIdentifier: "SessionMessageCell")
         addGestureRecognizer()
@@ -34,11 +33,12 @@ class SessionDetailViewController: UIViewController {
         navigationItem.titleView = getTitleView()
         textView.delegate = self
         configureTextView()
-        
     }
     
+
     func configureTextView() {
         textView.layer.cornerRadius = 15
+        textView.keyboardDistanceFromTextField = 30
     }
     
     func addGestureRecognizer() {
@@ -103,7 +103,10 @@ class SessionDetailViewController: UIViewController {
     @IBAction func sendButtonPressed(_ sender: Any) {
         let message = textView.text
         messages.append(SessionChatMessage(text: message!, userId: userId))
+        textView.text = ""
+        textViewHeightConstraint.constant = 35
         tableView.reloadData()
+//        performSegue(withIdentifier: "MakeAudioCall", sender: self)
     }
     
 }
@@ -125,9 +128,9 @@ extension SessionDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SessionMessageCell", for: indexPath) as! SessionMessageCell
 
-        cell.chatTextLabel.text = messages[indexPath.row].text
+        cell.chatTextView.text = messages[indexPath.row].text
         cell.chatBox.backgroundColor = userId ==  messages[indexPath.row].userId ? UIColor(named: "App Teal") : .white
-        cell.chatTextLabel.textColor = userId ==  messages[indexPath.row].userId ?  .white : UIColor(named: "App Teal")
+        cell.chatTextView.textColor = userId ==  messages[indexPath.row].userId ?  .white : UIColor(named: "App Teal")
         cell.chatBox.layer.borderWidth = 1
         cell.chatBox.layer.borderColor = UIColor(named: "App Teal")?.cgColor
         
@@ -150,5 +153,6 @@ extension SessionDetailViewController: UITextViewDelegate {
         textViewHeightConstraint.constant = textView.contentSize.height
     }
     
-    
 }
+
+

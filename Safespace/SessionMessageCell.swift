@@ -8,7 +8,8 @@
 import UIKit
 
 class SessionMessageCell: UITableViewCell {
-    @IBOutlet var chatTextLabel: UILabel!
+ 
+    @IBOutlet var chatTextView: UITextView!
     @IBOutlet var chatBox: UIView!
     @IBOutlet var leadingConstraint: NSLayoutConstraint!
     
