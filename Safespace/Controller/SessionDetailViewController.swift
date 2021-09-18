@@ -24,7 +24,7 @@ class SessionDetailViewController: UIViewController {
     private var socket: SocketIOClient?
     private var manager = SocketManager(socketURL: URL( string:"http://192.168.2.33:8000" )!, config: [.log(true), .compress])
     //    private var manager = SocketManager(socketURL: URL( string:"https://safespace-backend.lyndachiwetelu.com" )!, config: [.log(true), .compress])
-    private var connection: Connection?
+//    private var connection: Connection?
     private lazy var videoViewController = VideoViewController(webRTCClient: self.webRTCClient!, self.socket!, connectionId: connId!)
     private var dest: String = ""
     private var connId: String? = "1234567890" {
@@ -226,12 +226,29 @@ class SessionDetailViewController: UIViewController {
         switchToAudio()
     }
     
+    func scrollToBottomOfTable() {
+        let lastIndex = NSIndexPath(row: self.messages.count - 1, section: 0)
+        self.tableView.scrollToRow(at: lastIndex as IndexPath, at: UITableView.ScrollPosition.bottom, animated: true)
+    }
+    
     @IBAction func sendButtonPressed(_ sender: Any) {
         let message = textView.text
-        messages.append(SessionChatMessage(text: message!, userId: userId))
         textView.text = ""
         textViewHeightConstraint.constant = 35
-        tableView.reloadData()
+        
+        let dict = SessionMessage(message: message!, userId: userId, key: String(Int.random(in: 0..<100000)), time: "18:13", day: "29/09/2021").msgDict
+        
+        do {
+            let dataToSend = try JSONSerialization.data(withJSONObject: dict, options: JSONSerialization.WritingOptions.prettyPrinted)
+            self.webRTCClient?.sendData(dataToSend, connectionId: connId!)
+            messages.append(SessionChatMessage(text: message!, userId: userId))
+            self.tableView.reloadData()
+            self.scrollToBottomOfTable()
+            
+        } catch {
+            Logger.doLog(String(describing: error))
+        }
+        
     }
     
     func switchToVideo() {
@@ -471,10 +488,17 @@ extension SessionDetailViewController: WebRTCClientDelegate {
     
     func webRTCClient(_ client: WebRTCClient, didReceiveData data: Data) {
         DispatchQueue.main.async {
-            let message = String(data: data, encoding: .utf8) ?? "(Binary: \(data.count) bytes)"
-            let alert = UIAlertController(title: "Message from WebRTC", message: message, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            do {
+                let decodedMessage = try JSONDecoder().decode(SessionMessage.self, from: data)
+                self.messages.append(SessionChatMessage(text: decodedMessage.message, userId: decodedMessage.userId))
+                self.tableView.reloadData()
+                self.scrollToBottomOfTable()
+                
+            } catch {
+                Logger.doLog("Error Decoding received message")
+                
+            }
+           
         }
     }
     
