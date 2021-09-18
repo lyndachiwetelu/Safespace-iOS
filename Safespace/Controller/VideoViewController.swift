@@ -57,7 +57,7 @@ class VideoViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("connectionId:-------------\(connectionId)")
+        Logger.doLog("connectionId:-------------\(connectionId)")
     }
     
     private func embedView(_ view: UIView, into containerView: UIView) {

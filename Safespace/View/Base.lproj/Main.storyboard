@@ -1270,17 +1270,6 @@ Since this is your first time you may select a maximum of 2 times</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="kho-cL-y6N">
-                                <rect key="frame" x="0.0" y="24.5" width="414" height="43.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kho-cL-y6N" id="qQp-9t-1bZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="rba-BQ-EXU" id="lIu-Le-0Fq"/>
                             <outlet property="delegate" destination="rba-BQ-EXU" id="eKX-xU-QC6"/>
@@ -1385,17 +1374,51 @@ Since this is your first time you may select a maximum of 2 times</string>
             </objects>
             <point key="canvasLocation" x="6126.0869565217399" y="1203.3482142857142"/>
         </scene>
-        <!--View Controller-->
+        <!--Voice Call with Mary Agida-->
         <scene sceneID="zMd-B9-AdI">
             <objects>
                 <viewController id="po5-xY-h2b" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1LX-VG-vdQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OH7-9L-JkX">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="av3" translatesAutoresizingMaskIntoConstraints="NO" id="M4g-hs-APH">
+                                        <rect key="frame" x="87" y="312" width="240" height="150"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="150" id="WFF-iB-c3w"/>
+                                            <constraint firstAttribute="width" constant="240" id="ooc-rV-YKA"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="end-call" translatesAutoresizingMaskIntoConstraints="NO" id="xYz-Pa-Sdc">
+                                        <rect key="frame" x="167" y="502" width="80" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="80" id="OlF-0C-lDK"/>
+                                            <constraint firstAttribute="width" constant="80" id="dse-JY-hi0"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" name="Gray Text"/>
+                                <constraints>
+                                    <constraint firstItem="M4g-hs-APH" firstAttribute="centerX" secondItem="OH7-9L-JkX" secondAttribute="centerX" id="Ld2-TU-E8b"/>
+                                    <constraint firstItem="xYz-Pa-Sdc" firstAttribute="top" secondItem="M4g-hs-APH" secondAttribute="bottom" constant="40" id="MJH-Am-swW"/>
+                                    <constraint firstItem="M4g-hs-APH" firstAttribute="centerY" secondItem="OH7-9L-JkX" secondAttribute="centerY" id="OCV-V8-Jhc"/>
+                                    <constraint firstItem="xYz-Pa-Sdc" firstAttribute="centerX" secondItem="OH7-9L-JkX" secondAttribute="centerX" id="Uca-0H-Jdr"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="BI9-6R-yB8"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="OH7-9L-JkX" firstAttribute="leading" secondItem="BI9-6R-yB8" secondAttribute="leading" id="O38-x2-BdF"/>
+                            <constraint firstItem="BI9-6R-yB8" firstAttribute="bottom" secondItem="OH7-9L-JkX" secondAttribute="bottom" id="OG5-Yl-aab"/>
+                            <constraint firstItem="OH7-9L-JkX" firstAttribute="top" secondItem="BI9-6R-yB8" secondAttribute="top" id="Xt1-dj-Q1D"/>
+                            <constraint firstItem="BI9-6R-yB8" firstAttribute="trailing" secondItem="OH7-9L-JkX" secondAttribute="trailing" id="fgM-9A-rn3"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="VAh-wt-gnc"/>
+                    <navigationItem key="navigationItem" title="Voice Call with Mary Agida" id="VAh-wt-gnc"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DJ9-UW-yqP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1462,6 +1485,7 @@ Since this is your first time you may select a maximum of 2 times</string>
         <image name="av3" width="200" height="200"/>
         <image name="banner" width="898" height="670"/>
         <image name="checked" width="512" height="512"/>
+        <image name="end-call" width="512" height="512"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="phone.bubble.left.fill" catalog="system" width="128" height="110"/>
         <image name="send" width="180" height="120"/>

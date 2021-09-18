@@ -42,12 +42,12 @@ class NativeWebSocket: NSObject, WebSocketProvider {
             
             switch message {
             case .success(.data(let data)):
-                print("GOT DATA!!!!!!")
+                Logger.doLog("GOT DATA!!!!!!")
                 self.delegate?.webSocket(self, didReceiveData: data)
                 self.readMessage()
                 
             case .success(.string(let str)):
-                debugPrint("Warning: Expected to receive data format but received a string. Check the websocket server config. \(str)")
+                Logger.doLog("Warning: Expected to receive data format but received a string. Check the websocket server config. \(str)")
                 self.delegate?.webSocket(self, didReceiveStringData: str)
                 self.readMessage()
 

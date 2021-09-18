@@ -105,12 +105,12 @@ final class WebRTCClient: NSObject {
                                              optionalConstraints: nil)
         peerConnection.offer(for: constrains) { (sdp, error) in
             guard let sdp = sdp else {
-                print("error creating sdp for offer!")
+                Logger.doLog("error creating sdp for offer!")
                 return
             }
             
             peerConnection.setLocalDescription(sdp, completionHandler: { (error) in
-                print("error setting local description for offer! \(String(describing: error))")
+                Logger.doLog("error setting local description for offer! \(String(describing: error))")
                 completion(sdp)
             })
         }
@@ -122,7 +122,7 @@ final class WebRTCClient: NSObject {
         let conn = getConnection(connectionId: connectionId)
         conn!.peerConnection!.answer(for: constrains) { (sdp, error) in
             guard let sdp = sdp else {
-                print("ERROR 1 \(String(describing: error))")
+                Logger.doLog("ERROR 1 \(String(describing: error))")
                 return
             }
             
@@ -139,8 +139,8 @@ final class WebRTCClient: NSObject {
     func set(connectionId: String, remoteCandidate: RTCIceCandidate, completion: @escaping (Error?) -> ()) {
         let conn = getConnection(connectionId: connectionId)
         conn?.peerConnection?.add(remoteCandidate, completionHandler: completion)
-        print(conn != nil ? "connection exists" : "connection does not exist")
-        print("setting ice candidate for peerConnection \(String(describing: connectionId))")
+        Logger.doLog(conn != nil ? "connection exists" : "connection does not exist")
+        Logger.doLog("setting ice candidate for peerConnection \(String(describing: connectionId))")
     }
     
     // MARK: Media
@@ -272,18 +272,18 @@ extension WebRTCClient: RTCPeerConnectionDelegate {
         let connId = dataChannel.label
         let conn = getConnection(connectionId: connId)
         conn?.dataChannel = dataChannel
-        print("data channel \(connId) should be added to peer connection \(String(describing: conn))")
+        Logger.doLog("data channel \(connId) should be added to peer connection \(String(describing: conn))")
     }
     
 }
 extension WebRTCClient {
     private func setTrackEnabled<T: RTCMediaStreamTrack>(_ type: T.Type, isEnabled: Bool, peerConnection: RTCPeerConnection) {
-        print("setting track enabled, \(isEnabled)");
+        Logger.doLog("setting track enabled, \(isEnabled)");
         peerConnection.transceivers
             .compactMap { return $0.sender.track as? T }
             .forEach {
                 $0.isEnabled = isEnabled
-                print("in transceiver")
+                Logger.doLog("in transceiver")
             }
     }
 }

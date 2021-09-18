@@ -34,7 +34,6 @@ class StarscreamWebSocket: WebSocketProvider {
 
 extension StarscreamWebSocket: Starscream.WebSocketDelegate {
     func didReceive(event: WebSocketEvent, client: WebSocket) {
-        print("soemthing")
     }
     
     
