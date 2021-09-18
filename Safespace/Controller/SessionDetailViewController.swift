@@ -15,10 +15,10 @@ class SessionDetailViewController: UIViewController {
     @IBOutlet var textView: UITextView!
     @IBOutlet var tableView: UITableView!
     var userId = "1234"
+    private var timer: Timer?
     
     
     //MARK: - WebRTC Connection
-    
     private var signalClient: SignalingClient?
     private var webRTCClient: WebRTCClient?
     private var socket: SocketIOClient?
@@ -54,8 +54,6 @@ class SessionDetailViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
-    
-    
     var messages = [
         SessionChatMessage(text: "Hello there, how's it going?", userId: "1234"),
         SessionChatMessage(text: "Hi there! 😅 ", userId: "2456"),
@@ -83,6 +81,7 @@ class SessionDetailViewController: UIViewController {
         self.webRTCClient!.delegate = self
         self.signalClient!.delegate = self
         self.signalClient!.connect()
+        doHeartbeat(signalClient: signalClient!)
         
         self.socket = self.manager.defaultSocket
         manager.handleQueue.async {
@@ -91,13 +90,16 @@ class SessionDetailViewController: UIViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        Logger.doLog("view will appear")
+    override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
+        if parent == nil {
+            Logger.doLog("Removing Timer")
+            timer?.invalidate()
+        }
     }
+
     
     //MARK: - SocketIO Handlers
-    
     func connectToPeer() {
         Logger.doLog("sending socket message...")
         self.socket?.emit("join-room", SMessage(roomId: "session-60-chat", userId: "5017-1630661802027_session-60-chat", username: "lynda"), completion: {
@@ -118,6 +120,11 @@ class SessionDetailViewController: UIViewController {
         socket?.on("connect") {[weak self] data, ack in
             Logger.doLog("Socket Connected")
             self?.connectToPeer()
+            return
+        }
+        
+        socket?.on("disconnect") {[weak self] data, ack in
+            Logger.doLog("Socket is Connected")
             return
         }
         
@@ -354,6 +361,17 @@ class SessionDetailViewController: UIViewController {
         
     }
     
+    func doHeartbeat(signalClient: SignalingClient) {
+        timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { timer in
+            do {
+                let heartbeat = try JSONEncoder().encode(HeartBeat())
+                signalClient.sendData(heartbeat)
+            } catch {
+                Logger.doLog("Encoding? error sending heartbeat")
+            }
+        }
+    }
+    
 }
 
 
@@ -384,6 +402,14 @@ extension SessionDetailViewController: UITableViewDataSource {
             NSLayoutConstraint.activate([
                 cell.chatBox.trailingAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.trailingAnchor, constant: 10),
             ])
+        } else {
+            cell.leadingConstraint.isActive = true
+            let trailing = cell.chatBox.constraints.filter { constraint in
+                constraint.firstAttribute == .trailing
+            }
+            for t in trailing {
+                t.isActive = false
+            }
         }
         
         return cell
@@ -453,7 +479,6 @@ extension SessionDetailViewController: SignalClientDelegate {
                 }
             }
             
-            
         } else {
             Logger.doLog("Received remote sdp Other type \(String(describing: sdp.type))")
         }
@@ -461,7 +486,6 @@ extension SessionDetailViewController: SignalClientDelegate {
     }
     
     func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate) {
-        
     }
     
     func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate, connectionId: String) {
@@ -503,6 +527,7 @@ extension SessionDetailViewController: WebRTCClientDelegate {
     }
     
 }
+
 
 
 

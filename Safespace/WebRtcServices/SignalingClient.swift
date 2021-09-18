@@ -71,6 +71,7 @@ extension SignalingClient: WebSocketProviderDelegate {
     }
     
     func webSocketDidDisconnect(_ webSocket: WebSocketProvider) {
+        Logger.doLog("Signaling server is disonnected")
         self.delegate?.signalClientDidDisconnect(self)
         
         // try to reconnect every two seconds

@@ -59,3 +59,7 @@ struct OfferResponse : Codable  {
     let src: String
     let dst: String
 }
+
+struct HeartBeat: Encodable {
+    let type: String = "HEARTBEAT"
+}
