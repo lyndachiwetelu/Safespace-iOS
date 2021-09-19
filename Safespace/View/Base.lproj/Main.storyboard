@@ -988,13 +988,13 @@ Since this is your first time you may select a maximum of 2 times</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="vff-8Z-g73" userLabel="Credit Stack View">
-                                        <rect key="frame" x="17.5" y="345" width="379" height="82"/>
+                                        <rect key="frame" x="97" y="345" width="220" height="82"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tX9-Pd-4kI">
-                                                <rect key="frame" x="0.0" y="0.0" width="189.5" height="82"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tX9-Pd-4kI" userLabel="Checkbox View">
+                                                <rect key="frame" x="0.0" y="0.0" width="110" height="82"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Zr-B9-7q9">
-                                                        <rect key="frame" x="70" y="16" width="50" height="50"/>
+                                                        <rect key="frame" x="30" y="16" width="50" height="50"/>
                                                         <color key="backgroundColor" name="App Teal"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="50" id="Kc8-O0-DFR"/>
@@ -1004,11 +1004,11 @@ Since this is your first time you may select a maximum of 2 times</string>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="2Zr-B9-7q9" firstAttribute="centerY" secondItem="tX9-Pd-4kI" secondAttribute="centerY" id="9TF-KF-zPd"/>
-                                                    <constraint firstItem="2Zr-B9-7q9" firstAttribute="centerX" secondItem="tX9-Pd-4kI" secondAttribute="centerX" id="LwY-oi-gnp"/>
+                                                    <constraint firstAttribute="trailing" secondItem="2Zr-B9-7q9" secondAttribute="trailing" constant="30" id="mz0-jp-8I2"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Credit Card" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TXH-VF-JxB">
-                                                <rect key="frame" x="189.5" y="0.0" width="189.5" height="82"/>
+                                                <rect key="frame" x="110" y="0.0" width="110" height="82"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -1016,18 +1016,17 @@ Since this is your first time you may select a maximum of 2 times</string>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="tX9-Pd-4kI" firstAttribute="leading" secondItem="vff-8Z-g73" secondAttribute="leading" id="FVW-0a-mPf"/>
-                                            <constraint firstItem="tX9-Pd-4kI" firstAttribute="leading" secondItem="vff-8Z-g73" secondAttribute="leading" id="LqZ-O8-ZhP"/>
                                             <constraint firstItem="TXH-VF-JxB" firstAttribute="leading" secondItem="tX9-Pd-4kI" secondAttribute="trailing" id="glZ-rj-oxs"/>
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Eio-SD-pAa" userLabel="Paypal Stack View">
-                                        <rect key="frame" x="17.5" y="457" width="379" height="82.5"/>
+                                        <rect key="frame" x="97" y="457" width="220" height="82.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6oO-Lp-dTE">
-                                                <rect key="frame" x="0.0" y="0.0" width="189.5" height="82.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="110" height="82.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tlw-XI-3Dv">
-                                                        <rect key="frame" x="70" y="16.5" width="50" height="50"/>
+                                                        <rect key="frame" x="30" y="16.5" width="50" height="50"/>
                                                         <color key="backgroundColor" name="App Teal"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="Cte-rq-XBL"/>
@@ -1036,12 +1035,12 @@ Since this is your first time you may select a maximum of 2 times</string>
                                                     </view>
                                                 </subviews>
                                                 <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="tlw-XI-3Dv" secondAttribute="trailing" constant="30" id="6Mv-ZW-7p2"/>
                                                     <constraint firstItem="tlw-XI-3Dv" firstAttribute="centerY" secondItem="6oO-Lp-dTE" secondAttribute="centerY" id="kw7-ay-Yu8"/>
-                                                    <constraint firstItem="tlw-XI-3Dv" firstAttribute="centerX" secondItem="6oO-Lp-dTE" secondAttribute="centerX" id="vOp-cc-Nse"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paypal" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9zG-nr-ZtN">
-                                                <rect key="frame" x="189.5" y="0.0" width="189.5" height="82.5"/>
+                                                <rect key="frame" x="110" y="0.0" width="110" height="82.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -1074,13 +1073,12 @@ Since this is your first time you may select a maximum of 2 times</string>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="Eio-SD-pAa" firstAttribute="width" secondItem="o7r-g5-QKd" secondAttribute="width" multiplier="0.914943" id="E8U-6H-Apd"/>
                                     <constraint firstAttribute="trailing" secondItem="qMC-DM-CpG" secondAttribute="trailing" constant="20" id="LFg-x4-IIq"/>
                                     <constraint firstAttribute="trailing" secondItem="pk3-5i-axE" secondAttribute="trailing" constant="20" id="NqW-uk-yxf"/>
                                     <constraint firstItem="pk3-5i-axE" firstAttribute="leading" secondItem="o7r-g5-QKd" secondAttribute="leading" constant="20" id="op6-vo-EaC"/>
+                                    <constraint firstItem="P9F-e0-MfC" firstAttribute="centerX" secondItem="o7r-g5-QKd" secondAttribute="centerX" id="pJC-Df-xs4"/>
                                     <constraint firstItem="qMC-DM-CpG" firstAttribute="leading" secondItem="o7r-g5-QKd" secondAttribute="leading" constant="20" id="tvC-Kg-IMl"/>
                                     <constraint firstItem="kl6-PG-a8W" firstAttribute="leading" secondItem="o7r-g5-QKd" secondAttribute="leading" constant="10" id="udK-qs-Uxy"/>
-                                    <constraint firstItem="vff-8Z-g73" firstAttribute="width" secondItem="o7r-g5-QKd" secondAttribute="width" multiplier="0.914943" id="xHd-e1-6qh"/>
                                 </constraints>
                                 <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="10" trailing="8"/>
                             </stackView>
@@ -1095,6 +1093,12 @@ Since this is your first time you may select a maximum of 2 times</string>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Pay for your Session" id="EGt-wz-QCn"/>
+                    <connections>
+                        <outlet property="creditCardCheckBox" destination="2Zr-B9-7q9" id="xH6-qA-kjO"/>
+                        <outlet property="creditCardLabel" destination="TXH-VF-JxB" id="0pH-vg-LQ8"/>
+                        <outlet property="paypalCheckBox" destination="tlw-XI-3Dv" id="Hog-OL-zdJ"/>
+                        <outlet property="paypalLabel" destination="9zG-nr-ZtN" id="GUu-dd-kIR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OoZ-Mb-15A" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

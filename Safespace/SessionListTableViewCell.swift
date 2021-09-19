@@ -14,7 +14,7 @@ class SessionListTableViewCell: UITableViewCell {
         super.awakeFromNib()
         labelUIView.layer.borderWidth = 3
         labelUIView.layer.cornerRadius = 10
-        labelUIView.layer.borderColor = UIColor(named: "App Teal")?.cgColor
+        labelUIView.layer.borderColor = AppPrimaryColor.color.cgColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

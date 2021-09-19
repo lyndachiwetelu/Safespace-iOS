@@ -26,8 +26,8 @@ class SessionListHeader: UITableViewHeaderFooterView {
     
             container.backgroundColor = .white
             container.layer.borderWidth = 2
-            container.layer.borderColor = UIColor(named: "App Teal")?.cgColor
-            title.textColor = UIColor(named: "App Teal")
+            container.layer.borderColor = AppPrimaryColor.color.cgColor
+            title.textColor = AppPrimaryColor.color
 
             container.addSubview(title)
             contentView.addSubview(container)

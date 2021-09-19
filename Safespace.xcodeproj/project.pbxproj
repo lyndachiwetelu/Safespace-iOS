@@ -29,6 +29,7 @@
 		7834319826D5074400C21027 /* PLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7834319726D5074400C21027 /* PLoginViewController.swift */; };
 		7834319A26D5076900C21027 /* PQuestionnaireViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7834319926D5076900C21027 /* PQuestionnaireViewController.swift */; };
 		788D741126F547BD00ACC6FE /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788D741026F547BD00ACC6FE /* Logger.swift */; };
+		788D741326F6B9DB00ACC6FE /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788D741226F6B9DB00ACC6FE /* App.swift */; };
 		7897EC5126E1F8AE001E8279 /* WebRTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7897EC5026E1F8AE001E8279 /* WebRTC.swift */; };
 		7897EC9126E2151D001E8279 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7897EC7C26E2151D001E8279 /* Config.swift */; };
 		7897EC9226E2151D001E8279 /* RTCStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7897EC7E26E2151D001E8279 /* RTCStates.swift */; };
@@ -93,6 +94,7 @@
 		7834319726D5074400C21027 /* PLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PLoginViewController.swift; sourceTree = "<group>"; };
 		7834319926D5076900C21027 /* PQuestionnaireViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PQuestionnaireViewController.swift; sourceTree = "<group>"; };
 		788D741026F547BD00ACC6FE /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		788D741226F6B9DB00ACC6FE /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		7897EC5026E1F8AE001E8279 /* WebRTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTC.swift; sourceTree = "<group>"; };
 		7897EC7C26E2151D001E8279 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		7897EC7E26E2151D001E8279 /* RTCStates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTCStates.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 			children = (
 				78112D4B26EEC07C006BB527 /* Rtc */,
 				78112D4926EEC073006BB527 /* Session.swift */,
+				788D741226F6B9DB00ACC6FE /* App.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -412,6 +415,7 @@
 				7897EC9C26E2151D001E8279 /* NativeWebSocket.swift in Sources */,
 				7834318626D46FA300C21027 /* ViewController.swift in Sources */,
 				7897EC5126E1F8AE001E8279 /* WebRTC.swift in Sources */,
+				788D741326F6B9DB00ACC6FE /* App.swift in Sources */,
 				78F31E9726EEA54300BE392C /* TherapistProfileViewController.swift in Sources */,
 				78C88EF926F118A0007CB6BD /* SessionListCell.swift in Sources */,
 				7897EC9A26E2151D001E8279 /* Message.swift in Sources */,

@@ -124,7 +124,7 @@ class SessionDetailViewController: UIViewController {
         }
         
         socket?.on("disconnect") {[weak self] data, ack in
-            Logger.doLog("Socket is Connected")
+            Logger.doLog("Socket is disconnected")
             return
         }
         
@@ -392,10 +392,10 @@ extension SessionDetailViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SessionMessageCell", for: indexPath) as! SessionMessageCell
         
         cell.chatTextView.text = messages[indexPath.row].text
-        cell.chatBox.backgroundColor = userId ==  messages[indexPath.row].userId ? UIColor(named: "App Teal") : .white
-        cell.chatTextView.textColor = userId ==  messages[indexPath.row].userId ?  .white : UIColor(named: "App Teal")
+        cell.chatBox.backgroundColor = userId ==  messages[indexPath.row].userId ? AppPrimaryColor.color : .white
+        cell.chatTextView.textColor = userId ==  messages[indexPath.row].userId ?  .white : AppPrimaryColor.color
         cell.chatBox.layer.borderWidth = 1
-        cell.chatBox.layer.borderColor = UIColor(named: "App Teal")?.cgColor
+        cell.chatBox.layer.borderColor = AppPrimaryColor.color.cgColor
         
         if (userId != messages[indexPath.row].userId) {
             cell.leadingConstraint.isActive = false
