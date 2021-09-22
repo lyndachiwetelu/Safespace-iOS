@@ -39,6 +39,8 @@ struct TherapistResponse: Decodable {
     let name: String
     let userType: String
     let therapistSetting: TherapistSetting
+    let media: [Media]
+    let ailments: [Ailment]
 }
 
 struct TherapistSetting: Decodable {
@@ -51,4 +53,18 @@ struct TherapistSetting: Decodable {
     let summary: String
     let imageUrl: String
     let pricePerSession: Int
+}
+
+struct Media: Decodable {
+    let id: Int
+    let userId: Int
+    let mediaKey: String
+    let name: String
+}
+
+struct Ailment: Decodable {
+    let id: Int
+    let userId: Int
+    let ailmentKey: String
+    let name: String
 }

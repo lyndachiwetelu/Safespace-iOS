@@ -17,3 +17,16 @@ struct AppConstant {
     static let segueToMainTab = "GoToMainView"
     static let segueToTherapistProfile = "goToTherapistProfile"
 }
+
+
+enum MediaName : String, CaseIterable {
+    case video = "Video"
+    case voice = "Voice"
+    case text = "Text"
+}
+
+enum MediaKey: String, CaseIterable {
+    case video = "video"
+    case voice = "voice"
+    case text = "text"
+}

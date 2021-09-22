@@ -628,7 +628,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ozM-CV-sbu">
                                                 <rect key="frame" x="0.0" y="0.0" width="384" height="200"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="av3" translatesAutoresizingMaskIntoConstraints="NO" id="wBF-YY-vCY">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wBF-YY-vCY">
                                                         <rect key="frame" x="0.0" y="0.0" width="384" height="200"/>
                                                     </imageView>
                                                 </subviews>
@@ -764,10 +764,16 @@
                     </view>
                     <navigationItem key="navigationItem" title="MARY AGIDA" id="kU5-3y-ClY"/>
                     <connections>
-                        <outlet property="ailmentsTextView" destination="i9k-dT-iBI" id="pEs-tQ-H03"/>
+                        <outlet property="ailmentsTextView" destination="i9k-dT-iBI" id="WhO-9x-ajP"/>
+                        <outlet property="audioIconView" destination="asu-f9-cHw" id="g9q-Ox-fuf"/>
+                        <outlet property="chatIconView" destination="zkK-M0-XZj" id="rde-3r-wGH"/>
                         <outlet property="descriptionTextView" destination="Cqz-x5-NQX" id="tHl-11-UIL"/>
                         <outlet property="imageView" destination="wBF-YY-vCY" id="7VT-Vb-ebz"/>
                         <outlet property="nameLabel" destination="06a-Rk-Ec8" id="sCL-BT-6KU"/>
+                        <outlet property="priceTimeLabel" destination="VMw-jF-Lkf" id="YpJ-DF-oY1"/>
+                        <outlet property="specializeLabel" destination="XYG-28-v9G" id="Oqo-Eu-5qj"/>
+                        <outlet property="summaryTextView" destination="Cqz-x5-NQX" id="XHl-sT-s68"/>
+                        <outlet property="videoIconView" destination="CiV-4b-aiA" id="Ayi-ZV-kEu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7PJ-pk-aYz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -23,7 +23,7 @@ struct TherapistManager {
             request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
             let accessToken = UserDefaults.standard.value(forKey: AppConstant.apiToken) as! String
             request.setValue(accessToken, forHTTPHeaderField: "access-token")
-        
+            
             let requestBodyDict = [
                 "query": """
                     query therapists {
@@ -42,6 +42,18 @@ struct TherapistManager {
                                 imageUrl
                                 pricePerSession
                             }
+                            media {
+                                id
+                                name
+                                userId
+                                mediaKey
+                            }
+                            ailments {
+                                id
+                                name
+                                userId
+                                ailmentKey
+                            }
                     }}
                 """
             ]
@@ -57,7 +69,7 @@ struct TherapistManager {
                 }
                 
                 if let safeData = data {
-//                    Logger.doLog(String(decoding: safeData, as: UTF8.self))
+                    //                    Logger.doLog(String(decoding: safeData, as: UTF8.self))
                     if let therapists = self.parseJSON(therapistsData: safeData) {
                         self.delegate?.didGetList(self, therapists: therapists)
                     }
