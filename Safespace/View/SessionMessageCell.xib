@@ -13,7 +13,7 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="73" id="KGk-i7-Jjw" customClass="SessionMessageCell" customModule="Safespace" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="343" height="73"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="343" height="73"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -45,6 +45,7 @@
                     <constraint firstAttribute="bottom" secondItem="ij5-bU-fPb" secondAttribute="bottom" constant="10" id="B7Q-RM-8U6"/>
                     <constraint firstItem="ij5-bU-fPb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="DqE-e6-Rjb"/>
                     <constraint firstItem="ij5-bU-fPb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="NwR-8S-IWf"/>
+                    <constraint firstAttribute="trailing" secondItem="ij5-bU-fPb" secondAttribute="trailing" constant="10" id="km9-jl-3F7"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -52,6 +53,7 @@
                 <outlet property="chatBox" destination="ij5-bU-fPb" id="RHV-Eb-B6Q"/>
                 <outlet property="chatTextView" destination="Lsi-O9-Dot" id="MWe-UN-H32"/>
                 <outlet property="leadingConstraint" destination="NwR-8S-IWf" id="LwZ-jg-ycL"/>
+                <outlet property="trailingConstraint" destination="km9-jl-3F7" id="wo7-Am-PoD"/>
             </connections>
             <point key="canvasLocation" x="-143" y="143"/>
         </tableViewCell>

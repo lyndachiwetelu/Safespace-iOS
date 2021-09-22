@@ -12,6 +12,7 @@ class SessionMessageCell: UITableViewCell {
     @IBOutlet var chatTextView: UITextView!
     @IBOutlet var chatBox: UIView!
     @IBOutlet var leadingConstraint: NSLayoutConstraint!
+    @IBOutlet var trailingConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()

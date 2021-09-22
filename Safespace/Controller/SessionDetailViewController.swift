@@ -267,7 +267,6 @@ class SessionDetailViewController: UIViewController {
     }
     
     //MARK: - WebRTC Offer Answer Handler Section
-    
     func doWebrtcAnswer(_ sdpMetadata: SdpMetadata, payloadType:String) {
         self.webRTCClient!.answer(connectionId: sdpMetadata.connectionId) { localSdp in
             Logger.doLog("LOCAL SDP for Received")
@@ -399,17 +398,10 @@ extension SessionDetailViewController: UITableViewDataSource {
         
         if (userId != messages[indexPath.row].userId) {
             cell.leadingConstraint.isActive = false
-            NSLayoutConstraint.activate([
-                cell.chatBox.trailingAnchor.constraint(equalTo: cell.contentView.layoutMarginsGuide.trailingAnchor, constant: 10),
-            ])
+            cell.trailingConstraint.isActive = true
         } else {
             cell.leadingConstraint.isActive = true
-            let trailing = cell.chatBox.constraints.filter { constraint in
-                constraint.firstAttribute == .trailing
-            }
-            for t in trailing {
-                t.isActive = false
-            }
+            cell.trailingConstraint.isActive = false
         }
         
         return cell
@@ -428,7 +420,6 @@ extension SessionDetailViewController: UITextViewDelegate {
 }
 
 //MARK: - SignalClientDelegate Section
-
 extension SessionDetailViewController: SignalClientDelegate {
     func signalClientDidConnect(_ signalClient: SignalingClient) {
         Logger.doLog("Signaling client connected")
