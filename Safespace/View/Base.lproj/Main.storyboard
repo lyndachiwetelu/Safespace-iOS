@@ -363,7 +363,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="Wad-QZ-YL4" kind="show" id="IV2-dv-Ca4"/>
+                                                    <action selector="submitPressed:" destination="KoW-Tf-26B" eventType="touchUpInside" id="Cze-le-UPc"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -392,6 +392,7 @@
                         <outlet property="emailTextField" destination="YSc-rD-YPk" id="AGp-d9-rJm"/>
                         <outlet property="passwordTextField" destination="DnK-Db-Zoe" id="Vka-OV-ek9"/>
                         <outlet property="submitButton" destination="YUX-qD-wt7" id="LfB-np-rnE"/>
+                        <segue destination="Wad-QZ-YL4" kind="show" identifier="GoToMainView" id="yZ2-ZP-WaP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p5t-j4-MvU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1414,7 +1415,7 @@ Since this is your first time you may select a maximum of 2 times</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="IV2-dv-Ca4"/>
+        <segue reference="yZ2-ZP-WaP"/>
         <segue reference="NID-n6-qvy"/>
     </inferredMetricsTieBreakers>
     <resources>

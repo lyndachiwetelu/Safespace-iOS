@@ -13,9 +13,42 @@ class PLoginViewController: UIViewController {
     @IBOutlet var passwordTextField: UITextField!
     
     @IBOutlet var submitButton: UIButton!
+    var networkBusy: Bool = false
+    var loggedInUser: LoginUserResponse?
+    
+    private var network = LoginManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        network.delegate = self
     }
-   
+    
+    
+    @IBAction func submitPressed(_ sender: UIButton) {
+        networkBusy = true
+        network.loginUser(email: emailTextField.text!, password: passwordTextField.text!)
+    }
+    
+}
+
+extension PLoginViewController: LoginManagerDelegate {
+    func didLogin(_ networkManager: LoginManager, user: LoginUserResponse) {
+        networkBusy = false
+        loggedInUser = user
+        DispatchQueue.main.async {
+            self.setToken(token: user.token)
+            self.performSegue(withIdentifier: "GoToMainView", sender: self)
+        }
+    }
+    
+    func didFailWithError(error: Error) {
+        networkBusy = false
+        Logger.doLog("Login Error: \(String(describing: error))")
+    }
+    
+    func setToken(token: String) {
+        UserDefaults.standard.set(token, forKey: "apiToken")
+    }
+    
+    
 }
