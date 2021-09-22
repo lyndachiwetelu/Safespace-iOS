@@ -602,6 +602,7 @@
                     <tabBarItem key="tabBarItem" title="Therapists" image="person.fill" catalog="system" id="3kT-LE-xhx"/>
                     <navigationItem key="navigationItem" title="Therapists" id="ixJ-aZ-keg"/>
                     <connections>
+                        <outlet property="listLabel" destination="3fS-Ot-8d0" id="UzH-Sn-RMM"/>
                         <outlet property="tableView" destination="b3r-pG-9h7" id="mQj-p3-9kX"/>
                         <segue destination="Ub6-6L-bys" kind="show" identifier="goToTherapistProfile" id="EbE-3i-VrH"/>
                     </connections>

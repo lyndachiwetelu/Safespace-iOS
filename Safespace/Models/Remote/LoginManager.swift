@@ -26,7 +26,7 @@ struct LoginManager {
             let requestBodyDict = [
                 "query": """
                     mutation login {
-                      loginUser(input: {email: \"\(email)\", password:\"\(password)\"}) {
+                      loginUser(input: {email: "\(email)", password:"\(password)"}) {
                        user {
                            id name userType
                        }

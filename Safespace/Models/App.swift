@@ -11,3 +11,9 @@ import UIKit
 struct AppPrimaryColor {
     static var color: UIColor = UIColor(named: "App Teal")!
 }
+
+struct AppConstant {
+    static let apiToken = "apiToken"
+    static let segueToMainTab = "GoToMainView"
+    static let segueToTherapistProfile = "goToTherapistProfile"
+}

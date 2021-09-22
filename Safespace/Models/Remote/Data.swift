@@ -25,3 +25,30 @@ struct UserData: Decodable {
     let name: String
     let userType: String
 }
+
+struct TherapistDataResponse: Decodable {
+    let getTherapists: [TherapistResponse]
+}
+
+struct TherapistListResponse: Decodable {
+    let data: TherapistDataResponse
+}
+
+struct TherapistResponse: Decodable {
+    let id: Int
+    let name: String
+    let userType: String
+    let therapistSetting: TherapistSetting
+}
+
+struct TherapistSetting: Decodable {
+    let ageFrom: Int
+    let ageTo: Int
+    let qualifications: String
+    let timePerSession: String
+    let religiousTherapy: String
+    let couplesTherapy: Bool
+    let summary: String
+    let imageUrl: String
+    let pricePerSession: Int
+}

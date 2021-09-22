@@ -15,15 +15,14 @@ class TherapistProfileViewController: UIViewController {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var imageView: UIImageView!
     
-    var image: UIImage?
-    var name: String?
+    var therapist: TherapistResponse?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         descriptionTextView.text = "Some description about the therapist which just explains more about the kind of illnesses thhey are familiar with handling with different type of illnesses."
         ailmentsTextView.text = "Depression Anxiety PTSD Addictions"
-        nameLabel.text = "\(name!) B.Sc"
-        imageView.image = image!
+        nameLabel.text = "\(therapist!.name) \(therapist!.therapistSetting.qualifications)"
+        imageView.load(url: URL(string: therapist!.therapistSetting.imageUrl)!)
     }
 
 }

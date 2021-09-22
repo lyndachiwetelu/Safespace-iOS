@@ -48,6 +48,7 @@
 		78BA0CEC26D6E8A500093DD8 /* PSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BA0CEB26D6E8A500093DD8 /* PSignupViewController.swift */; };
 		78BA0CEE26D6EFB200093DD8 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78BA0CED26D6EFB200093DD8 /* Colors.xcassets */; };
 		78C4475A26FB3F85002AFA23 /* TherapistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C4475926FB3F85002AFA23 /* TherapistManager.swift */; };
+		78C4475E26FB4DA9002AFA23 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C4475D26FB4DA9002AFA23 /* UIImageView.swift */; };
 		78C88EEA26F0940C007CB6BD /* SessionPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C88EE926F0940C007CB6BD /* SessionPaymentViewController.swift */; };
 		78C88EEC26F0948D007CB6BD /* PaymentSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C88EEB26F0948D007CB6BD /* PaymentSuccessViewController.swift */; };
 		78C88EF026F0C1C5007CB6BD /* SessionListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C88EEF26F0C1C5007CB6BD /* SessionListTableViewController.swift */; };
@@ -117,6 +118,7 @@
 		78BA0CEB26D6E8A500093DD8 /* PSignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSignupViewController.swift; sourceTree = "<group>"; };
 		78BA0CED26D6EFB200093DD8 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		78C4475926FB3F85002AFA23 /* TherapistManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TherapistManager.swift; sourceTree = "<group>"; };
+		78C4475D26FB4DA9002AFA23 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		78C88EE926F0940C007CB6BD /* SessionPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPaymentViewController.swift; sourceTree = "<group>"; };
 		78C88EEB26F0948D007CB6BD /* PaymentSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessViewController.swift; sourceTree = "<group>"; };
 		78C88EEF26F0C1C5007CB6BD /* SessionListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionListTableViewController.swift; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				7897EC7E26E2151D001E8279 /* RTCStates.swift */,
+				78C4475D26FB4DA9002AFA23 /* UIImageView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 				78F31E9726EEA54300BE392C /* TherapistProfileViewController.swift in Sources */,
 				78C4475A26FB3F85002AFA23 /* TherapistManager.swift in Sources */,
 				78C88EF926F118A0007CB6BD /* SessionListCell.swift in Sources */,
+				78C4475E26FB4DA9002AFA23 /* UIImageView.swift in Sources */,
 				7897EC9A26E2151D001E8279 /* Message.swift in Sources */,
 				7897EC9D26E2151D001E8279 /* StarscreamProvider.swift in Sources */,
 				78C88EF026F0C1C5007CB6BD /* SessionListTableViewController.swift in Sources */,

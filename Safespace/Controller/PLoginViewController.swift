@@ -23,10 +23,17 @@ class PLoginViewController: UIViewController {
         network.delegate = self
     }
     
-    
     @IBAction func submitPressed(_ sender: UIButton) {
         networkBusy = true
         network.loginUser(email: emailTextField.text!, password: passwordTextField.text!)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == AppConstant.segueToMainTab {
+            let dest = segue.destination as? UITabBarController
+            let vc = dest?.viewControllers?.first as? TherapistListViewController
+            vc?.loggedInUser = loggedInUser?.user
+        }
     }
     
 }
@@ -37,7 +44,7 @@ extension PLoginViewController: LoginManagerDelegate {
         loggedInUser = user
         DispatchQueue.main.async {
             self.setToken(token: user.token)
-            self.performSegue(withIdentifier: "GoToMainView", sender: self)
+            self.performSegue(withIdentifier: AppConstant.segueToMainTab, sender: self)
         }
     }
     
@@ -47,7 +54,7 @@ extension PLoginViewController: LoginManagerDelegate {
     }
     
     func setToken(token: String) {
-        UserDefaults.standard.set(token, forKey: "apiToken")
+        UserDefaults.standard.set(token, forKey: AppConstant.apiToken)
     }
     
     

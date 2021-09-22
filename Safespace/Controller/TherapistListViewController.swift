@@ -9,34 +9,31 @@ import UIKit
 
 class TherapistListViewController: UIViewController {
 
+    @IBOutlet var listLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     var selectedIndex = 0
+    var loggedInUser: UserData?
+    var therapistManager = TherapistManager()
     
+    var therapists: [TherapistResponse]? = [TherapistResponse]()
     
-    let therapists = [
-        
-        ["Jamil", #imageLiteral(resourceName: "av4")],
-        ["Jemila", #imageLiteral(resourceName: "avi1")],
-        ["Kunle", #imageLiteral(resourceName: "avi2")],
-        ["Aberdeen", #imageLiteral(resourceName: "av3")],
-        ["Salusi", #imageLiteral(resourceName: "av4")]
-    ];
     
     let cellIdentifier = "TherapistListTableViewCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        therapistManager.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "TherapistListTableViewCell", bundle: nil), forCellReuseIdentifier: cellIdentifier)
         tableView.backgroundColor = .white
         tableView.rowHeight = 150.0
+        therapistManager.getTherapistsForUser(userId: loggedInUser!.id)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let viewController = segue.destination as? TherapistProfileViewController
-        viewController?.name = therapists[selectedIndex][0] as? String
-        viewController?.image = therapists[selectedIndex][1] as? UIImage
+        viewController?.therapist = therapists![selectedIndex]
     }
     
     
@@ -55,19 +52,22 @@ extension TherapistListViewController: UITableViewDelegate {
 extension TherapistListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return therapists.count
+        return therapists!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! TherapistListTableViewCell
-        cell.nameLabel?.text = therapists[indexPath.row][0] as? String
-        cell.priceLabel?.text = "$80 / 30minutes"
-        cell.qualificationLabel.text = "B.Sc"
-        let description = "Some description about the therapist which we need to continue this app Like wtf! Some description about the therapist which we need to continue this app Like wtf!"
+        let theTherapist = therapists![indexPath.row]
+        cell.nameLabel?.text = theTherapist.name as String
+        let price = theTherapist.therapistSetting.pricePerSession
+        let time = theTherapist.therapistSetting.timePerSession
+        cell.priceLabel?.text = "$\(price) / \(time)minutes"
+        cell.qualificationLabel.text = theTherapist.therapistSetting.qualifications
+        let description = theTherapist.therapistSetting.summary
         
         let index = description.index(description.startIndex, offsetBy: 100)
         cell.descLabel.text = String(description[description.startIndex...index])
-        cell.tImageView?.image = therapists[indexPath.row][1] as? UIImage
+        cell.tImageView?.load(url: URL(string: theTherapist.therapistSetting.imageUrl)!)
         cell.seeMoreButton.tag = indexPath.row
         cell.delegate = self
         return cell
@@ -76,14 +76,30 @@ extension TherapistListViewController: UITableViewDataSource {
 }
 
 //MARK: - TherapistListTableCellViewDelegate
-
 extension TherapistListViewController: TherapistListTableCellViewDelegate {
     func doSegue() {
-        performSegue(withIdentifier: "goToTherapistProfile", sender: nil)
+        performSegue(withIdentifier: AppConstant.segueToTherapistProfile, sender: self)
     }
     
     func seeMoreButtonTapped(_ button: UIButton) {
         selectedIndex = button.tag
         doSegue()
     }
+}
+
+//MARK: - TherapistManager Delegate
+extension TherapistListViewController: TherapistManagerDelegate {
+    func didGetList(_ tManager: TherapistManager, therapists: [TherapistResponse]) {
+        self.therapists = therapists
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.listLabel.text = "\(therapists.count) Therapists Match Your Profile"
+        }
+    }
+    
+    func didFailWithError(error: Error) {
+        Logger.doLog("Login Error: \(String(describing: error))")
+    }
+    
+    
 }
