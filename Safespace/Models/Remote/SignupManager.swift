@@ -23,39 +23,6 @@ struct SignupManager {
             request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
             request.setValue("true", forHTTPHeaderField: "mobile")
             
-            let requestBody = [
-                "query": """
-                    mutation MyMutation {
-                      signupUser(
-                        input: {
-                    email: "jkab@gmail.com",
-                    name: "JK the Slayer",
-                    password: "chichi",
-                    settings: {
-                        age: 30,
-                        ailments: ["depression",],
-                        couplesTherapy: false,
-                        hasHadTherapy: false,
-                        media: ["video" "voice"],
-                        religiousTherapy: "none"
-                    }
-                    
-                    }
-                      ) {
-                           user {
-                            id
-                            name
-                            userType
-                           }
-                           token
-                        }
-                      }
-                    }
-
-                    """
-            
-            ]
-            
             let requestBodyDict = [
                 "query": """
                     mutation signup {
@@ -92,7 +59,6 @@ struct SignupManager {
                 }
                 
                 if let safeData = data {
-                    Logger.doLog(String(decoding: safeData, as: UTF8.self))
                     if let user = self.parseJSON(userData: safeData) {
                         self.delegate?.didSignup(self, user: user)
                     }

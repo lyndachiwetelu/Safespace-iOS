@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: HasSpinnerViewController {
 
     @IBOutlet var emailTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
@@ -24,7 +24,10 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func submitPressed(_ sender: UIButton) {
+        emailTextField.endEditing(true)
+        passwordTextField.endEditing(true)
         networkBusy = true
+        doSpinner()
         network.loginUser(email: emailTextField.text!, password: passwordTextField.text!)
     }
     
@@ -44,6 +47,7 @@ extension LoginViewController: LoginManagerDelegate {
         loggedInUser = user
         DispatchQueue.main.async {
             self.setToken(token: user.token)
+            self.removeSpinner()
             self.performSegue(withIdentifier: AppConstant.segueToMainTab, sender: self)
         }
     }
@@ -51,6 +55,7 @@ extension LoginViewController: LoginManagerDelegate {
     func didFailWithError(error: Error) {
         networkBusy = false
         Logger.doLog("Login Error: \(String(describing: error))")
+        self.removeSpinner()
     }
     
     func setToken(token: String) {

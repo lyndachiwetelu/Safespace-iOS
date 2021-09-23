@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TherapistListViewController: UIViewController {
+class TherapistListViewController: HasSpinnerViewController {
 
     @IBOutlet var listLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -28,6 +28,8 @@ class TherapistListViewController: UIViewController {
         tableView.register(UINib(nibName: "TherapistListTableViewCell", bundle: nil), forCellReuseIdentifier: cellIdentifier)
         tableView.backgroundColor = .white
         tableView.rowHeight = 150.0
+        listLabel.text = "Finding Therapists That Match Your Profile..."
+        doSpinner()
         therapistManager.getTherapistsForUser(userId: loggedInUser!.id)
     }
     
@@ -92,6 +94,7 @@ extension TherapistListViewController: TherapistManagerDelegate {
     func didGetList(_ tManager: TherapistManager, therapists: [TherapistResponse]) {
         self.therapists = therapists
         DispatchQueue.main.async {
+            self.removeSpinner()
             self.tableView.reloadData()
             self.listLabel.text = "\(therapists.count) Therapists Match Your Profile"
         }
