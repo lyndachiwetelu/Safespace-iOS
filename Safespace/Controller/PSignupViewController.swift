@@ -8,6 +8,8 @@
 import UIKit
 
 class PSignupViewController: UIViewController {
+    
+    var questionnaire: Questionnaire?
 
     override func viewDidLoad() {
         super.viewDidLoad()

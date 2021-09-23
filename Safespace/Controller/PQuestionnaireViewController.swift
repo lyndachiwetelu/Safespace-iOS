@@ -11,51 +11,26 @@ class PQuestionnaireViewController: UIViewController {
     @IBOutlet var ailmentPickerViewer: UIPickerView!
     @IBOutlet var religiousTherapistPicker: UIPickerView!
     @IBOutlet var mediaPicker: UIPickerView!
+    @IBOutlet var ageTextField: UITextField!
+    @IBOutlet var stepper: UIStepper!
+    @IBOutlet var beenInTherapySwitch: UISwitch!
+    @IBOutlet var couplesTherapySwitch: UISwitch!
     
-    let ailments = [
-            [
-                "name": "Depression",
-                "key": "depression"
-            ],
-            [
-                "name": "Anxiety",
-                "key": "anxiety"
-            ],
-            [
-                "name": "Bipolar Disorder",
-                "key": "bipolar"
-            ],
-            [
-                "name": "Eating Disorders",
-                "key": "eating-disorder"
-            ],
-            [
-                "name": "PTSD",
-                "key": "ptsd"
-            ],
-            [
-                "name": "Addictions",
-                "key": "addiction"
-            ],
-            [
-                "name": "Personality Disorder",
-                "key": "personality-disorder"
-            ],
-    ]
+    var selectedAilmentIndex: Int = 0
+    var selectedReligionIndex: Int = 0
+    var selectedMediaIndex: Int = 0
     
+    let ailments = AppConstant.ailments
+    let religions = AppConstant.religions
     
-    let religions = [
-        "None",
-        "Christian",
-        "Muslim",
-        "Hindu",
-        "Buddhist"
-    ]
+    var questionnaire: Questionnaire?
     
-    let media = ["Voice", "Video", "Text", "All"]
+    let media = ["voice", "video", "text", "all"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        beenInTherapySwitch.setOn(false, animated: false)
+        couplesTherapySwitch.setOn(false, animated: false)
         religiousTherapistPicker.dataSource = self
         religiousTherapistPicker.delegate = self
         ailmentPickerViewer.dataSource = self
@@ -63,6 +38,26 @@ class PQuestionnaireViewController: UIViewController {
         mediaPicker.dataSource = self
         mediaPicker.delegate = self
     }
+    
+    @IBAction func continueButtonPressed(_ sender: UIButton) {
+        let age = Int(ageTextField.text!)
+        let beenInTherapy = beenInTherapySwitch.isOn
+        let ailments = [ailments[selectedAilmentIndex]["name"]!]
+        let media =  [media[selectedMediaIndex]]
+        let couplesTherapy = couplesTherapySwitch.isOn
+        let religiousTherapy = religions[selectedReligionIndex]
+       
+        questionnaire = Questionnaire(age: age!, hasHadTherapy: beenInTherapy, ailments: ailments, media: media, religiousTherapy: religiousTherapy, couplesTherapy: couplesTherapy)
+        performSegue(withIdentifier: AppConstant.segueToSignUpScreen, sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == AppConstant.segueToSignUpScreen {
+            let viewController = segue.destination as! PSignupViewController
+            viewController.questionnaire = questionnaire
+        }
+    }
+    
 }
 
 extension PQuestionnaireViewController: UIPickerViewDataSource {
@@ -85,6 +80,17 @@ extension PQuestionnaireViewController: UIPickerViewDataSource {
 }
 
 extension PQuestionnaireViewController: UIPickerViewDelegate {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch pickerView.tag {
+        case 100:
+            selectedAilmentIndex = row
+        case 200:
+            selectedReligionIndex = row
+        default:
+            selectedMediaIndex = row
+            
+        }
+    }
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         
@@ -96,7 +102,7 @@ extension PQuestionnaireViewController: UIPickerViewDelegate {
         case 200:
             str = religions[row]
         default:
-            str = media[row]
+            str = media[row].capitalized
             
         }
         

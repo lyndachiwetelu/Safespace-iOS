@@ -16,6 +16,47 @@ struct AppConstant {
     static let apiToken = "apiToken"
     static let segueToMainTab = "GoToMainView"
     static let segueToTherapistProfile = "goToTherapistProfile"
+    static let segueToSignUpScreen = "ToSignUpScreen"
+    
+    static let ailments =  [
+        [
+            "name": "Depression",
+            "key": "depression"
+        ],
+        [
+            "name": "Anxiety",
+            "key": "anxiety"
+        ],
+        [
+            "name": "Bipolar Disorder",
+            "key": "bipolar"
+        ],
+        [
+            "name": "Eating Disorders",
+            "key": "eating-disorder"
+        ],
+        [
+            "name": "PTSD",
+            "key": "ptsd"
+        ],
+        [
+            "name": "Addictions",
+            "key": "addiction"
+        ],
+        [
+            "name": "Personality Disorder",
+            "key": "personality-disorder"
+        ],
+]
+
+
+static let religions = [
+    "None",
+    "Christian",
+    "Muslim",
+    "Hindu",
+    "Buddhist"
+]
 }
 
 

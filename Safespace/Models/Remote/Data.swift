@@ -6,6 +6,7 @@
 //
 
 import Foundation
+  
 
 struct LoginDataResponse: Decodable {
     let loginUser: LoginUserResponse
@@ -68,3 +69,20 @@ struct Ailment: Decodable {
     let ailmentKey: String
     let name: String
 }
+
+struct SignupRequest: Decodable {
+    let name: String
+    let email: String
+    let password: String
+    let settings: Questionnaire
+}
+
+struct Questionnaire : Decodable {
+    let age: Int
+    let hasHadTherapy: Bool
+    let ailments: [String]
+    let media: [String]
+    let religiousTherapy: String
+    let couplesTherapy: Bool
+}
+

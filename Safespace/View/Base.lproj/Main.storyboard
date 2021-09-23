@@ -267,7 +267,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="gld-GJ-2EP" kind="show" id="5aQ-cT-660"/>
+                                                    <action selector="continueButtonPressed:" destination="gCi-GO-X8L" eventType="touchUpInside" id="qQl-Pa-T2c"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -297,14 +297,19 @@
                     </view>
                     <navigationItem key="navigationItem" title="QUESTIONNAIRE" id="2h9-T7-4Nj"/>
                     <connections>
+                        <outlet property="ageTextField" destination="shH-Pb-J6N" id="cZp-Xf-fxD"/>
                         <outlet property="ailmentPickerViewer" destination="z5q-jI-19q" id="qfS-f7-T21"/>
+                        <outlet property="beenInTherapySwitch" destination="rsI-hU-kjF" id="2dt-JM-OVD"/>
+                        <outlet property="couplesTherapySwitch" destination="vly-Ha-gi9" id="0Wf-Zw-7Lv"/>
                         <outlet property="mediaPicker" destination="YGa-sQ-uPX" id="8nH-f8-P2M"/>
                         <outlet property="religiousTherapistPicker" destination="xeQ-6y-U6S" id="oy0-eS-LIY"/>
+                        <outlet property="stepper" destination="xqN-kc-2DE" id="8DS-z5-DpB"/>
+                        <segue destination="gld-GJ-2EP" kind="show" identifier="ToSignUpScreen" id="rwn-fq-SH5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rca-5H-b7I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1892.753623188406" y="89.732142857142847"/>
+            <point key="canvasLocation" x="2022" y="84"/>
         </scene>
         <!--Login to Safespace-->
         <scene sceneID="9nN-c4-Por">
