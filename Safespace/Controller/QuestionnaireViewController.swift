@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PQuestionnaireViewController: UIViewController {
+class QuestionnaireViewController: UIViewController {
     @IBOutlet var ailmentPickerViewer: UIPickerView!
     @IBOutlet var religiousTherapistPicker: UIPickerView!
     @IBOutlet var mediaPicker: UIPickerView!
@@ -29,6 +29,7 @@ class PQuestionnaireViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addGestureRecognizer()
         beenInTherapySwitch.setOn(false, animated: false)
         couplesTherapySwitch.setOn(false, animated: false)
         religiousTherapistPicker.dataSource = self
@@ -37,6 +38,15 @@ class PQuestionnaireViewController: UIViewController {
         ailmentPickerViewer.delegate = self
         mediaPicker.dataSource = self
         mediaPicker.delegate = self
+    }
+    
+    func addGestureRecognizer() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(endTextFieldEditing))
+        view.addGestureRecognizer(tapRecognizer)
+    }
+    
+    @objc func endTextFieldEditing() {
+        ageTextField.endEditing(true)
     }
     
     @IBAction func continueButtonPressed(_ sender: UIButton) {
@@ -53,14 +63,14 @@ class PQuestionnaireViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == AppConstant.segueToSignUpScreen {
-            let viewController = segue.destination as! PSignupViewController
+            let viewController = segue.destination as! SignupViewController
             viewController.questionnaire = questionnaire
         }
     }
     
 }
 
-extension PQuestionnaireViewController: UIPickerViewDataSource {
+extension QuestionnaireViewController: UIPickerViewDataSource {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         1
@@ -79,7 +89,7 @@ extension PQuestionnaireViewController: UIPickerViewDataSource {
     
 }
 
-extension PQuestionnaireViewController: UIPickerViewDelegate {
+extension QuestionnaireViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView.tag {
         case 100:

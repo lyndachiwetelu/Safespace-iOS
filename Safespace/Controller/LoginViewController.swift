@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PLoginViewController: UIViewController {
+class LoginViewController: UIViewController {
 
     @IBOutlet var emailTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
@@ -38,7 +38,7 @@ class PLoginViewController: UIViewController {
     
 }
 
-extension PLoginViewController: LoginManagerDelegate {
+extension LoginViewController: LoginManagerDelegate {
     func didLogin(_ networkManager: LoginManager, user: LoginUserResponse) {
         networkBusy = false
         loggedInUser = user

@@ -136,7 +136,7 @@
         <!--QUESTIONNAIRE-->
         <scene sceneID="Odh-S5-lfn">
             <objects>
-                <viewController id="gCi-GO-X8L" customClass="PQuestionnaireViewController" customModule="Safespace" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="gCi-GO-X8L" customClass="QuestionnaireViewController" customModule="Safespace" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EGF-RQ-jfK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -314,7 +314,7 @@
         <!--Login to Safespace-->
         <scene sceneID="9nN-c4-Por">
             <objects>
-                <viewController id="KoW-Tf-26B" customClass="PLoginViewController" customModule="Safespace" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="KoW-Tf-26B" customClass="LoginViewController" customModule="Safespace" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sNZ-UA-KtB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -407,7 +407,7 @@
         <!--Signup-->
         <scene sceneID="sdX-K8-YYh">
             <objects>
-                <viewController id="gld-GJ-2EP" customClass="PSignupViewController" customModule="Safespace" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="gld-GJ-2EP" customClass="SignupViewController" customModule="Safespace" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xKo-GQ-0m0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -514,7 +514,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="Wad-QZ-YL4" kind="show" id="sJ7-sb-sjY"/>
+                                                    <action selector="submitButtonPressed:" destination="gld-GJ-2EP" eventType="touchUpInside" id="TbJ-KW-1g2"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -546,6 +546,13 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Signup" id="aGL-9T-G7O"/>
+                    <connections>
+                        <outlet property="confirmPasswordTextField" destination="YbI-TH-i14" id="DII-7f-FU1"/>
+                        <outlet property="emailTextField" destination="mbq-Rh-ZzM" id="IKf-Np-b2s"/>
+                        <outlet property="nameTextField" destination="uvG-l2-URi" id="LwQ-8h-bm4"/>
+                        <outlet property="passwordTextField" destination="pib-EL-t6I" id="UKA-zQ-Qaz"/>
+                        <segue destination="Wad-QZ-YL4" kind="show" identifier="GoToMainView" id="0kQ-cM-Nsq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jCU-og-W18" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1427,7 +1434,7 @@ Since this is your first time you may select a maximum of 2 times</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="yZ2-ZP-WaP"/>
+        <segue reference="0kQ-cM-Nsq"/>
         <segue reference="NID-n6-qvy"/>
     </inferredMetricsTieBreakers>
     <resources>

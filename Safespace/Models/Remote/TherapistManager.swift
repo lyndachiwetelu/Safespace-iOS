@@ -16,12 +16,16 @@ struct TherapistManager {
         performRequest(userId: userId)
     }
     
+    func getToken() -> String {
+        return UserDefaults.standard.value(forKey: AppConstant.apiToken) as! String
+    }
+    
     func performRequest(userId: Int) {
         if let url = URL(string: baseURL) {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
-            let accessToken = UserDefaults.standard.value(forKey: AppConstant.apiToken) as! String
+            let accessToken = getToken()
             request.setValue(accessToken, forHTTPHeaderField: "access-token")
             
             let requestBodyDict = [

@@ -57,15 +57,11 @@ struct TherapistSetting: Decodable {
 }
 
 struct Media: Decodable {
-    let id: Int
-    let userId: Int
     let mediaKey: String
     let name: String
 }
 
 struct Ailment: Decodable {
-    let id: Int
-    let userId: Int
     let ailmentKey: String
     let name: String
 }
@@ -84,5 +80,18 @@ struct Questionnaire : Decodable {
     let media: [String]
     let religiousTherapy: String
     let couplesTherapy: Bool
+}
+
+struct SignupResponse: Decodable {
+    let data: SignupData
+}
+
+struct SignupData: Decodable {
+    let signupUser: SignupUserResponse
+}
+
+struct SignupUserResponse: Decodable {
+    let user: UserData
+    let token: String
 }
 
