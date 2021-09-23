@@ -13,19 +13,18 @@ class HasSpinnerViewController: UIViewController, HasSpinnerView {
     func doSpinner() {
         spinnerVc = SpinnerViewController()
         addChild(spinnerVc!)
-        spinnerVc!.view.frame = view.frame
+        spinnerVc!.view.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
         view.addSubview(spinnerVc!.view)
-        NSLayoutConstraint.activate([
-            spinnerVc!.view.topAnchor.constraint(equalTo:  view.layoutMarginsGuide.topAnchor)
-        ])
         spinnerVc!.didMove(toParent: self)
     }
     
     
     func removeSpinner() {
-        spinnerVc?.willMove(toParent: nil)
-        spinnerVc?.view.removeFromSuperview()
-        spinnerVc?.removeFromParent()
+        DispatchQueue.main.async {
+            self.spinnerVc?.willMove(toParent: nil)
+            self.spinnerVc?.view.removeFromSuperview()
+            self.spinnerVc?.removeFromParent()
+        }
     }
     
 }
