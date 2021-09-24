@@ -30,6 +30,9 @@
 		7834319A26D5076900C21027 /* QuestionnaireViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7834319926D5076900C21027 /* QuestionnaireViewController.swift */; };
 		7848AD7826FB3138008C4982 /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7848AD7726FB3138008C4982 /* LoginManager.swift */; };
 		7848AD7B26FB31C9008C4982 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7848AD7A26FB31C9008C4982 /* Data.swift */; };
+		7876316A26FC9CE1006E6E7D /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7876316926FC9CE1006E6E7D /* SpinnerViewController.swift */; };
+		7876316C26FCA74F006E6E7D /* HasSpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7876316B26FCA74F006E6E7D /* HasSpinnerViewController.swift */; };
+		7876317026FCC60E006E6E7D /* AvailabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7876316F26FCC60E006E6E7D /* AvailabilityManager.swift */; };
 		788D741126F547BD00ACC6FE /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788D741026F547BD00ACC6FE /* Logger.swift */; };
 		788D741326F6B9DB00ACC6FE /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788D741226F6B9DB00ACC6FE /* App.swift */; };
 		7897EC5126E1F8AE001E8279 /* WebRTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7897EC5026E1F8AE001E8279 /* WebRTC.swift */; };
@@ -100,6 +103,9 @@
 		7834319926D5076900C21027 /* QuestionnaireViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnaireViewController.swift; sourceTree = "<group>"; };
 		7848AD7726FB3138008C4982 /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		7848AD7A26FB31C9008C4982 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		7876316926FC9CE1006E6E7D /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
+		7876316B26FCA74F006E6E7D /* HasSpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasSpinnerViewController.swift; sourceTree = "<group>"; };
+		7876316F26FCC60E006E6E7D /* AvailabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilityManager.swift; sourceTree = "<group>"; };
 		788D741026F547BD00ACC6FE /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		788D741226F6B9DB00ACC6FE /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		7897EC5026E1F8AE001E8279 /* WebRTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTC.swift; sourceTree = "<group>"; };
@@ -228,6 +234,8 @@
 				78C88EEB26F0948D007CB6BD /* PaymentSuccessViewController.swift */,
 				78C88EEF26F0C1C5007CB6BD /* SessionListTableViewController.swift */,
 				7800440D26F144CD00758DBE /* SessionDetailViewController.swift */,
+				7876316926FC9CE1006E6E7D /* SpinnerViewController.swift */,
+				7876316B26FCA74F006E6E7D /* HasSpinnerViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -239,6 +247,7 @@
 				7848AD7A26FB31C9008C4982 /* Data.swift */,
 				78C4475926FB3F85002AFA23 /* TherapistManager.swift */,
 				78D5FDB526FC619E008BE132 /* SignupManager.swift */,
+				7876316F26FCC60E006E6E7D /* AvailabilityManager.swift */,
 			);
 			path = Remote;
 			sourceTree = "<group>";
@@ -435,9 +444,11 @@
 				782315A226D708DF00FEC675 /* TherapistListViewController.swift in Sources */,
 				78D5FDB626FC619E008BE132 /* SignupManager.swift in Sources */,
 				78F31E9526ED391500BE392C /* Connection.swift in Sources */,
+				7876316A26FC9CE1006E6E7D /* SpinnerViewController.swift in Sources */,
 				7897EC9B26E2151D001E8279 /* WebSocketProvider.swift in Sources */,
 				7897EC9C26E2151D001E8279 /* NativeWebSocket.swift in Sources */,
 				7834318626D46FA300C21027 /* ViewController.swift in Sources */,
+				7876317026FCC60E006E6E7D /* AvailabilityManager.swift in Sources */,
 				7897EC5126E1F8AE001E8279 /* WebRTC.swift in Sources */,
 				7848AD7B26FB31C9008C4982 /* Data.swift in Sources */,
 				788D741326F6B9DB00ACC6FE /* App.swift in Sources */,
@@ -454,6 +465,7 @@
 				7897EC9226E2151D001E8279 /* RTCStates.swift in Sources */,
 				7848AD7826FB3138008C4982 /* LoginManager.swift in Sources */,
 				78BA0CEC26D6E8A500093DD8 /* SignupViewController.swift in Sources */,
+				7876316C26FCA74F006E6E7D /* HasSpinnerViewController.swift in Sources */,
 				7897EC9E26E2151D001E8279 /* WebRTCClient.swift in Sources */,
 				7897EC9126E2151D001E8279 /* Config.swift in Sources */,
 				7897EC9326E2151D001E8279 /* SessionDescription.swift in Sources */,
