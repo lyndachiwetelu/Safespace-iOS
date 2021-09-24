@@ -7,32 +7,29 @@
 
 import UIKit
 
-class SessionListTableViewController: UITableViewController {
+class SessionListTableViewController: UITableViewController, UsesUserDefaults {
+    
+    var sessionManager = SessionManager()
     
     var sessions = [
-        "active": [
-            Session(from: "11:00", to: "12:00", day: "13/04/2021", with: "Maya Agida"),
-            Session(from: "12:00", to: "13:00", day: "13/04/2021", with: "Tom Haruna"),
-            Session(from: "13:00", to: "14:00", day: "13/04/2021", with: "Becky Geruld"),
-        ],
-        "upcoming": [
-            Session(from: "11:00", to: "12:00", day: "13/04/2021", with: "Mary Agida"),
-            Session(from: "12:00", to: "13:00", day: "13/04/2021", with: "Joe Jonas Haruna"),
-            Session(from: "13:00", to: "14:00", day: "13/04/2021", with: "Becky Geruld"),
-        ],
-        "past": [
-            Session(from: "11:00", to: "12:00", day: "13/04/2021", with: "Prisma John"),
-            Session(from: "12:00", to: "13:00", day: "13/04/2021", with: "Kathleen Ayo"),
-        ],
+        "active": [UserSession](),
+        "upcoming": [UserSession](),
+        "past": [UserSession](),
     ]
+    
+    var readOnlySession: Bool = false
+    var selectedIndex: Int?
+    var selectedSection: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        sessionManager.fetchDelegate = self
         tableView.sectionHeaderHeight = 50
         tableView.backgroundColor = .white
         tableView.register(SessionListHeader.self,
               forHeaderFooterViewReuseIdentifier: "SessionListSectionHeader")
         tableView.register(UINib(nibName: "SessionListCell", bundle: nil), forCellReuseIdentifier: "SessionListCell")
+        fetchSessions()
     }
     
     func getSectionKey(section: Int) -> String {
@@ -73,75 +70,111 @@ class SessionListTableViewController: UITableViewController {
         cell.delegate = self
 
         let typeOfSession = getSectionKey(section: indexPath.section)
+        cell.setButtonsToDefaultState()
         
         switch typeOfSession {
-        case "active":
-            cell.cancelButton.isHidden = true
-        case "past":
-            cell.joinButton.isHidden = true
-            cell.joinButton.isEnabled = false
-            cell.cancelButton.isHidden = true
-            cell.detailsButton.isHidden = false
-        default:
-            cell.joinButton.isHidden = false
-            cell.cancelButton.isHidden = false
-            cell.detailsButton.isHidden = true
+            case SessionType.active.rawValue:
+                cell.joinButton.isHidden = false
+            case SessionType.past.rawValue:
+                cell.detailsButton.isHidden = false
+            case SessionType.upcoming.rawValue:
+                cell.joinButton.isHidden = false
+                cell.joinButton.isEnabled = false
+                cell.cancelButton.isHidden = false
+            default:
+                cell.joinButton.isHidden = false
+                cell.cancelButton.isHidden = false
         }
+        
+        let cellData = sessions[typeOfSession]![indexPath.row]
+        cell.index = indexPath.row
+        cell.nameLabel.text = cellData.with
+        cell.timeLabel.text = "\(cellData.from) - \(cellData.to)"
+        cell.dayLabel.text = cellData.day
+        cell.typeOfSession = typeOfSession
         
         return cell
     }
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    func fetchSessions() {
+        let userId = getUserDefault(key: AppConstant.userId)
+        sessionManager.getUserSessions(userId: Int(userId)!)
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    func groupAndSetSessions(sessions: [UserSessionResponse]) {
+        var active = [UserSession]()
+        var upcoming = [UserSession]()
+        var past = [UserSession]()
+        let userId = Int(getUserDefault(key: AppConstant.userId))!
+        
+        for session in sessions {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "YYYY-MM-dd HH:mm"
+            let start = "\(session.day) \(session.from)"
+            let end = "\(session.day) \(session.to)"
+            let formattedStart = dateFormatter.date(from: start)
+            let formattedEnd = dateFormatter.date(from: end)
+            
+            let theSession = UserSession(id:session.id, from: session.from, to: session.to, day: session.day.replacingOccurrences(of: "-", with: "/"), with: session.therapistInfo.name, imageUrl: session.therapistInfo.therapistSetting.imageUrl, therapistId: session.therapistInfo.id, userId: userId)
+            
+            let today = Date()
+            if today > formattedEnd! {
+                past.append(theSession)
+            } else if today < formattedStart! {
+                upcoming.append(theSession)
+            } else if today >= formattedStart! && today <= formattedEnd! {
+                active.append(theSession)
+            }
+        }
+        
+        self.sessions["active"] = active
+        self.sessions["upcoming"] = upcoming
+        self.sessions["past"] = past
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == AppConstant.segueToSession {
+            let dest = segue.destination as! SessionDetailViewController
+            dest.userSession = sessions[selectedSection!]![selectedIndex!]
+            dest.readOnlySession = readOnlySession
+        }
     }
-    */
 
 }
 
 
 extension SessionListTableViewController: SessionListCellDelegate {
-    func joinPressed(_ sender: UIButton) {
-        performSegue(withIdentifier: "EnterSession", sender: self)
+    func goToSession() {
+        performSegue(withIdentifier: AppConstant.segueToSession, sender: self)
+    }
+    
+    func detailsPressed(_ sender: UIButton, index: Int, sessionType: String) {
+        selectedIndex = index
+        selectedSection = sessionType
+        readOnlySession = true
+        goToSession()
+    }
+    
+    func joinPressed(_ sender: UIButton, index: Int, sessionType: String) {
+        readOnlySession = false
+        selectedIndex = index
+        selectedSection = sessionType
+        goToSession()
+    }
+    
+}
+
+extension SessionListTableViewController: SessionManagerFetchDelegate {
+    func didFetchSessions(_ sManager: SessionManager, sessions: [UserSessionResponse]? = [UserSessionResponse]()) {
+        groupAndSetSessions(sessions: sessions!)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    func didFailWithError(error: Error) {
+        Logger.doLog("Session Fetch Error")
+        Logger.doLog(error)
     }
     
 }

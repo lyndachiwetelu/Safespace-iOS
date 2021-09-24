@@ -116,7 +116,112 @@ struct Time: Decodable, Equatable {
 }
 
 struct DayTime {
+    let availabilityId: Int
     let day: String
     let time: Time
 }
+
+struct SessionRequest {
+    let availabilityId : Int
+    let requestedBy: Int
+    let status = "confirmed"
+    let from : String
+    let to: String
+}
+
+struct CreateSessionResponse: Decodable {
+    let data: SessionDataResponse
+}
+
+struct SessionDataResponse: Decodable {
+    let createSession: SessionResponse
+}
+
+struct SessionResponse: Decodable {
+    let status: String
+    let id: Int
+    let from: String
+    let to: String
+    let requestedBy: Int
+    let availabilityId: Int
+    let day: String
+    let therapist: TherapistMini
+}
+
+struct TherapistMini: Decodable {
+    let id: Int
+    let name: String
+}
+
+struct TherapistMiniWithPhoto: Decodable {
+    let id: Int
+    let name: String
+    let therapistSetting: TherapistPhoto
+}
+
+struct TherapistPhoto: Decodable {
+    let imageUrl: String
+}
+
+struct GetSessionsResponse: Decodable {
+    let data: UserSessionsDataResponse
+}
+
+struct UserSessionsDataResponse: Decodable {
+    let getUserSessions: [UserSessionResponse]
+}
+
+struct UserSessionResponse: Decodable {
+    let status: String
+    let id: Int
+    let from: String
+    let to: String
+    let requestedBy: Int
+    let availabilityId: Int
+    let day: String
+    let therapistInfo: TherapistMiniWithPhoto
+}
+
+struct UserSession {
+    let id: Int
+    let from: String
+    let to: String
+    let day: String
+    let with: String
+    let imageUrl: String
+    let therapistId: Int
+    let userId: Int
+}
+
+struct SessionMessageResponse: Decodable {
+    let id: Int
+    let sessionId: Int
+    let message: String
+    let userId: Int
+    let createdAt: String
+}
+
+struct CreateSessionMessageResponse: Decodable {
+    let data: CreateSessionMessageData
+}
+
+
+struct CreateSessionMessageData: Decodable {
+    let saveSessionMessage: SessionMessageResponse
+}
+
+struct GetSessionMessagesData: Decodable {
+    let getSessionMessages: [SessionMessageResponse]
+}
+
+struct GetSessionMessagesResponse: Decodable {
+    let data: GetSessionMessagesData
+}
+
+struct SessionMessageRequest {
+    let message: String
+    let userId: Int
+}
+
+
 

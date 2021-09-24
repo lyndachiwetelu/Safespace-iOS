@@ -133,7 +133,7 @@ extension BookSessionViewController: AvailabilityManagerDelegate {
                     let formattedEnd = dateFormatter.date(from: t.end)
                     dateFormatter.dateFormat = "HH:mm"
                     let time = Time(start: dateFormatter.string(from: formattedStart!), end: dateFormatter.string(from: formattedEnd!))
-                    let dayTime = DayTime(day: avail.day, time: time)
+                    let dayTime = DayTime(availabilityId: avail.id, day: avail.day, time: time)
                     _avails.append(dayTime)
                 }
             }

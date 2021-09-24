@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TherapistManager: Manager {
+struct TherapistManager: UsesUserDefaults {
     
     let baseURL = "https://safespace-graphql.lyndachiwetelu.com/graphql"
     var delegate: TherapistManagerDelegate?

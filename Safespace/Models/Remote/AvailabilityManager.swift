@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AvailabilityManager: Manager {
+struct AvailabilityManager: UsesUserDefaults {
     
     let baseURL = "https://safespace-graphql.lyndachiwetelu.com/graphql"
     var delegate: AvailabilityManagerDelegate?

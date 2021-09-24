@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginViewController: HasSpinnerViewController {
+class LoginViewController: HasSpinnerViewController, UsesUserDefaults {
 
     @IBOutlet var emailTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
@@ -58,10 +58,5 @@ extension LoginViewController: LoginManagerDelegate {
         Logger.doLog("Login Error: \(String(describing: error))")
         self.removeSpinner()
     }
-    
-    func setUserDefault(value: String, forKey: String) {
-        UserDefaults.standard.set(value, forKey: forKey)
-    }
-    
     
 }

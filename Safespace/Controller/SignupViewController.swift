@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SignupViewController: UIViewController {
+class SignupViewController: UIViewController, UsesUserDefaults {
     
     @IBOutlet var nameTextField: UITextField!
     @IBOutlet var emailTextField: UITextField!
@@ -69,10 +69,5 @@ extension SignupViewController: SignupManagerDelegate {
     func didFailWithError(error: Error) {
         Logger.doLog("Signup Error \(String(describing: error))")
     }
-    
-    func setUserDefault(value: String, forKey: String) {
-        UserDefaults.standard.set(value, forKey: forKey)
-    }
-    
     
 }

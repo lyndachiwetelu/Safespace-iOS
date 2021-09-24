@@ -9,21 +9,40 @@ import UIKit
 import WebRTC
 import SocketIO
 
-class SessionDetailViewController: UIViewController {
+class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
     
     @IBOutlet var textViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet var textView: UITextView!
     @IBOutlet var tableView: UITableView!
-    var userId = "1234"
+    
+    var videoIcon: UIImageView?
+    var audioIcon: UIImageView?
+    
+    var readOnlySession: Bool = false
+    var userId = ""
     private var timer: Timer?
     
+    private var uniqSessionId = ""
+    private var chatRoomId = ""
+    
+    var sessionMessageManager = SessionMessageManager()
+    
+    //MARK: - Session Data
+    var userSession: UserSession? {
+        didSet {
+            let timestamp = Int(Date().timeIntervalSince1970)
+            uniqSessionId = "\(userSession!.userId)-\(timestamp)_session-\(userSession!.id)-chat"
+            chatRoomId = "session-\(userSession!.id)-chat"
+            userId = String(userSession!.userId)
+        }
+    }
     
     //MARK: - WebRTC Connection
     private var signalClient: SignalingClient?
     private var webRTCClient: WebRTCClient?
     private var socket: SocketIOClient?
-    private var manager = SocketManager(socketURL: URL( string:"http://192.168.2.33:8000" )!, config: [.log(true), .compress])
-    //    private var manager = SocketManager(socketURL: URL( string:"https://safespace-backend.lyndachiwetelu.com" )!, config: [.log(true), .compress])
+//    private var manager = SocketManager(socketURL: URL( string:"http://192.168.2.33:8000" )!, config: [.log(true), .compress])
+    private var manager = SocketManager(socketURL: URL( string:"https://safespace-backend.lyndachiwetelu.com" )!, config: [.log(true), .compress])
 //    private var connection: Connection?
     private lazy var videoViewController = VideoViewController(webRTCClient: self.webRTCClient!, self.socket!, connectionId: connId!)
     private var dest: String = ""
@@ -54,17 +73,13 @@ class SessionDetailViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
-    var messages = [
-        SessionChatMessage(text: "Hello there, how's it going?", userId: "1234"),
-        SessionChatMessage(text: "Hi there! 😅 ", userId: "2456"),
-        SessionChatMessage(text: "🍎 Was good bitch", userId: "1234"),
-        SessionChatMessage(text: "I dey oh, just dey go jejerity", userId: "2456"),
-        SessionChatMessage(text: "Wetin dey Sup na", userId: "2456"),
-    ]
+    var messages = [SessionChatMessage]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        Logger.doLog("view did load")
+        sessionMessageManager.delegate = self
+        sessionMessageManager.fetchDelegate = self
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
@@ -75,7 +90,29 @@ class SessionDetailViewController: UIViewController {
         textView.delegate = self
         configureTextView()
         
-        config = Config.default
+        if readOnlySession == false {
+            startSession()
+        } else {
+            disableSession()
+        }
+//        sessionMessageManager.getSessionMessages(sessionId: userSession!.id)
+    }
+    
+    override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
+        if parent == nil {
+            Logger.doLog("Removing Timer and Connections")
+            self.manager.disconnect()
+            self.signalClient?.disconnect()
+            self.webRTCClient?.clearConnections()
+            timer?.invalidate()
+        }
+    }
+    
+    func startSession() {
+        config = Config(id: uniqSessionId)
+        Logger.doLog("ID")
+        Logger.doLog(uniqSessionId)
         webRTCClient = WebRTCClient(iceServers: self.config!.webRTCIceServers, turnServers: self.config!.turn)
         signalClient = self.buildSignalingClient()
         self.webRTCClient!.delegate = self
@@ -88,21 +125,23 @@ class SessionDetailViewController: UIViewController {
             self.addHandlers()
             self.socket?.connect()
         }
+        doSpinner()
     }
     
-    override func willMove(toParent parent: UIViewController?) {
-        super.willMove(toParent: parent)
-        if parent == nil {
-            Logger.doLog("Removing Timer")
-            timer?.invalidate()
-        }
+    func disableSession() {
+        textView.isEditable = false
+        videoIcon?.alpha = 0.5
+        videoIcon?.isUserInteractionEnabled = false
+        
+        audioIcon?.alpha = 0.5
+        audioIcon?.isUserInteractionEnabled = false
     }
 
     
     //MARK: - SocketIO Handlers
     func connectToPeer() {
         Logger.doLog("sending socket message...")
-        self.socket?.emit("join-room", SMessage(roomId: "session-60-chat", userId: "5017-1630661802027_session-60-chat", username: "lynda"), completion: {
+        self.socket?.emit("join-room", SMessage(roomId: chatRoomId, userId: uniqSessionId, username: "lynda"), completion: {
             Logger.doLog("socket emission done")
         })
         
@@ -110,6 +149,7 @@ class SessionDetailViewController: UIViewController {
     
     func addHandlers() {
         socket?.on("user-connected") {[weak self] data, ack in
+            self!.removeSpinner()
             Logger.doLog("RECEIVED USER CONNECTED....\(data)")
             self!.dest = data[0] as! String
             self?.makeOffer(dst: self!.dest, connectionId: "1234567890")
@@ -178,20 +218,20 @@ class SessionDetailViewController: UIViewController {
         
         let audioTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.audioIconTapped))
         
-        let video = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        video.image = UIImage(systemName: "camera.fill")
-        video.isUserInteractionEnabled = true
-        video.addGestureRecognizer(videoTapRecognizer)
+        videoIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        videoIcon!.image = UIImage(systemName: "camera.fill")
+        videoIcon!.isUserInteractionEnabled = true
+        videoIcon!.addGestureRecognizer(videoTapRecognizer)
         
-        let audio = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        audio.image = UIImage(systemName: "phone.fill")
-        audio.isUserInteractionEnabled = true
-        audio.addGestureRecognizer(audioTapRecognizer)
+        audioIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        audioIcon!.image = UIImage(systemName: "phone.fill")
+        audioIcon!.isUserInteractionEnabled = true
+        audioIcon!.addGestureRecognizer(audioTapRecognizer)
         
         
         view.frame =  CGRect(x: 0, y: 0, width: 150, height: 50)
-        view.addArrangedSubview(video)
-        view.addArrangedSubview(audio)
+        view.addArrangedSubview(videoIcon!)
+        view.addArrangedSubview(audioIcon!)
         
         return UIBarButtonItem(customView: view)
     }
@@ -204,12 +244,14 @@ class SessionDetailViewController: UIViewController {
         view.spacing = 10
         
         let avatar = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-        avatar.image = UIImage(named: "avi1")
+        avatar.load(url: URL(string: userSession!.imageUrl)!)
+        avatar.contentMode = .scaleAspectFill
+//        avatar.image = UIImage(named: "avi1")
         avatar.layer.cornerRadius = 23
         avatar.clipsToBounds = true
         
         let label = UILabel()
-        label.text = "Mary Agida"
+        label.text = userSession!.with
         label.textColor = .white
         
         view.addArrangedSubview(avatar)
@@ -233,9 +275,14 @@ class SessionDetailViewController: UIViewController {
         switchToAudio()
     }
     
-    func scrollToBottomOfTable() {
-        let lastIndex = NSIndexPath(row: self.messages.count - 1, section: 0)
-        self.tableView.scrollToRow(at: lastIndex as IndexPath, at: UITableView.ScrollPosition.bottom, animated: true)
+    func scrollTableView() {
+        if messages.count > 6 {
+            let lastIndex = NSIndexPath(row: self.messages.count - 1, section: 0)
+            self.tableView.scrollToRow(at: lastIndex as IndexPath, at: UITableView.ScrollPosition.bottom, animated: true)
+        } else {
+            let firstIndex = NSIndexPath(row: 0, section: 0)
+            self.tableView.scrollToRow(at: firstIndex as IndexPath, at: UITableView.ScrollPosition.bottom, animated: true)
+        }
     }
     
     @IBAction func sendButtonPressed(_ sender: Any) {
@@ -243,14 +290,26 @@ class SessionDetailViewController: UIViewController {
         textView.text = ""
         textViewHeightConstraint.constant = 35
         
-        let dict = SessionMessage(message: message!, userId: userId, key: String(Int.random(in: 0..<100000)), time: "18:13", day: "29/09/2021").msgDict
+        if message!.trimmingCharacters(in: .whitespaces).isEmpty {
+            return
+        }
+        
+        let messageRequest = SessionMessageRequest(message: message!, userId: Int(userId)!)
+        
+        sessionMessageManager.createSessionMessage(sessionId: userSession!.id, message: messageRequest)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        let timeOfMessage = dateFormatter.string(from: Date())
+        
+        let dict = SessionMessage(message: message!, userId: userId, key: String(Int.random(in: 0..<100000)), time: timeOfMessage, day: userSession!.day).msgDict
         
         do {
             let dataToSend = try JSONSerialization.data(withJSONObject: dict, options: JSONSerialization.WritingOptions.prettyPrinted)
             self.webRTCClient?.sendData(dataToSend, connectionId: connId!)
             messages.append(SessionChatMessage(text: message!, userId: userId))
             self.tableView.reloadData()
-            self.scrollToBottomOfTable()
+            self.scrollTableView()
             
         } catch {
             Logger.doLog(String(describing: error))
@@ -371,6 +430,12 @@ class SessionDetailViewController: UIViewController {
         }
     }
     
+    override func removeSpinner() {
+        DispatchQueue.main.async {
+            super.removeSpinner()
+        }
+    }
+    
 }
 
 
@@ -449,6 +514,7 @@ extension SessionDetailViewController: SignalClientDelegate {
             }
             return
         } else if sdp.type == .offer {
+            removeSpinner()
             connId = sdpMetadata.connectionId
             Logger.doLog("Received remote sdp offer!")
             Logger.doLog(String(describing: sdpMetadata))
@@ -484,6 +550,7 @@ extension SessionDetailViewController: SignalClientDelegate {
             Logger.doLog("Received remote candidate. Error: \(String(describing: error))")
         }
     }
+    
 }
 
 //MARK: - WebRTCClientDelegate
@@ -507,7 +574,7 @@ extension SessionDetailViewController: WebRTCClientDelegate {
                 let decodedMessage = try JSONDecoder().decode(SessionMessage.self, from: data)
                 self.messages.append(SessionChatMessage(text: decodedMessage.message, userId: decodedMessage.userId))
                 self.tableView.reloadData()
-                self.scrollToBottomOfTable()
+                self.scrollTableView()
                 
             } catch {
                 Logger.doLog("Error Decoding received message")
@@ -516,6 +583,37 @@ extension SessionDetailViewController: WebRTCClientDelegate {
            
         }
     }
+    
+}
+
+//MARK: - SessionMessageManager Delegate
+
+extension SessionDetailViewController: SessionMessageManagerDelegate {
+    func didCreateSessionMessage(_ smManager: SessionMessageManager, message: SessionMessageResponse) {
+    }
+    
+    func didFailWithError(error: Error) {
+        Logger.doLog("SessionMessage error:")
+        Logger.doLog(error)
+    }
+    
+    
+}
+
+
+//MARK: - SessionMessagerManagerFetchDelegate
+extension SessionDetailViewController: SessionMessageManagerFetchDelegate {
+    func didFetchMessages(_ smManager: SessionMessageManager, messages: [SessionMessageResponse]?) {
+        Logger.doLog("Session Messages Fetched Successfully!")
+        for message in messages! {
+            let chat = SessionChatMessage(text: message.message, userId: String(message.userId))
+            self.messages.append(chat)
+        }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
     
 }
 

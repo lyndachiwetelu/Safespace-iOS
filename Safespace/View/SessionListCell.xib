@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -63,6 +64,9 @@
                                         <state key="normal" title="Cancel">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="cancelPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="9JP-NW-xei"/>
+                                        </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TNn-Ru-xrt">
                                         <rect key="frame" x="410" y="8" width="0.0" height="47"/>
@@ -70,6 +74,9 @@
                                         <state key="normal" title="Details">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="detailsPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="3xI-fy-0EM"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="30" bottom="8" trailing="30"/>
@@ -88,10 +95,13 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="cancelButton" destination="dS5-Zp-Ygc" id="bpv-Yh-xlz"/>
+                <outlet property="dayLabel" destination="q8T-oR-FKM" id="vKG-mr-uhr"/>
                 <outlet property="detailsButton" destination="TNn-Ru-xrt" id="Ui9-vB-wag"/>
                 <outlet property="joinButton" destination="Bxz-aC-wy8" id="aYN-oX-hoG"/>
+                <outlet property="nameLabel" destination="bEg-XP-fox" id="hfw-2d-jwQ"/>
+                <outlet property="timeLabel" destination="Aap-jH-LGF" id="Yyj-dT-SWc"/>
             </connections>
-            <point key="canvasLocation" x="53.623188405797109" y="117.1875"/>
+            <point key="canvasLocation" x="22" y="117"/>
         </tableViewCell>
     </objects>
     <resources>

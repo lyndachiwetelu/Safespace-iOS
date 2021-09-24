@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SessionPaymentViewController: UIViewController {
+class SessionPaymentViewController: HasSpinnerViewController {
 
     @IBOutlet var selectionLabel: UILabel!
     @IBOutlet var sessionsStackView: UIStackView!
@@ -18,12 +18,16 @@ class SessionPaymentViewController: UIViewController {
     
     var sessions = [DayTime]()
     var therapist: TherapistResponse?
+    var selectedPayment: String?
+    
+    var sessionManager = SessionManager()
     
     private let ccTag = 100
     private let ppTag = 200
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        sessionManager.delegate = self
         applyCheckboxStyle()
         addTapRecognizers()
         addSessionsLabels()
@@ -68,10 +72,12 @@ class SessionPaymentViewController: UIViewController {
     func fillCheckBox(_ gesture: UITapGestureRecognizer) {
         switch gesture.view?.tag {
         case ppTag:
+            selectedPayment = AppConstant.payPal
             creditCardCheckBox.backgroundColor = .white
             creditCardLabel.textColor = .black
             paypalLabel.textColor = AppPrimaryColor.color
         default:
+            selectedPayment = AppConstant.creditCard
             paypalCheckBox.backgroundColor = .white
             paypalLabel.textColor = .black
             creditCardLabel.textColor = AppPrimaryColor.color
@@ -91,4 +97,49 @@ class SessionPaymentViewController: UIViewController {
         creditCardCheckBox.tag = ccTag
     }
 
+    @IBAction func payNowPressed(_ sender: UIButton) {
+        var requests = [SessionRequest]()
+        let userId = getUserDefault(key: AppConstant.userId)
+        for session in sessions {
+            let request = SessionRequest(availabilityId: session.availabilityId, requestedBy: Int(userId)!, from: session.time.start, to: session.time.end)
+            requests.append(request)
+        }
+        doSpinner()
+        sessionManager.createSessions(sessions: requests)
+    }
+    
+    @IBAction func cancelPressed(_ sender: UIButton) {
+    }
+    
+    func getUserDefault(key: String) -> String {
+        return UserDefaults.standard.value(forKey: key) as! String
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == AppConstant.segueToPaymentSuccess {
+            let dest = segue.destination as! PaymentSuccessViewController
+            dest.numberOfSessions = sessions.count
+            dest.therapist = therapist
+        }
+    }
+}
+
+extension SessionPaymentViewController: SessionManagerDelegate {
+    func didEndCreation(_ sManager: SessionManager, ended: Bool) {
+        removeSpinner()
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: AppConstant.segueToPaymentSuccess, sender: self)
+        }
+    }
+    
+    func didCreateSession(_ sManager: SessionManager, session: SessionResponse) {
+    }
+    
+    func didFailWithError(error: Error) {
+        removeSpinner()
+        Logger.doLog("Session Creation Error:")
+        Logger.doLog(error)
+    }
+    
+    
 }

@@ -33,6 +33,10 @@ final class SignalingClient {
         self.webSocket.connect()
     }
     
+    func disconnect() {
+        self.webSocket.disconnectSocket()
+    }
+    
     func send(sdp rtcSdp: RTCSessionDescription) {
         let message = Message.sdp(SessionDescription(from: rtcSdp))
         do {
@@ -75,10 +79,10 @@ extension SignalingClient: WebSocketProviderDelegate {
         self.delegate?.signalClientDidDisconnect(self)
         
         // try to reconnect every two seconds
-        DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
-            Logger.doLog("Trying to reconnect to signaling server...")
-            self.webSocket.connect()
-        }
+//        DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
+//            Logger.doLog("Trying to reconnect to signaling server...")
+//            self.webSocket.connect()
+//        }
     }
     
     func webSocket(_ webSocket: WebSocketProvider, didReceiveData data: Data) {

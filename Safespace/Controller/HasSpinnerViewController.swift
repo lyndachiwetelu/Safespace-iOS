@@ -19,7 +19,7 @@ class HasSpinnerViewController: UIViewController, HasSpinnerView {
     }
     
     
-    func removeSpinner() {
+    @objc func removeSpinner() {
         DispatchQueue.main.async {
             self.spinnerVc?.willMove(toParent: nil)
             self.spinnerVc?.view.removeFromSuperview()

@@ -15,12 +15,18 @@ struct AppPrimaryColor {
 struct AppConstant {
     static let apiToken = "apiToken"
     static let userId = "userId"
+    
+    //MARK: - SEGUES
     static let segueToMainTab = "GoToMainView"
     static let segueToTherapistProfile = "goToTherapistProfile"
     static let segueToSignUpScreen = "ToSignUpScreen"
     static let segueToBookSession = "GoToBookSession"
     static let segueToPayForSession = "GoToPayForSession"
     static let segueToPaymentSuccess = "GoToPaymentSuccess"
+    static let segueToSession = "EnterSession"
+    
+    static let creditCard = "CREDIT CARD"
+    static let payPal = "PAYPAL"
     
     static let ailments =  [
         [
@@ -74,4 +80,11 @@ enum MediaKey: String, CaseIterable {
     case video = "video"
     case voice = "voice"
     case text = "text"
+}
+
+
+enum SessionType : String, CaseIterable {
+    case active = "active"
+    case upcoming = "upcoming"
+    case past = "past"
 }

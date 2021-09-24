@@ -59,7 +59,9 @@
 		78C88EF926F118A0007CB6BD /* SessionListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C88EF726F118A0007CB6BD /* SessionListCell.swift */; };
 		78C88EFA26F118A0007CB6BD /* SessionListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78C88EF826F118A0007CB6BD /* SessionListCell.xib */; };
 		78D5FDB626FC619E008BE132 /* SignupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D5FDB526FC619E008BE132 /* SignupManager.swift */; };
-		78EFBB7626FDBA0A00CA85D7 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78EFBB7526FDBA0A00CA85D7 /* Manager.swift */; };
+		78EFBB7826FDC16F00CA85D7 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78EFBB7726FDC16F00CA85D7 /* SessionManager.swift */; };
+		78EFBB7D26FDD2A500CA85D7 /* UsesUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78EFBB7C26FDD2A500CA85D7 /* UsesUserDefaults.swift */; };
+		78EFBB7F26FDF05E00CA85D7 /* SessionMessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78EFBB7E26FDF05E00CA85D7 /* SessionMessageManager.swift */; };
 		78F31E9526ED391500BE392C /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F31E9426ED391500BE392C /* Connection.swift */; };
 		78F31E9726EEA54300BE392C /* TherapistProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F31E9626EEA54300BE392C /* TherapistProfileViewController.swift */; };
 /* End PBXBuildFile section */
@@ -134,7 +136,9 @@
 		78C88EF726F118A0007CB6BD /* SessionListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionListCell.swift; sourceTree = "<group>"; };
 		78C88EF826F118A0007CB6BD /* SessionListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SessionListCell.xib; sourceTree = "<group>"; };
 		78D5FDB526FC619E008BE132 /* SignupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupManager.swift; sourceTree = "<group>"; };
-		78EFBB7526FDBA0A00CA85D7 /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
+		78EFBB7726FDC16F00CA85D7 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		78EFBB7C26FDD2A500CA85D7 /* UsesUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsesUserDefaults.swift; sourceTree = "<group>"; };
+		78EFBB7E26FDF05E00CA85D7 /* SessionMessageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMessageManager.swift; sourceTree = "<group>"; };
 		78F31E9426ED391500BE392C /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
 		78F31E9626EEA54300BE392C /* TherapistProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TherapistProfileViewController.swift; sourceTree = "<group>"; };
 		BBA5D4ED11D0592F7D64B644 /* Pods_Safespace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Safespace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -186,6 +190,7 @@
 		7834318026D46FA300C21027 /* Safespace */ = {
 			isa = PBXGroup;
 			children = (
+				78EFBB7926FDD26C00CA85D7 /* Protocols */,
 				7897EC4F26E1F891001E8279 /* Models */,
 				782315A726D70FBD00FEC675 /* TherapistListTableViewCell.swift */,
 				78112D4E26EEC1F0006BB527 /* SessionListTableViewCell.swift */,
@@ -250,7 +255,8 @@
 				78C4475926FB3F85002AFA23 /* TherapistManager.swift */,
 				78D5FDB526FC619E008BE132 /* SignupManager.swift */,
 				7876316F26FCC60E006E6E7D /* AvailabilityManager.swift */,
-				78EFBB7526FDBA0A00CA85D7 /* Manager.swift */,
+				78EFBB7726FDC16F00CA85D7 /* SessionManager.swift */,
+				78EFBB7E26FDF05E00CA85D7 /* SessionMessageManager.swift */,
 			);
 			path = Remote;
 			sourceTree = "<group>";
@@ -302,6 +308,14 @@
 				7897EC8E26E2151D001E8279 /* StarscreamProvider.swift */,
 			);
 			path = WebSocketProvider;
+			sourceTree = "<group>";
+		};
+		78EFBB7926FDD26C00CA85D7 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				78EFBB7C26FDD2A500CA85D7 /* UsesUserDefaults.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		9E403A5B12404967A52143D3 /* Pods */ = {
@@ -453,6 +467,7 @@
 				7834318626D46FA300C21027 /* ViewController.swift in Sources */,
 				7876317026FCC60E006E6E7D /* AvailabilityManager.swift in Sources */,
 				7897EC5126E1F8AE001E8279 /* WebRTC.swift in Sources */,
+				78EFBB7826FDC16F00CA85D7 /* SessionManager.swift in Sources */,
 				7848AD7B26FB31C9008C4982 /* Data.swift in Sources */,
 				788D741326F6B9DB00ACC6FE /* App.swift in Sources */,
 				78F31E9726EEA54300BE392C /* TherapistProfileViewController.swift in Sources */,
@@ -462,16 +477,17 @@
 				7897EC9A26E2151D001E8279 /* Message.swift in Sources */,
 				7897EC9D26E2151D001E8279 /* StarscreamProvider.swift in Sources */,
 				78C88EF026F0C1C5007CB6BD /* SessionListTableViewController.swift in Sources */,
+				78EFBB7D26FDD2A500CA85D7 /* UsesUserDefaults.swift in Sources */,
 				78112D5026EEC1F0006BB527 /* SessionListTableViewCell.swift in Sources */,
 				78112D4A26EEC073006BB527 /* Session.swift in Sources */,
 				7800441126F1ED5300758DBE /* SessionMessageCell.swift in Sources */,
 				7897EC9226E2151D001E8279 /* RTCStates.swift in Sources */,
 				7848AD7826FB3138008C4982 /* LoginManager.swift in Sources */,
+				78EFBB7F26FDF05E00CA85D7 /* SessionMessageManager.swift in Sources */,
 				78BA0CEC26D6E8A500093DD8 /* SignupViewController.swift in Sources */,
 				7876316C26FCA74F006E6E7D /* HasSpinnerViewController.swift in Sources */,
 				7897EC9E26E2151D001E8279 /* WebRTCClient.swift in Sources */,
 				7897EC9126E2151D001E8279 /* Config.swift in Sources */,
-				78EFBB7626FDBA0A00CA85D7 /* Manager.swift in Sources */,
 				7897EC9326E2151D001E8279 /* SessionDescription.swift in Sources */,
 				7897EC9426E2151D001E8279 /* IceCandidate.swift in Sources */,
 				78C88EEA26F0940C007CB6BD /* SessionPaymentViewController.swift in Sources */,

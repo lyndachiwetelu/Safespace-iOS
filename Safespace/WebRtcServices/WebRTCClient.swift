@@ -85,6 +85,10 @@ final class WebRTCClient: NSObject {
         connections.append(connection)
     }
     
+    func clearConnections() {
+        connections = [Connection]()
+    }
+    
     func createNewConnection(peerConnection: RTCPeerConnection, connectionId: String, dataChannel: RTCDataChannel) -> Connection {
         let conn = Connection(connectionId: connectionId, dataChannel: dataChannel, peerConnection: peerConnection)
         return conn

@@ -39,25 +39,29 @@ extension Message: Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         switch self {
-        case .sdp(let sessionDescription):
-            try container.encode(sessionDescription, forKey: .payload)
-            try container.encode(String(describing: SessionDescription.self), forKey: .type)
-            try container.encode(String("5017-1630661802027_session-60-chat"), forKey: .dst)
-        case .candidate(let iceCandidate):
-            try container.encode(iceCandidate, forKey: .payload)
-//            try container.encode(String(describing: IceCandidate.self), forKey: .type)
-            try container.encode(String("CANDIDATE"), forKey: .type)
-            
-            try container.encode(String("5017-1630661802027_session-60-chat"), forKey: .dst)
+//        case .sdp(let sessionDescription):
+//            try container.encode(sessionDescription, forKey: .payload)
+//            try container.encode(String(describing: SessionDescription.self), forKey: .type)
+//            try container.encode(String("5017-1630661802027_session-60-chat"), forKey: .dst)
+//        case .candidate(let iceCandidate):
+//            try container.encode(iceCandidate, forKey: .payload)
+////            try container.encode(String(describing: IceCandidate.self), forKey: .type)
+//            try container.encode(String("CANDIDATE"), forKey: .type)
+//
+//            try container.encode(String("5017-1630661802027_session-60-chat"), forKey: .dst)
+        case .sdp(_):
+            true == true
+        case .candidate(_):
+            true == true
         case .candidateWrapper(let iceCandidateWrapper, let destination):
             try container.encode(iceCandidateWrapper, forKey: .payload)
-//            try container.encode(String(describing: IceCandidate.self), forKey: .type)
             try container.encode(String("CANDIDATE"), forKey: .type)
             try container.encode(destination, forKey: .dst)
-        case .sdpNew(let sdpOffer):
-            try container.encode(sdpOffer.payload, forKey: .payload)
-            try container.encode(String("OFFER"), forKey: .type)
-            try container.encode(String("5017-1630661802027_session-60-chat"), forKey: .dst)
+        case .sdpNew(_):
+            true == true
+//            try container.encode(sdpOffer.payload, forKey: .payload)
+//            try container.encode("OFFER", forKey: .type)
+//            try container.encode(id, forKey: .dst)
         }
     }
     
