@@ -64,5 +64,12 @@ $\(therapist!.therapistSetting.pricePerSession) / \(therapist!.therapistSetting.
         }
         
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == AppConstant.segueToBookSession {
+            let dest = segue.destination as! BookSessionViewController
+            dest.therapist = therapist
+        }
+    }
 
 }

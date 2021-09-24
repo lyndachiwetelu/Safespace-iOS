@@ -17,6 +17,7 @@ struct AppConstant {
     static let segueToMainTab = "GoToMainView"
     static let segueToTherapistProfile = "goToTherapistProfile"
     static let segueToSignUpScreen = "ToSignUpScreen"
+    static let segueToBookSession = "GoToBookSession"
     
     static let ailments =  [
         [

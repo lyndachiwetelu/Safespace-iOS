@@ -734,7 +734,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="hyz-Dp-xXw" kind="show" id="keB-rG-tim"/>
+                                                    <segue destination="hyz-Dp-xXw" kind="show" identifier="GoToBookSession" id="keB-rG-tim"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What People are saying about their sessions with MAry Agida" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uow-6c-h01">
@@ -959,8 +959,13 @@ Since this is your first time you may select a maximum of 2 times</string>
                     </view>
                     <navigationItem key="navigationItem" title="BOOK A SESSION" id="c4n-Kj-3RH"/>
                     <connections>
+                        <outlet property="datePicker" destination="XLi-0z-Dav" id="Vos-Q9-lDl"/>
+                        <outlet property="nameLabel" destination="cwi-3O-4Uu" id="90M-aO-7XP"/>
+                        <outlet property="numberOfSessionsLabel" destination="jvL-lD-lTN" id="R2z-oM-p4s"/>
+                        <outlet property="priceTimeLabel" destination="083-hR-0W6" id="hiz-AI-6ge"/>
                         <outlet property="tableView" destination="KbT-Ot-LEY" id="jRg-ki-X9v"/>
                         <outlet property="textView" destination="AkV-We-snw" id="oJX-y5-mP9"/>
+                        <outlet property="totalPriceLabel" destination="gV2-XE-tWg" id="WGI-qx-bgd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tBe-q3-1jh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

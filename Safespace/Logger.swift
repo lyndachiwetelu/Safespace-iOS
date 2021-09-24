@@ -12,4 +12,8 @@ class Logger {
     static func doLog(_ log: String) {
         print("SSLOG: \(log)")
     }
+    
+    static func doLog(_ data: Any) {
+        self.doLog(String(describing: data))
+    }
 }

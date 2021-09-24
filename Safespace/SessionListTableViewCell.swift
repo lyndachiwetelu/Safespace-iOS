@@ -10,6 +10,7 @@ import UIKit
 class SessionListTableViewCell: UITableViewCell {
     
     @IBOutlet var labelUIView: UIView!
+    @IBOutlet var timeLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         labelUIView.layer.borderWidth = 3

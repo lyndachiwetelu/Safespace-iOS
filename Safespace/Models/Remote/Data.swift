@@ -95,3 +95,23 @@ struct SignupUserResponse: Decodable {
     let token: String
 }
 
+struct AvailabilityListResponse: Decodable {
+    let data: AvailabilityResponse
+}
+
+struct AvailabilityResponse: Decodable {
+    let getAvailabilitiesForUserByDay: [Availability]
+}
+
+struct Availability: Decodable {
+    let id: Int
+    let userId: Int
+    let day: String
+    let times: [Time]
+}
+
+struct Time: Decodable {
+    let start: String
+    let end: String
+}
+
