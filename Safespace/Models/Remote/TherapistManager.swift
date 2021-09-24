@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TherapistManager {
+struct TherapistManager: Manager {
     
     let baseURL = "https://safespace-graphql.lyndachiwetelu.com/graphql"
     var delegate: TherapistManagerDelegate?
@@ -16,16 +16,12 @@ struct TherapistManager {
         performRequest(userId: userId)
     }
     
-    func getToken() -> String {
-        return UserDefaults.standard.value(forKey: AppConstant.apiToken) as! String
-    }
-    
     func performRequest(userId: Int) {
         if let url = URL(string: baseURL) {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
-            let accessToken = getToken()
+            let accessToken = getUserDefault(key: AppConstant.apiToken)
             request.setValue(accessToken, forHTTPHeaderField: "access-token")
             
             let requestBodyDict = [

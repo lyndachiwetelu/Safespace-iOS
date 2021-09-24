@@ -110,8 +110,13 @@ struct Availability: Decodable {
     let times: [Time]
 }
 
-struct Time: Decodable {
+struct Time: Decodable, Equatable {
     let start: String
     let end: String
+}
+
+struct DayTime {
+    let day: String
+    let time: Time
 }
 

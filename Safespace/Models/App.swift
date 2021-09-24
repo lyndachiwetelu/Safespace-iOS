@@ -14,10 +14,13 @@ struct AppPrimaryColor {
 
 struct AppConstant {
     static let apiToken = "apiToken"
+    static let userId = "userId"
     static let segueToMainTab = "GoToMainView"
     static let segueToTherapistProfile = "goToTherapistProfile"
     static let segueToSignUpScreen = "ToSignUpScreen"
     static let segueToBookSession = "GoToBookSession"
+    static let segueToPayForSession = "GoToPayForSession"
+    static let segueToPaymentSuccess = "GoToPaymentSuccess"
     
     static let ailments =  [
         [

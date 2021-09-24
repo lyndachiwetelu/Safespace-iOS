@@ -20,10 +20,26 @@ class BookSessionViewController: HasSpinnerViewController {
     var therapist: TherapistResponse?
     var availabilityManager = AvailabilityManager()
     
-    var numberOfSessions = 0
-    var totalPrice = 0
+    var numberOfSessions = 0 {
+        didSet {
+            numberOfSessionsLabel.text = "SESSIONS: \(numberOfSessions)"
+        }
+    }
     
-    var sessions = [Time]()
+    var totalPrice = 0  {
+        didSet {
+            totalPriceLabel.text = "TOTAL PRICE: $\(totalPrice)"
+        }
+    }
+    
+    var sessions = [DayTime]()
+    
+    var selectedSessions: [DayTime] = [DayTime]() {
+        didSet {
+            totalPrice = (therapist?.therapistSetting.pricePerSession)! * selectedSessions.count
+            numberOfSessions = selectedSessions.count
+        }
+    }
     
     let cellIdentifier = "SessionListTableViewCell"
     
@@ -41,7 +57,7 @@ class BookSessionViewController: HasSpinnerViewController {
         nameLabel.text = therapist?.name
         priceTimeLabel.text = "$\(therapist!.therapistSetting.pricePerSession) / \(therapist!.therapistSetting.timePerSession) Minutes"
         totalPriceLabel.text = "TOTAL PRICE: $\(totalPrice)"
-        numberOfSessionsLabel.text = "SESSIONS: $\(numberOfSessions)"
+        numberOfSessionsLabel.text = "SESSIONS: \(numberOfSessions)"
         datePicker.addTarget(self, action: #selector(selectedDate), for: .valueChanged)
         fetchAvailabilities(getFormattedDate(nil))
     }
@@ -69,6 +85,14 @@ class BookSessionViewController: HasSpinnerViewController {
         doSpinner()
         availabilityManager.getAvailabilitiesForUser(userId: therapist!.id, day: day)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == AppConstant.segueToPayForSession {
+            let dest = segue.destination as! SessionPaymentViewController
+            dest.sessions = selectedSessions
+            dest.therapist = therapist
+        }
+    }
 
 }
 
@@ -85,8 +109,11 @@ extension BookSessionViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! SessionListTableViewCell
-        let time = sessions[indexPath.row]
-        cell.timeLabel.text = "\(time.start) - \(time.end)"
+        cell.clearStyling()
+        let dayTime = sessions[indexPath.row]
+        cell.sessionIndex = indexPath.row
+        cell.delegate = self
+        cell.timeLabel.text = "\(dayTime.time.start) - \(dayTime.time.end)"
         return cell
     }
     
@@ -97,6 +124,7 @@ extension BookSessionViewController: AvailabilityManagerDelegate {
     func didGetAvailabilities(_ aManager: AvailabilityManager, avails: [Availability]) {
         DispatchQueue.main.async {
             // formatAvailabilities
+            var _avails = [DayTime]()
             for avail in avails {
                 for t in avail.times {
                     let dateFormatter = DateFormatter()
@@ -105,10 +133,11 @@ extension BookSessionViewController: AvailabilityManagerDelegate {
                     let formattedEnd = dateFormatter.date(from: t.end)
                     dateFormatter.dateFormat = "HH:mm"
                     let time = Time(start: dateFormatter.string(from: formattedStart!), end: dateFormatter.string(from: formattedEnd!))
-                    self.sessions.append(time)
+                    let dayTime = DayTime(day: avail.day, time: time)
+                    _avails.append(dayTime)
                 }
             }
-            
+            self.sessions = _avails
             self.tableView.reloadData()
         }
         
@@ -121,4 +150,17 @@ extension BookSessionViewController: AvailabilityManagerDelegate {
         removeSpinner()
     }
     
+}
+
+
+extension BookSessionViewController : SessionListTableViewCellDelegate {
+    func didSelectSession(_ sessionCell: SessionListTableViewCell, sessionIndex: Int) {
+        selectedSessions.append(sessions[sessionIndex])
+    }
+    
+    func didDeselectSession(_ sessionCell: SessionListTableViewCell, sessionIndex: Int) {
+        selectedSessions = selectedSessions.filter { dayTime in
+            (dayTime.time == sessions[sessionIndex].time) == false
+        }
+    }
 }

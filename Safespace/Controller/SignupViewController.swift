@@ -60,7 +60,8 @@ extension SignupViewController: SignupManagerDelegate {
         Logger.doLog(String(describing: user))
         DispatchQueue.main.async {
             self.signedInUser = UserData(id: user.user.id, name: user.user.name, userType: user.user.userType)
-            self.setToken(token: user.token)
+            self.setUserDefault(value: user.token, forKey: AppConstant.apiToken)
+            self.setUserDefault(value: String(user.user.id), forKey: AppConstant.userId)
             self.performSegue(withIdentifier: AppConstant.segueToMainTab, sender: self)
         }
     }
@@ -69,8 +70,8 @@ extension SignupViewController: SignupManagerDelegate {
         Logger.doLog("Signup Error \(String(describing: error))")
     }
     
-    func setToken(token: String) {
-        UserDefaults.standard.set(token, forKey: AppConstant.apiToken)
+    func setUserDefault(value: String, forKey: String) {
+        UserDefaults.standard.set(value, forKey: forKey)
     }
     
     

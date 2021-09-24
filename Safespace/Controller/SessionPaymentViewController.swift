@@ -9,10 +9,15 @@ import UIKit
 
 class SessionPaymentViewController: UIViewController {
 
+    @IBOutlet var selectionLabel: UILabel!
+    @IBOutlet var sessionsStackView: UIStackView!
     @IBOutlet var paypalCheckBox: UIView!
     @IBOutlet var creditCardCheckBox: UIView!
     @IBOutlet var creditCardLabel: UILabel!
     @IBOutlet var paypalLabel: UILabel!
+    
+    var sessions = [DayTime]()
+    var therapist: TherapistResponse?
     
     private let ccTag = 100
     private let ppTag = 200
@@ -21,6 +26,8 @@ class SessionPaymentViewController: UIViewController {
         super.viewDidLoad()
         applyCheckboxStyle()
         addTapRecognizers()
+        addSessionsLabels()
+        selectionLabel.text = "YOU HAVE SELECTED \(sessions.count) SESSIONS WITH \(therapist?.name ?? "")"
     }
     
     func addTapRecognizers() {
@@ -37,6 +44,25 @@ class SessionPaymentViewController: UIViewController {
     
     @objc func ppTapped(gesture: UITapGestureRecognizer) {
         fillCheckBox(gesture)
+    }
+    
+    func addSessionsLabels() {
+        for session in sessions {
+            let timeLabel = UILabel()
+            timeLabel.textAlignment = .center
+            timeLabel.text = "\(session.time.start) - \(session.time.end)"
+            timeLabel.textColor = .black
+            let dayLabel = UILabel()
+            dayLabel.text = session.day
+            dayLabel.textAlignment = .center
+            dayLabel.textColor = .black
+            let stack = UIStackView()
+            stack.distribution = .fillEqually
+            stack.axis = .horizontal
+            stack.addArrangedSubview(timeLabel)
+            stack.addArrangedSubview(dayLabel)
+            sessionsStackView.addArrangedSubview(stack)
+        }
     }
     
     func fillCheckBox(_ gesture: UITapGestureRecognizer) {

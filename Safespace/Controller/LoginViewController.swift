@@ -46,7 +46,8 @@ extension LoginViewController: LoginManagerDelegate {
         networkBusy = false
         loggedInUser = user
         DispatchQueue.main.async {
-            self.setToken(token: user.token)
+            self.setUserDefault(value: user.token, forKey: AppConstant.apiToken)
+            self.setUserDefault(value: String(user.user.id), forKey: AppConstant.userId)
             self.removeSpinner()
             self.performSegue(withIdentifier: AppConstant.segueToMainTab, sender: self)
         }
@@ -58,8 +59,8 @@ extension LoginViewController: LoginManagerDelegate {
         self.removeSpinner()
     }
     
-    func setToken(token: String) {
-        UserDefaults.standard.set(token, forKey: AppConstant.apiToken)
+    func setUserDefault(value: String, forKey: String) {
+        UserDefaults.standard.set(value, forKey: forKey)
     }
     
     

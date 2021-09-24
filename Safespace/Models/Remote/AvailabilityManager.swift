@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AvailabilityManager {
+struct AvailabilityManager: Manager {
     
     let baseURL = "https://safespace-graphql.lyndachiwetelu.com/graphql"
     var delegate: AvailabilityManagerDelegate?
@@ -16,16 +16,12 @@ struct AvailabilityManager {
         performRequest(userId: userId, day: day)
     }
     
-    func getToken() -> String {
-        return UserDefaults.standard.value(forKey: AppConstant.apiToken) as! String
-    }
-    
     func performRequest(userId: Int, day: String) {
         if let url = URL(string: baseURL) {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
-            let accessToken = getToken()
+            let accessToken = getUserDefault(key: AppConstant.apiToken)
             request.setValue(accessToken, forHTTPHeaderField: "access-token")
             
             let requestBodyDict = [
@@ -56,7 +52,6 @@ struct AvailabilityManager {
                 }
                 
                 if let safeData = data {
-                    Logger.doLog(String(decoding: safeData, as: UTF8.self))
                     if let availabilities = self.parseJSON(availabilities: safeData) {
                         self.delegate?.didGetAvailabilities(self, avails: availabilities)
                     }
