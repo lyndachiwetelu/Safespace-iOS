@@ -11,9 +11,9 @@ import Foundation
 @available(iOS 13.0, *)
 class NativeWebSocket: NSObject, WebSocketProvider {
     
-    var delegate: WebSocketProviderDelegate?
+    weak var delegate: WebSocketProviderDelegate?
     private let url: URL
-    private var socket: URLSessionWebSocketTask?
+    private weak var socket: URLSessionWebSocketTask?
     private lazy var urlSession: URLSession = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
 
     init(url: URL) {
@@ -42,6 +42,7 @@ class NativeWebSocket: NSObject, WebSocketProvider {
     
     private func readMessage() {
         self.socket?.receive { [weak self] message in
+            Logger.doLog("Socket receiving..............")
             guard let self = self else { return }
             
             switch message {
@@ -57,12 +58,15 @@ class NativeWebSocket: NSObject, WebSocketProvider {
 
             case .failure:
                 self.disconnect()
+                
+            default:
+                self.disconnect()
             }
         }
     }
     
     private func disconnect() {
-        self.socket?.cancel()
+        self.socket?.cancel(with: .goingAway, reason: nil)
         self.socket = nil
         self.delegate?.webSocketDidDisconnect(self)
     }

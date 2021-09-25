@@ -21,20 +21,28 @@ final class SignalingClient {
     
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
-    private let webSocket: WebSocketProvider
+    private var webSocket: WebSocketProvider?
     weak var delegate: SignalClientDelegate?
     
     init(webSocket: WebSocketProvider) {
         self.webSocket = webSocket
     }
     
+    deinit {
+        Logger.doLog("Signal Client is being released")
+    }
+    
     func connect() {
-        self.webSocket.delegate = self
-        self.webSocket.connect()
+        self.webSocket!.delegate = self
+        self.webSocket!.connect()
     }
     
     func disconnect() {
-        self.webSocket.disconnectSocket()
+        self.webSocket?.disconnectSocket()
+    }
+    
+    func removeWebSocket() {
+        self.webSocket = nil
     }
     
     func send(sdp rtcSdp: RTCSessionDescription) {
@@ -42,7 +50,7 @@ final class SignalingClient {
         do {
             let dataMessage = try self.encoder.encode(message)
             
-            self.webSocket.send(data: dataMessage)
+            self.webSocket!.send(data: dataMessage)
         }
         catch {
             Logger.doLog("Warning: Could not encode sdp: \(error)")
@@ -50,7 +58,7 @@ final class SignalingClient {
     }
     
     func sendData(_ data: Data) {
-        self.webSocket.sendString(data: String(decoding: data, as: UTF8.self))
+        self.webSocket!.sendString(data: String(decoding: data, as: UTF8.self))
     }
     
     func send(candidate rtcIceCandidate: RTCIceCandidate, dest dstId: String, conn: String, type:String) {
@@ -60,7 +68,7 @@ final class SignalingClient {
         
         do {
             let dataMessage = try self.encoder.encode(message)
-            self.webSocket.send(data: dataMessage)
+            self.webSocket!.send(data: dataMessage)
         }
         catch {
             Logger.doLog("Warning: Could not encode candidate: \(error)")
@@ -75,7 +83,7 @@ extension SignalingClient: WebSocketProviderDelegate {
     }
     
     func webSocketDidDisconnect(_ webSocket: WebSocketProvider) {
-        Logger.doLog("Signaling server is disonnected")
+        Logger.doLog("Signaling server is disconnected")
         self.delegate?.signalClientDidDisconnect(self)
         
         // try to reconnect every two seconds

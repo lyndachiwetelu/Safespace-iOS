@@ -41,10 +41,12 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
     private var signalClient: SignalingClient?
     private var webRTCClient: WebRTCClient?
     private var socket: SocketIOClient?
+    private var manager: SocketManager?
 //    private var manager = SocketManager(socketURL: URL( string:"http://192.168.2.33:8000" )!, config: [.log(true), .compress])
-    private var manager = SocketManager(socketURL: URL( string:"https://safespace-backend.lyndachiwetelu.com" )!, config: [.log(true), .compress])
+//    private var manager = SocketManager(socketURL: URL( string:"https://safespace-backend.lyndachiwetelu.com" )!, config: [.log(true), .compress])
 //    private var connection: Connection?
-    private lazy var videoViewController = VideoViewController(webRTCClient: self.webRTCClient!, self.socket!, connectionId: connId!)
+    private var videoViewController: VideoViewController?
+//    = VideoViewController(webRTCClient: self.webRTCClient!, self.socket!, connectionId: connId!)
     private var dest: String = ""
     private var connId: String? = "1234567890" {
         didSet {
@@ -65,7 +67,6 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
         self.signalClient = signalClient
         self.webRTCClient = webRTCClient
         super.init(nibName: nil, bundle: nil)
-        
     }
     
     @available(*, unavailable)
@@ -95,24 +96,31 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
         } else {
             disableSession()
         }
-//        sessionMessageManager.getSessionMessages(sessionId: userSession!.id)
+        sessionMessageManager.getSessionMessages(sessionId: userSession!.id)
     }
     
     override func willMove(toParent parent: UIViewController?) {
         super.willMove(toParent: parent)
         if parent == nil {
             Logger.doLog("Removing Timer and Connections")
-            self.manager.disconnect()
+            manager?.handleQueue.async {
+                self.socket?.disconnect()
+                self.manager?.engine = nil
+            }
+            self.manager?.disconnect()
             self.signalClient?.disconnect()
-            self.webRTCClient?.clearConnections()
+            self.signalClient?.removeWebSocket()
+            self.signalClient = nil
+            self.webRTCClient = nil
+            
+            self.videoViewController = nil
             timer?.invalidate()
         }
     }
     
     func startSession() {
+        manager = SocketManager(socketURL: URL( string:"https://safespace-backend.lyndachiwetelu.com" )!, config: [.log(true), .compress, .sessionDelegate(self)])
         config = Config(id: uniqSessionId)
-        Logger.doLog("ID")
-        Logger.doLog(uniqSessionId)
         webRTCClient = WebRTCClient(iceServers: self.config!.webRTCIceServers, turnServers: self.config!.turn)
         signalClient = self.buildSignalingClient()
         self.webRTCClient!.delegate = self
@@ -120,8 +128,8 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
         self.signalClient!.connect()
         doHeartbeat(signalClient: signalClient!)
         
-        self.socket = self.manager.defaultSocket
-        manager.handleQueue.async {
+        self.socket = self.manager!.defaultSocket
+        manager!.handleQueue.async {
             self.addHandlers()
             self.socket?.connect()
         }
@@ -318,7 +326,7 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
     }
     
     func switchToVideo() {
-        self.present(videoViewController, animated: true, completion: nil)
+        self.present(videoViewController!, animated: true, completion: nil)
     }
     
     func switchToAudio() {
@@ -420,10 +428,10 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
     }
     
     func doHeartbeat(signalClient: SignalingClient) {
-        timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { timer in
+        timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) {  timer in
             do {
                 let heartbeat = try JSONEncoder().encode(HeartBeat())
-                signalClient.sendData(heartbeat)
+                self.signalClient?.sendData(heartbeat)
             } catch {
                 Logger.doLog("Encoding? error sending heartbeat")
             }
@@ -491,7 +499,7 @@ extension SessionDetailViewController: SignalClientDelegate {
     }
     
     func signalClientDidDisconnect(_ signalClient: SignalingClient) {
-        
+        Logger.doLog("Signal Client did disconnect")
     }
     
     func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription, with sdpMetadata: SdpMetadata) {
@@ -614,6 +622,10 @@ extension SessionDetailViewController: SessionMessageManagerFetchDelegate {
         }
     }
     
+}
+
+//MARK: - URLSessionDelegate
+extension SessionDetailViewController: URLSessionWebSocketDelegate {
     
 }
 
