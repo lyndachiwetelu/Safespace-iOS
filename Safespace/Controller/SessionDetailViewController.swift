@@ -42,11 +42,7 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
     private var webRTCClient: WebRTCClient?
     private var socket: SocketIOClient?
     private var manager: SocketManager?
-//    private var manager = SocketManager(socketURL: URL( string:"http://192.168.2.33:8000" )!, config: [.log(true), .compress])
-//    private var manager = SocketManager(socketURL: URL( string:"https://safespace-backend.lyndachiwetelu.com" )!, config: [.log(true), .compress])
-//    private var connection: Connection?
     private var videoViewController: VideoViewController?
-//    = VideoViewController(webRTCClient: self.webRTCClient!, self.socket!, connectionId: connId!)
     private var dest: String = ""
     private var connId: String? = "1234567890" {
         didSet {
@@ -102,25 +98,37 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
     override func willMove(toParent parent: UIViewController?) {
         super.willMove(toParent: parent)
         if parent == nil {
-            Logger.doLog("Removing Timer and Connections")
-            manager?.handleQueue.async {
-                self.socket?.disconnect()
-                self.manager?.engine = nil
-            }
-            self.manager?.disconnect()
-            self.signalClient?.disconnect()
-            self.signalClient?.removeWebSocket()
-            self.signalClient = nil
-            self.webRTCClient = nil
-            
-            self.videoViewController = nil
-            timer?.invalidate()
+            cleanup()
             
         }
     }
     
+    func disconnectSocketIO() {
+        manager?.handleQueue.async {
+            self.socket?.disconnect()
+            self.manager?.engine = nil
+        }
+        self.manager?.disconnect()
+    }
+    
+    func disconnectSignalClient() {
+        self.signalClient?.disconnect()
+        self.signalClient?.removeWebSocket()
+        self.signalClient = nil
+    }
+    
+    func cleanup() {
+        Logger.doLog("Removing Timer and Connections")
+        disconnectSocketIO()
+        disconnectSignalClient()
+        
+        self.webRTCClient = nil
+        self.videoViewController = nil
+        timer?.invalidate()
+    }
+    
     func startSession() {
-        manager = SocketManager(socketURL: URL( string:"https://safespace-backend.lyndachiwetelu.com" )!, config: [.log(true), .compress, .reconnects(false)])
+        manager = SocketManager(socketURL: URL( string: AppConstant.socketIOUrl )!, config: [.log(true), .compress, .reconnects(false)])
         config = Config(id: uniqSessionId)
         webRTCClient = WebRTCClient(iceServers: self.config!.webRTCIceServers, turnServers: self.config!.turn)
         signalClient = self.buildSignalingClient()
@@ -154,6 +162,7 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
             self.socket?.emit("join-room", SMessage(roomId: self.chatRoomId, userId: self.uniqSessionId, username: "lynda"), completion: {
                 Logger.doLog("socket emission done")
             })
+            self.disconnectSocketIO()
         }
     }
     
@@ -163,7 +172,6 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
             Logger.doLog("RECEIVED USER CONNECTED....\(data)")
             self!.dest = data[0] as! String
             self?.makeOffer(dst: self!.dest, connectionId: "1234567890")
-            
             return
         }
         
@@ -256,7 +264,6 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
         let avatar = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
         avatar.load(url: URL(string: userSession!.imageUrl)!)
         avatar.contentMode = .scaleAspectFill
-//        avatar.image = UIImage(named: "avi1")
         avatar.layer.cornerRadius = 23
         avatar.clipsToBounds = true
         
@@ -306,7 +313,7 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
         
         let messageRequest = SessionMessageRequest(message: message!, userId: Int(userId)!)
         
-//        sessionMessageManager.createSessionMessage(sessionId: userSession!.id, message: messageRequest)
+        sessionMessageManager.createSessionMessage(sessionId: userSession!.id, message: messageRequest)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
@@ -372,7 +379,6 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
     }
     
     func makeOffer(dst: String, connectionId: String, type: String = "data") {
-        
         /// do connection stuff
         let connectionWithDataChannel = self.webRTCClient!.createNewPeerConnection(connectionId: connectionId)
         let peerConnection = connectionWithDataChannel?.0
@@ -598,7 +604,6 @@ extension SessionDetailViewController: WebRTCClientDelegate {
 }
 
 //MARK: - SessionMessageManager Delegate
-
 extension SessionDetailViewController: SessionMessageManagerDelegate {
     func didCreateSessionMessage(_ smManager: SessionMessageManager, message: SessionMessageResponse) {
     }

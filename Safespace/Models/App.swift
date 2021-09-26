@@ -13,7 +13,17 @@ struct AppPrimaryColor {
 }
 
 struct AppConstant {
+    // LOCAL URLs
+//    static let baseGqlUrl = "http://192.168.2.33:4004/graphql"
+//    static let socketIOUrl = "http://192.168.2.33:8000"
+//    static let peerSignalingUrl = "192.168.2.33:8000"
+    
+    // REMOTE URLs
     static let baseGqlUrl = "https://safespace-graphql.lyndachiwetelu.com/graphql"
+    static let socketIOUrl = "https://safespace-backend.lyndachiwetelu.com"
+    static let peerSignalingUrl = "safespace-backend.lyndachiwetelu.com:443"
+    
+    // UserDefault Keys
     static let apiToken = "apiToken"
     static let userId = "userId"
     

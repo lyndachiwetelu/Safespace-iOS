@@ -41,7 +41,7 @@ struct Config {
     let turn: [String]
     
     init(id: String) {
-        let url = "wss://safespace-backend.lyndachiwetelu.com:443/chat/peerjs?key=peerjs&id=\(id)&token=ihzrkai0j4"
+        let url = "wss://\(AppConstant.peerSignalingUrl)/chat/peerjs?key=peerjs&id=\(id)&token=ihzrkai0j4"
         signalingServerUrl = URL(string: url)!
         webRTCIceServers = defaultIceServers
         turn = defaultTurnIceServers
