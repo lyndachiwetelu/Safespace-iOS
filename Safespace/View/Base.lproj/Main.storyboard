@@ -985,25 +985,25 @@ Since this is your first time you may select a maximum of 2 times</string>
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOU HAVE SELECTED 2 SESSIONS WITH MARY AGIDA" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P9F-e0-MfC">
-                                        <rect key="frame" x="47.5" y="8" width="319" height="57.5"/>
+                                        <rect key="frame" x="47.5" y="8" width="319" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="a3V-Oq-HrV">
-                                        <rect key="frame" x="10" y="95.5" width="394" height="168.5"/>
+                                        <rect key="frame" x="10" y="68" width="394" height="196"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="kl6-PG-a8W">
-                                                <rect key="frame" x="0.0" y="0.0" width="394" height="168.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="394" height="196"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jhZ-PT-Dma">
-                                                        <rect key="frame" x="0.0" y="0.0" width="197" height="168.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="197" height="196"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="atG-dC-UAI">
-                                                        <rect key="frame" x="197" y="0.0" width="197" height="168.5"/>
+                                                        <rect key="frame" x="197" y="0.0" width="197" height="196"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -1164,13 +1164,13 @@ Since this is your first time you may select a maximum of 2 times</string>
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Sfh-QW-Imd">
-                                        <rect key="frame" x="0.0" y="252" width="414" height="270"/>
+                                        <rect key="frame" x="0.0" y="244" width="414" height="286"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Qa-xY-uLe">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="90"/>
+                                                <rect key="frame" x="20" y="8" width="374" height="90"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checked" translatesAutoresizingMaskIntoConstraints="NO" id="DyA-F1-pWc">
-                                                        <rect key="frame" x="177" y="15" width="60" height="60"/>
+                                                        <rect key="frame" x="157" y="15" width="60" height="60"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="60" id="BE5-TF-gR0"/>
                                                             <constraint firstAttribute="width" constant="60" id="xmZ-da-HFT"/>
@@ -1183,16 +1183,16 @@ Since this is your first time you may select a maximum of 2 times</string>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Payment for 2 Sessions with Mary Agida was Successful!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUC-CU-Znn">
-                                                <rect key="frame" x="0.0" y="90" width="414" height="90"/>
+                                                <rect key="frame" x="20" y="98" width="374" height="90"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5eW-1a-I3l">
-                                                <rect key="frame" x="0.0" y="180" width="414" height="90"/>
+                                                <rect key="frame" x="20" y="188" width="374" height="90"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHe-q0-qd4">
-                                                        <rect key="frame" x="107" y="15" width="200" height="60"/>
+                                                        <rect key="frame" x="87" y="15" width="200" height="60"/>
                                                         <color key="backgroundColor" name="App Teal"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="60" id="Q6s-Sg-mbd"/>
@@ -1213,12 +1213,7 @@ Since this is your first time you may select a maximum of 2 times</string>
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="7Qa-xY-uLe" secondAttribute="trailing" id="Aoi-IC-vwn"/>
-                                            <constraint firstItem="7Qa-xY-uLe" firstAttribute="leading" secondItem="Sfh-QW-Imd" secondAttribute="leading" id="Nhs-2t-ehR"/>
-                                            <constraint firstAttribute="trailing" secondItem="5eW-1a-I3l" secondAttribute="trailing" id="c4K-tm-X39"/>
-                                            <constraint firstItem="5eW-1a-I3l" firstAttribute="leading" secondItem="Sfh-QW-Imd" secondAttribute="leading" id="dMJ-Vt-8qL"/>
-                                        </constraints>
+                                        <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="20" bottom="8" trailing="20"/>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

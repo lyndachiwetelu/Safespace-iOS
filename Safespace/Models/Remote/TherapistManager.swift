@@ -8,8 +8,6 @@
 import Foundation
 
 struct TherapistManager: UsesUserDefaults {
-    
-    let baseURL = "https://safespace-graphql.lyndachiwetelu.com/graphql"
     var delegate: TherapistManagerDelegate?
     
     func getTherapistsForUser(userId: Int) {
@@ -17,7 +15,7 @@ struct TherapistManager: UsesUserDefaults {
     }
     
     func performRequest(userId: Int) {
-        if let url = URL(string: baseURL) {
+        if let url = URL(string: AppConstant.baseGqlUrl) {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("Application/json", forHTTPHeaderField: "Content-Type")

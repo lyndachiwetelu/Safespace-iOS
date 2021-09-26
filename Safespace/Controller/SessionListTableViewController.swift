@@ -79,6 +79,7 @@ class SessionListTableViewController: UITableViewController, UsesUserDefaults {
                 cell.detailsButton.isHidden = false
             case SessionType.upcoming.rawValue:
                 cell.joinButton.isHidden = false
+                cell.joinButton.alpha = 0.6
                 cell.joinButton.isEnabled = false
                 cell.cancelButton.isHidden = false
             default:

@@ -15,6 +15,7 @@ class StarscreamWebSocket: WebSocketProvider {
     private let socket: WebSocket
     
     init(url: URL) {
+        Logger.doLog("Signal Client is using starscream")
         self.socket = WebSocket(request: URLRequest(url: url))
         self.socket.delegate = self
     }

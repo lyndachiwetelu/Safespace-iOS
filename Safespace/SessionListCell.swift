@@ -44,6 +44,10 @@ class SessionListCell: UITableViewCell {
         joinButton.isHidden = true
         cancelButton.isHidden = true
         detailsButton.isHidden = true
+        
+        joinButton.alpha = 1
+        cancelButton.alpha = 1
+        detailsButton.alpha = 1
     }
     
     @IBAction func joinPressed(_ sender: UIButton) {

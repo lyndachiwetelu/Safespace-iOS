@@ -8,8 +8,6 @@
 import Foundation
 
 struct SessionManager: UsesUserDefaults {
-    
-    let baseURL = "https://safespace-graphql.lyndachiwetelu.com/graphql"
     var delegate: SessionManagerDelegate?
     var fetchDelegate: SessionManagerFetchDelegate?
     
@@ -29,7 +27,7 @@ struct SessionManager: UsesUserDefaults {
     }
     
     func performGetRequest(userId: Int) {
-        if let url = URL(string: baseURL) {
+        if let url = URL(string: AppConstant.baseGqlUrl) {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
@@ -83,7 +81,7 @@ struct SessionManager: UsesUserDefaults {
     }
     
     func performRequest(session: SessionRequest) {
-        if let url = URL(string: baseURL) {
+        if let url = URL(string: AppConstant.baseGqlUrl) {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("Application/json", forHTTPHeaderField: "Content-Type")

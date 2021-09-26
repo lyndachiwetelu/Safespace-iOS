@@ -115,11 +115,12 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
             
             self.videoViewController = nil
             timer?.invalidate()
+            
         }
     }
     
     func startSession() {
-        manager = SocketManager(socketURL: URL( string:"https://safespace-backend.lyndachiwetelu.com" )!, config: [.log(true), .compress, .sessionDelegate(self)])
+        manager = SocketManager(socketURL: URL( string:"https://safespace-backend.lyndachiwetelu.com" )!, config: [.log(true), .compress, .reconnects(false)])
         config = Config(id: uniqSessionId)
         webRTCClient = WebRTCClient(iceServers: self.config!.webRTCIceServers, turnServers: self.config!.turn)
         signalClient = self.buildSignalingClient()
@@ -133,7 +134,7 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
             self.addHandlers()
             self.socket?.connect()
         }
-        doSpinner()
+        doSpinner(text: "Waiting for user to join session...")
     }
     
     func disableSession() {
@@ -148,11 +149,12 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
     
     //MARK: - SocketIO Handlers
     func connectToPeer() {
-        Logger.doLog("sending socket message...")
-        self.socket?.emit("join-room", SMessage(roomId: chatRoomId, userId: uniqSessionId, username: "lynda"), completion: {
-            Logger.doLog("socket emission done")
-        })
-        
+        manager?.handleQueue.async {
+            Logger.doLog("sending socket message...")
+            self.socket?.emit("join-room", SMessage(roomId: self.chatRoomId, userId: self.uniqSessionId, username: "lynda"), completion: {
+                Logger.doLog("socket emission done")
+            })
+        }
     }
     
     func addHandlers() {
@@ -304,7 +306,7 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
         
         let messageRequest = SessionMessageRequest(message: message!, userId: Int(userId)!)
         
-        sessionMessageManager.createSessionMessage(sessionId: userSession!.id, message: messageRequest)
+//        sessionMessageManager.createSessionMessage(sessionId: userSession!.id, message: messageRequest)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
@@ -320,6 +322,7 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
             self.scrollTableView()
             
         } catch {
+            Logger.doLog("ERROR:")
             Logger.doLog(String(describing: error))
         }
         
@@ -624,10 +627,6 @@ extension SessionDetailViewController: SessionMessageManagerFetchDelegate {
     
 }
 
-//MARK: - URLSessionDelegate
-extension SessionDetailViewController: URLSessionWebSocketDelegate {
-    
-}
 
 
 

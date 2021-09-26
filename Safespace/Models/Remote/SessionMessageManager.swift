@@ -9,8 +9,6 @@ import Foundation
 
 
 struct SessionMessageManager: UsesUserDefaults {
-    
-    let baseURL = "https://safespace-graphql.lyndachiwetelu.com/graphql"
     var delegate: SessionMessageManagerDelegate?
     var fetchDelegate: SessionMessageManagerFetchDelegate?
     
@@ -23,7 +21,7 @@ struct SessionMessageManager: UsesUserDefaults {
     }
     
     func performGetRequest(sessionId: Int) {
-        if let url = URL(string: baseURL) {
+        if let url = URL(string: AppConstant.baseGqlUrl) {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
@@ -68,7 +66,7 @@ struct SessionMessageManager: UsesUserDefaults {
     }
     
     func performRequest(sessionId: Int, message: SessionMessageRequest) {
-        if let url = URL(string: baseURL) {
+        if let url = URL(string: AppConstant.baseGqlUrl) {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("Application/json", forHTTPHeaderField: "Content-Type")

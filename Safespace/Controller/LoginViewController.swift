@@ -27,7 +27,7 @@ class LoginViewController: HasSpinnerViewController, UsesUserDefaults {
         emailTextField.endEditing(true)
         passwordTextField.endEditing(true)
         networkBusy = true
-        doSpinner()
+        doSpinner(text: "Logging in")
         network.loginUser(email: emailTextField.text!, password: passwordTextField.text!)
     }
     

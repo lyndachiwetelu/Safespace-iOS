@@ -10,8 +10,8 @@ import UIKit
 class HasSpinnerViewController: UIViewController, HasSpinnerView {
     var spinnerVc: SpinnerViewController?
     
-    func doSpinner() {
-        spinnerVc = SpinnerViewController()
+    func doSpinner( text:String = "Loading...") {
+        spinnerVc = SpinnerViewController(text: text)
         addChild(spinnerVc!)
         spinnerVc!.view.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
         view.addSubview(spinnerVc!.view)

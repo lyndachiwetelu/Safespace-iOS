@@ -13,6 +13,7 @@ struct AppPrimaryColor {
 }
 
 struct AppConstant {
+    static let baseGqlUrl = "https://safespace-graphql.lyndachiwetelu.com/graphql"
     static let apiToken = "apiToken"
     static let userId = "userId"
     

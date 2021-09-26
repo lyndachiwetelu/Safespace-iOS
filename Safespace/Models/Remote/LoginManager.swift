@@ -8,8 +8,6 @@
 import Foundation
 
 struct LoginManager {
-    
-    let baseURL = "https://safespace-graphql.lyndachiwetelu.com/graphql"
     var delegate: LoginManagerDelegate?
     
     func loginUser(email: String, password: String) {
@@ -17,7 +15,7 @@ struct LoginManager {
     }
     
     func performRequest(email: String, password: String) {
-        if let url = URL(string: baseURL) {
+        if let url = URL(string: AppConstant.baseGqlUrl) {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("Application/json", forHTTPHeaderField: "Content-Type")

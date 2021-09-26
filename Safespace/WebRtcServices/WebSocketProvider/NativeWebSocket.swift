@@ -17,6 +17,7 @@ class NativeWebSocket: NSObject, WebSocketProvider {
     private lazy var urlSession: URLSession = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
 
     init(url: URL) {
+        Logger.doLog("Signal Client is using native")
         self.url = url
         super.init()
     }
