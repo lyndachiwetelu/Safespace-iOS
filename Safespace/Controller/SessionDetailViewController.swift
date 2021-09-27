@@ -157,10 +157,6 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
             self.socket?.emit("join-room", SMessage(roomId: self.chatRoomId, userId: self.uniqSessionId, username: "lynda"), completion: {
                 Logger.doLog("socket emission done")
             })
-            self.manager?.handleQueue.async {
-                self.manager?.engine?.disconnect(reason: "Just want you to stop bih")
-            }
-           
         }
     }
     
@@ -180,7 +176,7 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
             return
         }
         
-        socket?.on("disconnect") {[weak self] data, ack in
+        socket?.on("disconnect") { data, ack in
             Logger.doLog("Socket is disconnected")
             return
         }
@@ -423,6 +419,7 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
         let alert = UIAlertController(title: "Incoming Voice Call", message: "Someeone is voice calling you", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Accept", style: .default, handler: { _ in
             self.doWebrtcAnswer(sdpMeta, payloadType: "media")
+            self.switchToAudio()
         }))
         
         alert.addAction(UIAlertAction(title: "Reject", style: .cancel, handler: { _ in
@@ -470,12 +467,19 @@ extension SessionDetailViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SessionMessageCell", for: indexPath) as! SessionMessageCell
+        let chatText = messages[indexPath.row].text
+        cell.chatTextView.text = chatText
+        //reset font
+        cell.chatTextView.font = cell.chatTextView.font?.withSize(16)
+
         
-        cell.chatTextView.text = messages[indexPath.row].text
         cell.chatBox.backgroundColor = userId ==  messages[indexPath.row].userId ? AppPrimaryColor.color : .white
         cell.chatTextView.textColor = userId ==  messages[indexPath.row].userId ?  .white : AppPrimaryColor.color
-        cell.chatBox.layer.borderWidth = 1
-        cell.chatBox.layer.borderColor = AppPrimaryColor.color.cgColor
+        
+        if chatText.containsOnlyEmoji {
+            cell.chatBox.backgroundColor = .none
+            cell.chatTextView.font = cell.chatTextView.font?.withSize(50)
+        }
         
         if (userId != messages[indexPath.row].userId) {
             cell.leadingConstraint.isActive = false

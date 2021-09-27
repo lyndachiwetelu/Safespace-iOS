@@ -55,11 +55,6 @@ class VideoViewController: UIViewController {
         self.view.sendSubviewToBack(remoteRenderer)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        Logger.doLog("connectionId:-------------\(connectionId)")
-    }
-    
     private func embedView(_ view: UIView, into containerView: UIView) {
         containerView.addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false

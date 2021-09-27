@@ -59,6 +59,8 @@
 		78C88EF926F118A0007CB6BD /* SessionListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C88EF726F118A0007CB6BD /* SessionListCell.swift */; };
 		78C88EFA26F118A0007CB6BD /* SessionListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78C88EF826F118A0007CB6BD /* SessionListCell.xib */; };
 		78D5FDB626FC619E008BE132 /* SignupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D5FDB526FC619E008BE132 /* SignupManager.swift */; };
+		78ED05C72701CC4B0048FB61 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78ED05C62701CC4A0048FB61 /* String.swift */; };
+		78ED05C92701D4FE0048FB61 /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78ED05C82701D4FE0048FB61 /* AudioViewController.swift */; };
 		78EFBB7826FDC16F00CA85D7 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78EFBB7726FDC16F00CA85D7 /* SessionManager.swift */; };
 		78EFBB7D26FDD2A500CA85D7 /* UsesUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78EFBB7C26FDD2A500CA85D7 /* UsesUserDefaults.swift */; };
 		78EFBB7F26FDF05E00CA85D7 /* SessionMessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78EFBB7E26FDF05E00CA85D7 /* SessionMessageManager.swift */; };
@@ -136,6 +138,8 @@
 		78C88EF726F118A0007CB6BD /* SessionListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionListCell.swift; sourceTree = "<group>"; };
 		78C88EF826F118A0007CB6BD /* SessionListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SessionListCell.xib; sourceTree = "<group>"; };
 		78D5FDB526FC619E008BE132 /* SignupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupManager.swift; sourceTree = "<group>"; };
+		78ED05C62701CC4A0048FB61 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		78ED05C82701D4FE0048FB61 /* AudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
 		78EFBB7726FDC16F00CA85D7 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		78EFBB7C26FDD2A500CA85D7 /* UsesUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsesUserDefaults.swift; sourceTree = "<group>"; };
 		78EFBB7E26FDF05E00CA85D7 /* SessionMessageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMessageManager.swift; sourceTree = "<group>"; };
@@ -243,6 +247,7 @@
 				7800440D26F144CD00758DBE /* SessionDetailViewController.swift */,
 				7876316926FC9CE1006E6E7D /* SpinnerViewController.swift */,
 				7876316B26FCA74F006E6E7D /* HasSpinnerViewController.swift */,
+				78ED05C82701D4FE0048FB61 /* AudioViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -285,6 +290,7 @@
 			children = (
 				7897EC7E26E2151D001E8279 /* RTCStates.swift */,
 				78C4475D26FB4DA9002AFA23 /* UIImageView.swift */,
+				78ED05C62701CC4A0048FB61 /* String.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -459,8 +465,10 @@
 			files = (
 				78112D4826EEB767006BB527 /* BookSessionViewController.swift in Sources */,
 				782315A226D708DF00FEC675 /* TherapistListViewController.swift in Sources */,
+				78ED05C72701CC4B0048FB61 /* String.swift in Sources */,
 				78D5FDB626FC619E008BE132 /* SignupManager.swift in Sources */,
 				78F31E9526ED391500BE392C /* Connection.swift in Sources */,
+				78ED05C92701D4FE0048FB61 /* AudioViewController.swift in Sources */,
 				7876316A26FC9CE1006E6E7D /* SpinnerViewController.swift in Sources */,
 				7897EC9B26E2151D001E8279 /* WebSocketProvider.swift in Sources */,
 				7897EC9C26E2151D001E8279 /* NativeWebSocket.swift in Sources */,
