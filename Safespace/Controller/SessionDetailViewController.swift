@@ -48,7 +48,6 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
         didSet {
             DispatchQueue.main.async {
                 self.videoViewController = VideoViewController(webRTCClient: self.webRTCClient!, self.socket!, connectionId: self.connId!)
-                // do this instead  self.videoViewController.connectionId = self.connId
             }
         }
     }
@@ -95,36 +94,32 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
         sessionMessageManager.getSessionMessages(sessionId: userSession!.id)
     }
     
-    override func willMove(toParent parent: UIViewController?) {
-        super.willMove(toParent: parent)
-        if parent == nil {
-            cleanup()
-            
-        }
+    func removeManagerEngine() {
+        self.manager?.engine = nil
     }
     
-    func disconnectSocketIO() {
+    func disconnectSocketManager() {
         manager?.handleQueue.async {
             self.socket?.disconnect()
-            self.manager?.engine = nil
+            self.removeManagerEngine()
         }
         self.manager?.disconnect()
     }
     
-    func disconnectSignalClient() {
-        self.signalClient?.disconnect()
-        self.signalClient?.removeWebSocket()
-        self.signalClient = nil
-    }
-    
-    func cleanup() {
-        Logger.doLog("Removing Timer and Connections")
-        disconnectSocketIO()
-        disconnectSignalClient()
-        
-        self.webRTCClient = nil
-        self.videoViewController = nil
-        timer?.invalidate()
+    override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
+        if parent == nil {
+            Logger.doLog("Removing Timer and Connections")
+            disconnectSocketManager()
+            self.signalClient?.disconnect()
+            self.signalClient?.removeWebSocket()
+            self.signalClient = nil
+            self.webRTCClient = nil
+            
+            self.videoViewController = nil
+            timer?.invalidate()
+            
+        }
     }
     
     func startSession() {
@@ -162,7 +157,10 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
             self.socket?.emit("join-room", SMessage(roomId: self.chatRoomId, userId: self.uniqSessionId, username: "lynda"), completion: {
                 Logger.doLog("socket emission done")
             })
-            self.disconnectSocketIO()
+            self.manager?.handleQueue.async {
+                self.manager?.engine?.disconnect(reason: "Just want you to stop bih")
+            }
+           
         }
     }
     
@@ -172,6 +170,7 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
             Logger.doLog("RECEIVED USER CONNECTED....\(data)")
             self!.dest = data[0] as! String
             self?.makeOffer(dst: self!.dest, connectionId: "1234567890")
+            
             return
         }
         
