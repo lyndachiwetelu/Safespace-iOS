@@ -36,6 +36,8 @@ struct SdpMetadata {
 
 struct Metadata: Codable {
     var audioOnly: Bool?
+    var name: String? = "Stan"
+    var id: String?
 }
 
 struct Payload: Codable {
@@ -62,4 +64,9 @@ struct OfferResponse : Codable  {
 
 struct HeartBeat: Encodable {
     let type: String = "HEARTBEAT"
+}
+
+enum PayloadType : String, CaseIterable {
+    case data = "data"
+    case media = "media"
 }

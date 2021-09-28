@@ -25,6 +25,9 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
     private var uniqSessionId = ""
     private var chatRoomId = ""
     
+    private var audioCall = false
+    private var videoCall = false
+    
     var sessionMessageManager = SessionMessageManager()
     
     //MARK: - Session Data
@@ -280,11 +283,11 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
     }
     
     @objc func videoIconTapped(gesture : UITapGestureRecognizer) {
-        switchToVideo()
+        makeVideoCall()
     }
     
     @objc func audioIconTapped(gesture : UITapGestureRecognizer) {
-        switchToAudio()
+        makeAudioCall()
     }
     
     func scrollTableView() {
@@ -330,12 +333,23 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
         
     }
     
+    func switchToAudio() {
+        performSegue(withIdentifier: "MakeAudioCall", sender: self)
+    }
+    
     func switchToVideo() {
         self.present(videoViewController!, animated: true, completion: nil)
     }
     
-    func switchToAudio() {
-        performSegue(withIdentifier: "MakeAudioCall", sender: self)
+    func makeVideoCall() {
+        videoCall = true
+        self.makeOffer(dst: dest, connectionId: "mc_\(Int(Date().timeIntervalSince1970))", audioOnly: false, type: PayloadType.media.rawValue)
+    }
+    
+    func makeAudioCall() {
+        audioCall = true
+        self.makeOffer(dst: dest, connectionId: "mc_\(Int(Date().timeIntervalSince1970))", audioOnly: true, type: PayloadType.media.rawValue)
+       
     }
     
     //MARK: - WebRTC Offer Answer Handler Section
@@ -373,7 +387,7 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
         doWebrtcAnswer(sdpMetadata, payloadType: sdpMetadata.type)
     }
     
-    func makeOffer(dst: String, connectionId: String, type: String = "data") {
+    func makeOffer(dst: String, connectionId: String, audioOnly: Bool = true, type: String = "data") {
         /// do connection stuff
         let connectionWithDataChannel = self.webRTCClient!.createNewPeerConnection(connectionId: connectionId)
         let peerConnection = connectionWithDataChannel?.0
@@ -384,7 +398,7 @@ class SessionDetailViewController: HasSpinnerViewController, UsesUserDefaults {
         self.webRTCClient!.offer(peerConnection: newConnection.peerConnection!) { sdp in
             Logger.doLog("Making offer to remote sdp")
             let theSdp = Sdp( type: "offer", sdp: sdp.sdp)
-            let metadata =  Metadata(audioOnly: true)
+            let metadata =  Metadata(audioOnly: audioOnly)
             let payload = Payload(connectionId: connectionId, type: type, sdp: theSdp, metadata: metadata, serialization: "json")
             let offer = OfferMessage(type: "OFFER", payload: payload, dst: dst)
             
@@ -524,6 +538,7 @@ extension SessionDetailViewController: SignalClientDelegate {
             let sdpM = RTCSessionDescription(type: sdp.type, sdp: sdpPassive)
             
             let conn = webRTCClient!.getConnection(connectionId: sdpMetadata.connectionId)
+            connId = sdpMetadata.connectionId
             
             self.webRTCClient!.set(peerConnection: conn!.peerConnection!, remoteSdp: sdpM) { error in
                 if error != nil {
@@ -531,7 +546,23 @@ extension SessionDetailViewController: SignalClientDelegate {
                 } else  {
                     Logger.doLog("Did set remote sdp from answer \(sdpMetadata)")
                 }
+                
+                guard error == nil else { return }
+                
+                DispatchQueue.main.async {
+                    if self.audioCall == true {
+                        self.audioCall = false
+                        self.switchToAudio()
+                    }
+                    
+                    if self.videoCall == true {
+                        self.videoCall = false
+                        self.switchToVideo()
+                    }
+                    
+                }
             }
+            
             return
         } else if sdp.type == .offer {
             removeSpinner()
