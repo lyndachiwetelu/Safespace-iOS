@@ -1,11 +1,3 @@
-//
-//  StarscreamProvider.swift
-//  WebRTC-Demo
-//
-//  Created by stasel on 15/07/2019.
-//  Copyright © 2019 stasel. All rights reserved.
-//
-
 import Foundation
 import Starscream
 

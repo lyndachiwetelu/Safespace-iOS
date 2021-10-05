@@ -1,11 +1,3 @@
-//
-//  Message.swift
-//  WebRTC-Demo
-//
-//  Created by Stasel on 20/02/2019.
-//  Copyright © 2019 Stasel. All rights reserved.
-//
-
 import Foundation
 
 enum Message {

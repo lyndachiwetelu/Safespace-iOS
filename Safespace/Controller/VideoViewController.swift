@@ -1,11 +1,3 @@
-//
-//  VideoViewController.swift
-//  WebRTC
-//
-//  Created by Stasel on 21/05/2018.
-//  Copyright © 2018 Stasel. All rights reserved.
-//
-
 import UIKit
 import WebRTC
 import SocketIO
