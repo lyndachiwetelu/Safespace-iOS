@@ -25,7 +25,7 @@ Find therapists and book sessions with them. Have your sessions online via chat,
 This was my first attempt at using WebRTC on iOS. For perspective I also recently used it for the first time from a browser in the [web version of this app](https://github.com/lyndachiwetelu/safespace-frontend), via [peerjs](https://peerjs.com/) - which is a library that helps keep things simple for peer to peer connection and text or audio or video exchange between connected peers.
 
 
-Now, because I used peer library on the web [for signaling via my node.js server app](https://github.com/lyndachiwetelu/safespace-backend), in order to connect webrtc peer x on my iOS application with peer y who is on the browser, I had to handle signaling and initial peer connection the peerjs way. Which was an interesting challenge.
+Now, because I used peer library on the web [for signaling via my node.js server app](https://github.com/lyndachiwetelu/safespace-backend), in order to connect WebRTC peer x on my iOS application with peer y who is on the browser, I had to handle signaling and initial peer connection the peerjs way. Which was an interesting challenge.
 
 
 Short story is I used the peerjs socket and formatted socket messages exactly like a peer client would. How do I know how a peer client would format messages? By studying the peer client source code in `node_modules` of the frontend web app linked above.
